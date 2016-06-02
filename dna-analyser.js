@@ -1,6 +1,6 @@
-//Formats the sequence to have a continuous series of letters (removes blanks, hyphens and line breaks)
+//Formats the sequence to have a continuous series of letters (removes numbers, blanks, hyphens, tabs and line breaks)
 var formatSequence = function(input){
-  var formatted = input.split(" ").join("").split("\n").join("").split("-").join("").toUpperCase();
+  var formatted = input.split(/[0-9]|\s|\n|\t|[-]/g).join("").toUpperCase();
   return formatted;
 };
 
