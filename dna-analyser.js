@@ -7,31 +7,17 @@ var formatSequence = function(input){
 
 //Gives the frequency of each nucleotide
 var nucleotideFrequency = function(sequence){
-  var a = 0;
-  var t = 0;
-  var g = 0;
-  var c = 0;
-  for(var i = 0; i < sequence.length; i ++){
-    if(sequence[i] === "A"){
-      a ++;
-    }
-    else if(sequence[i] === "T"){
-      t ++;
-    }
-    else if(sequence[i] === "G"){
-      g ++;
-    }
-    else if(sequence[i] === "C"){
-      c ++;
-    }
+  
+  var DNAchars = ["A", "C", "G", "T"];
+  var DNAcharCount = [];
+  var DNAcharFreq = [];
+  for (var i = 0, len = DNAchars.length; i < len; i++) {
+    DNAcharCount[i] = sequence.split(DNAchars[i]).length - 1;
+    DNAcharFreq[i] = +((DNAcharCount[i] / sequence.length) * 100).toFixed(2);
   }
-  var aFreq = +((a / sequence.length) * 100).toFixed(2);
-  var tFreq = +((t / sequence.length) * 100).toFixed(2);
-  var gFreq = +((g / sequence.length) * 100).toFixed(2);
-  var cFreq = +((c / sequence.length) * 100).toFixed(2);
-  var allFreq = [aFreq,tFreq,gFreq,cFreq];
-  writeToHtml(allFreq,"Nucleotide Frequencies in percentage (A,T,G,C): ");
-  return allFreq;
+  
+  writeToHtml(DNAcharFreq,"Nucleotide Frequencies in percentage (A,T,G,C): ");
+  return DNAcharFreq;
 };
 
 //Writes the result of the function to HTML
