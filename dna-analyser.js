@@ -1,37 +1,21 @@
 //Formats the sequence to have a continuous series of letters (removes blanks, hyphens and line breaks)
 var formatSequence = function(input){
   var formatted = input.split(" ").join("").split("\n").join("").split("-").join("").toUpperCase();
-  writeToHtml(formatted,"Formated sequence: ");
   return formatted;
 };
 
 //Gives the frequency of each nucleotide
 var nucleotideFrequency = function(sequence){
-  var a = 0;
-  var t = 0;
-  var g = 0;
-  var c = 0;
-  for(var i = 0; i < sequence.length; i ++){
-    if(sequence[i] === "A"){
-      a ++;
-    }
-    else if(sequence[i] === "T"){
-      t ++;
-    }
-    else if(sequence[i] === "G"){
-      g ++;
-    }
-    else if(sequence[i] === "C"){
-      c ++;
-    }
+  var DNAchars = ["A", "C", "G", "T"];
+  var DNAcharCount = [];
+  var DNAcharFreq = [];
+  
+  for (var i = 0; i < DNAchars.length; i++) {
+    DNAcharCount[i] = sequence.split(DNAchars[i]).length - 1;
+    DNAcharFreq[i] = +((DNAcharCount[i] / sequence.length) * 100).toFixed(2);
   }
-  var aFreq = +((a / sequence.length) * 100).toFixed(2);
-  var tFreq = +((t / sequence.length) * 100).toFixed(2);
-  var gFreq = +((g / sequence.length) * 100).toFixed(2);
-  var cFreq = +((c / sequence.length) * 100).toFixed(2);
-  var allFreq = [aFreq,tFreq,gFreq,cFreq];
-  writeToHtml(allFreq,"Nucleotide Frequencies in percentage (A,T,G,C): ");
-  return allFreq;
+  
+  return DNAcharFreq;
 };
 
 //Writes the result of the function to HTML
@@ -47,5 +31,7 @@ var analyseDNA = function(){
   document.getElementById("results").innerHTML = "";
   var submittedSequence = document.getElementById("DNA").value; //stores submitted DNA sequence
   var formattedSequence = formatSequence(submittedSequence);
+  writeToHtml(formattedSequence,"Formatted sequence: ");
   var nucleotideFrequencies = nucleotideFrequency(formattedSequence);
+  writeToHtml(nucleotideFrequencies,"Nucleotide Frequencies in percentage (A,T,G,C): ");
 };
