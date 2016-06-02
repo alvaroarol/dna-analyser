@@ -44,6 +44,6 @@ var analyseDNA = function(){
     alert("Unexpected character in sequence!");
     return;
   }
-  var nucleotideFrequencies = nucleotideFrequency(formattedSequence);
+  var nucleotideFrequencies = nucleotideFrequency(formattedSequence).join(" ");
   writeToHtml(nucleotideFrequencies,"Nucleotide Frequencies in percentage (A,T,G,C): ");
 };
