@@ -4,17 +4,26 @@ var formatSequence = function(input){
   return formatted;
 };
 
+//Checks if the sequence contains unexpected characters
+var isSequenceValid = function(sequence){
+  var validChar = "A T G C";
+  for(var i = 0; i < sequence.length; i ++){
+    if (!validChar.includes(sequence[i])){
+      return false;
+    }
+  }
+};
+
 //Gives the frequency of each nucleotide
 var nucleotideFrequency = function(sequence){
   var DNAchars = ["A", "C", "G", "T"];
   var DNAcharCount = [];
   var DNAcharFreq = [];
-  
   for (var i = 0; i < DNAchars.length; i++) {
     DNAcharCount[i] = sequence.split(DNAchars[i]).length - 1;
     DNAcharFreq[i] = +((DNAcharCount[i] / sequence.length) * 100).toFixed(2);
   }
-  
+
   return DNAcharFreq;
 };
 
@@ -32,6 +41,10 @@ var analyseDNA = function(){
   var submittedSequence = document.getElementById("DNA").value; //stores submitted DNA sequence
   var formattedSequence = formatSequence(submittedSequence);
   writeToHtml(formattedSequence,"Formatted sequence: ");
+  if(isSequenceValid(formattedSequence) === false){
+    alert("Unexpected character in sequence!");
+    return;
+  }
   var nucleotideFrequencies = nucleotideFrequency(formattedSequence);
   writeToHtml(nucleotideFrequencies,"Nucleotide Frequencies in percentage (A,T,G,C): ");
 };
