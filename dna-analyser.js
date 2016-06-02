@@ -1,3 +1,26 @@
+//Table of correspondence between codons and translated amino-acids or Stop
+var codonTable = [["Phe","TTT","TTC"],
+                  ["Leu","TTA","TTG","CTT","CTC","CTA","CTG"],
+                  ["Ile","ATT","ATC","ATA"],
+                  ["Met","ATG"],
+                  ["Val","GTT","GTC","GTA","GTG"],
+                  ["Ser","TCT","TCC","TCA","TCG","AGT","AGG"],
+                  ["Pro","CCT","CCC","CCA","CCG"],
+                  ["Thr","ACT","ACC","ACA","ACG"],
+                  ["Ala","GCT","GCC","GCA","GCG"],
+                  ["Tyr","TAT","TAC"],
+                  ["STOP","TAA","TAG","TGA"],
+                  ["His","CAT","CAC"],
+                  ["Gln","CAA","CAG"],
+                  ["Asn","AAT","AAC"],
+                  ["Lys","AAA","AAG"],
+                  ["Asp","GAT","GAC"],
+                  ["Glu","GAA","GAG"],
+                  ["Cys","TGT","TGC"],
+                  ["Trp","TGG"],
+                  ["Arg","CGT","CGC","CGA","CGG","AGA","AGG"],
+                  ["Gly","GGT","GGC","GGA","GGG"]];
+
 //Formats the sequence to have a continuous series of letters (removes numbers, blanks, hyphens, tabs and line breaks)
 var formatSequence = function(input){
   var formatted = input.split(/[0-9]|\s|\n|\t|\/|\-/g).join("").toUpperCase();
@@ -26,24 +49,51 @@ var nucleotideFrequency = function(sequence){
   return DNAcharFreq;
 };
 
+//Predicts translation of gene to protein
+var translation = function(sequence){
+  var trioSequence = sequence.match(/[ATGC]{1,3}/g);
+  var translation = [];
+  for(var i = 0; i < trioSequence.length; i ++){
+    for(var j = 0; j < codonTable.length; j ++){
+      for(var k = 1; k < codonTable[j].length; k ++){
+        if(trioSequence[i] === codonTable[j][k]){
+          translation.push(codonTable[j][0]);
+        }
+      }
+    }
+  }
+  return translation;
+};
+
 //Writes the result of the function to HTML
-var writeToHtml = function(result,sentence){
-  var newdiv = document.createElement("div");                            // Create a div element
-  var newtext = document.createTextNode(sentence + result);              // Create the text
-  newdiv.appendChild(newtext);                                           // Append the text to the div
-  document.getElementById("results").appendChild(newdiv);                // Append the div to <body>
+var writeToHtml = function(result,title,id){
+  var newdiv = document.createElement("div");                //Create a div element
+  newdiv.id = id;                                            //Give the div element an id
+  var newp = document.createElement("p");                    //Create a p element
+  var newtitle = document.createTextNode(title);             //Create the title
+  var newresult = document.createTextNode(result);           //Create the result text
+  newp.appendChild(newtitle);                                //Append the title to the p
+  newdiv.appendChild(newp);                                  //Append the p to the div
+  newdiv.appendChild(newresult);                             //Append the text to the div
+  document.getElementById("results").appendChild(newdiv);    //Append the div to div id "results"
 };
 
 //Main function
 var analyseDNA = function(){
-  document.getElementById("results").innerHTML = "";
-  var submittedSequence = document.getElementById("DNA").value; //stores submitted DNA sequence
+  document.getElementById("results").innerHTML = "";                      //erases all previous analysis results
+  var submittedSequence = document.getElementById("DNA").value;           //stores submitted DNA sequence
   var formattedSequence = formatSequence(submittedSequence);
-  writeToHtml(formattedSequence,"Formatted sequence: ");
-  if(isSequenceValid(formattedSequence) === false){
+  writeToHtml(formattedSequence,"Formatted sequence: ","formattedseq");
+  if(isSequenceValid(formattedSequence) === false){                       //Returns error if the input contains non-nucleotide elements
     alert("Unexpected character in sequence!");
     return;
   }
   var nucleotideFrequencies = nucleotideFrequency(formattedSequence).join(" ");
-  writeToHtml(nucleotideFrequencies,"Nucleotide Frequencies in percentage (A,T,G,C): ");
+  writeToHtml(nucleotideFrequencies,"Nucleotide Frequencies in percentage (A,T,G,C): ","nucleotidefreq");
+  var translatedSequence = translation(formattedSequence).join(" ");
+  writeToHtml(translatedSequence,"Translation prediction from first nucleotide: ","translatedseq1");
+  var translatedSequence = translation(formattedSequence.slice(1,formattedSequence.length)).join(" ");
+  writeToHtml(translatedSequence,"Translation prediction from second nucleotide: ","translatedseq2");
+  var translatedSequence = translation(formattedSequence.slice(2,formattedSequence.length)).join(" ");
+  writeToHtml(translatedSequence,"Translation prediction from third nucleotide: ","translatedseq3");
 };
