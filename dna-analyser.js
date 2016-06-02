@@ -1,13 +1,6 @@
 //Formats the sequence to have a continuous series of letters (removes blanks, hyphens and line breaks)
 var formatSequence = function(input){
-  var unwantedChars = [" ", "\n", "-"];
-  
-  for(i = 0; i < unwantedChars.length; i++){
-    var re = new RegExp("/".unwantedChars[i]."/","g");
-    input.replace(re, formatted);
-  }
-  
-  formatted = formatted.toUpperCase();
+  var formatted = input.split(" ").join("").split("\n").join("").split("-").join("").toUpperCase();
   return formatted;
 };
 
