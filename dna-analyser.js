@@ -23,7 +23,6 @@ var nucleotideFrequency = function(sequence){
     DNAcharCount[i] = sequence.split(DNAchars[i]).length - 1;
     DNAcharFreq[i] = +((DNAcharCount[i] / sequence.length) * 100).toFixed(2);
   }
-
   return DNAcharFreq;
 };
 
