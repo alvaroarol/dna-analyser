@@ -1,7 +1,13 @@
 //Formats the sequence to have a continuous series of letters (removes blanks, hyphens and line breaks)
 var formatSequence = function(input){
-  var formatted = input.split(" ").join("").split("\n").join("").split("-").join("").toUpperCase();
-  writeToHtml(formatted,"Formated sequence: ");
+  var unwantedChars = [" ", "\n", "-"];
+  
+  for(i = 0; i < unwantedChars.length; i++){
+    var re = new RegExp("/".unwantedChars[i]."/","g");
+    input.replace(re, formatted);
+  }
+  
+  formatted = formatted.toUpperCase();
   return formatted;
 };
 
@@ -32,6 +38,7 @@ var analyseDNA = function(){
   document.getElementById("results").innerHTML = "";
   var submittedSequence = document.getElementById("DNA").value; //stores submitted DNA sequence
   var formattedSequence = formatSequence(submittedSequence);
+  writeToHtml(formattedSequence,"Formatted sequence: ");
   var nucleotideFrequencies = nucleotideFrequency(formattedSequence);
   writeToHtml(nucleotideFrequencies,"Nucleotide Frequencies in percentage (A,T,G,C): ");
 };
