@@ -83,16 +83,25 @@ var translationShort = function (protseq){
 };
 
 //Writes the result of the function to HTML
-var writeToHtml = function(result,title,id){
+var writeToHtml = function(result,title,id,button){
   var newdiv = document.createElement("div");                //Create a div element
   newdiv.id = id;                                            //Give the div element an id
   var newp = document.createElement("p");                    //Create a p element
   var newtitle = document.createTextNode(title);             //Create the title
+  var newspan = document.createElement("span");              //Create a span element
   var newresult = document.createTextNode(result);           //Create the result text
   newp.appendChild(newtitle);                                //Append the title to the p
   newdiv.appendChild(newp);                                  //Append the p to the div
-  newdiv.appendChild(newresult);                             //Append the text to the div
+  newspan.appendChild(newresult);                            //Append the result text to the span
+  newdiv.appendChild(newspan);                               //Append the text span to the div
   document.getElementById("results").appendChild(newdiv);    //Append the div to div id "results"
+  if(button){                                                //If specified, create a show result button (to tidy up the page)
+    var newbutton = document.createElement("button");
+    var newbuttontext = document.createTextNode("Show");
+    newbutton.appendChild(newbuttontext);
+    newbutton.addEventListener("click", function(){newspan.style.cssText = "display: block;"});
+    newp.appendChild(newbutton);
+  }
 };
 
 //Main function
@@ -100,23 +109,24 @@ var analyseDNA = function(){
   document.getElementById("results").innerHTML = "";                      //erases all previous analysis results
   var submittedSequence = document.getElementById("DNA").value;           //stores submitted DNA sequence
   var formattedSequence = formatSequence(submittedSequence);
-  writeToHtml(formattedSequence,"Formatted sequence: ","formattedseq");
   if(isSequenceValid(formattedSequence) === false){                       //Returns error if the input contains non-nucleotide elements
-    alert("Unexpected character in sequence!");
+    alert("The sequence contains at least one forbidden character!");
     return;
   }
+  writeToHtml(formattedSequence,"Formatted sequence: ","formattedseq",1);
+
   var nucleotideFrequencies = nucleotideFrequency(formattedSequence).join(" ");
-  writeToHtml(nucleotideFrequencies,"Nucleotide Frequencies in percentage (A,T,G,C): ","nucleotidefreq");
+  writeToHtml(nucleotideFrequencies,"Nucleotide frequencies in percentage (A,T,G,C): ","nucleotidefreq");
 
   var translatedSequence1 = translation(formattedSequence);
-  writeToHtml(translatedSequence1.join(" "),"Translation prediction from first nucleotide: ","translatedseq1");
-  writeToHtml(translationShort(translatedSequence1).join(" "),"Possible protein:","shorttranslatedseq1");
+  writeToHtml(translatedSequence1.join(" "),"Translation prediction from first nucleotide position: ","translatedseq1",1);
+  writeToHtml(translationShort(translatedSequence1).join(" "),"Possible protein:","shorttranslatedseq1",1);
 
   var translatedSequence2 = translation(formattedSequence.slice(1,formattedSequence.length + 1));
-  writeToHtml(translatedSequence2.join(" "),"Translation prediction from second nucleotide: ","translatedseq2");
-  writeToHtml(translationShort(translatedSequence2).join(" "),"Possible protein: ","shorttranslatedseq2");
+  writeToHtml(translatedSequence2.join(" "),"Translation prediction from second nucleotide position: ","translatedseq2",1);
+  writeToHtml(translationShort(translatedSequence2).join(" "),"Possible protein: ","shorttranslatedseq2",1);
 
   var translatedSequence3 = translation(formattedSequence.slice(2,formattedSequence.length + 1));
-  writeToHtml(translatedSequence3.join(" "),"Translation prediction from third nucleotide: ","translatedseq3");
-  writeToHtml(translationShort(translatedSequence3).join(" "),"Possible protein: ","shorttranslatedseq3");
+  writeToHtml(translatedSequence3.join(" "),"Translation prediction from third nucleotide position: ","translatedseq3",1);
+  writeToHtml(translationShort(translatedSequence3).join(" "),"Possible protein: ","shorttranslatedseq3",1);
 };
