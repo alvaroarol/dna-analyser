@@ -1,10 +1,10 @@
-//Table of correspondence between codons and translated amino-acids or Stop
+//Table of correspondence between codons and translated amino-acids or STOP
 var codonTable = [["Phe","TTT","TTC"],
                   ["Leu","TTA","TTG","CTT","CTC","CTA","CTG"],
                   ["Ile","ATT","ATC","ATA"],
                   ["Met","ATG"],
                   ["Val","GTT","GTC","GTA","GTG"],
-                  ["Ser","TCT","TCC","TCA","TCG","AGT","AGG"],
+                  ["Ser","TCT","TCC","TCA","TCG","AGT","AGC"],
                   ["Pro","CCT","CCC","CCA","CCG"],
                   ["Thr","ACT","ACC","ACA","ACG"],
                   ["Ala","GCT","GCC","GCA","GCG"],
@@ -65,6 +65,23 @@ var translation = function(sequence){
   return translation;
 };
 
+//Cuts out the translated sequence between codon start (first Met) to codon STOP
+var translationShort = function (protseq){
+  if(protseq.indexOf("Met") === -1){
+    return [];
+  }
+  var start = protseq.indexOf("Met");
+  var a = protseq.slice(start,protseq.length +1);
+  if(a.indexOf("STOP") === -1){
+    var end = a.length;
+  }
+  else{
+    var end = a.indexOf("STOP");
+  }
+  var b = a.slice(0,end);
+  return b;
+};
+
 //Writes the result of the function to HTML
 var writeToHtml = function(result,title,id){
   var newdiv = document.createElement("div");                //Create a div element
@@ -90,10 +107,16 @@ var analyseDNA = function(){
   }
   var nucleotideFrequencies = nucleotideFrequency(formattedSequence).join(" ");
   writeToHtml(nucleotideFrequencies,"Nucleotide Frequencies in percentage (A,T,G,C): ","nucleotidefreq");
-  var translatedSequence = translation(formattedSequence).join(" ");
-  writeToHtml(translatedSequence,"Translation prediction from first nucleotide: ","translatedseq1");
-  var translatedSequence = translation(formattedSequence.slice(1,formattedSequence.length)).join(" ");
-  writeToHtml(translatedSequence,"Translation prediction from second nucleotide: ","translatedseq2");
-  var translatedSequence = translation(formattedSequence.slice(2,formattedSequence.length)).join(" ");
-  writeToHtml(translatedSequence,"Translation prediction from third nucleotide: ","translatedseq3");
+
+  var translatedSequence1 = translation(formattedSequence);
+  writeToHtml(translatedSequence1.join(" "),"Translation prediction from first nucleotide: ","translatedseq1");
+  writeToHtml(translationShort(translatedSequence1).join(" "),"Possible protein:","shorttranslatedseq1");
+
+  var translatedSequence2 = translation(formattedSequence.slice(1,formattedSequence.length + 1));
+  writeToHtml(translatedSequence2.join(" "),"Translation prediction from second nucleotide: ","translatedseq2");
+  writeToHtml(translationShort(translatedSequence2).join(" "),"Possible protein: ","shorttranslatedseq2");
+
+  var translatedSequence3 = translation(formattedSequence.slice(2,formattedSequence.length + 1));
+  writeToHtml(translatedSequence3.join(" "),"Translation prediction from third nucleotide: ","translatedseq3");
+  writeToHtml(translationShort(translatedSequence3).join(" "),"Possible protein: ","shorttranslatedseq3");
 };
