@@ -3,12 +3,24 @@
   width: 500px;
 }
 
-div{
+#formattedseq p{
   margin-top: 40px;
-  word-wrap: break-word;
+  font-weight: bold;
+  font-size: 22px;
 }
 
-div p{
+#nucleotidefreq p{
+  margin-top: 40px;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 22px;
+}
+
+*[id^='translatedseq'] p{
+  margin-top: 40px;
+  font-weight: bold;
+  font-size: 22px;
+}
+
+*[id^='shorttranslatedseq'] p{
+  font-weight: bold;
 }
