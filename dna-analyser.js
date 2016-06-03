@@ -113,20 +113,16 @@ var analyseDNA = function(){
     alert("The sequence contains at least one forbidden character!");
     return;
   }
-  writeToHtml(formattedSequence,"Formatted sequence: ","formattedseq",1);
-
+  writeToHtml(formattedSequence,"Formatted sequence: ","formattedseq",1);                                                   //Formatted Sequence
   var nucleotideFrequencies = nucleotideFrequency(formattedSequence).join(" ");
-  writeToHtml(nucleotideFrequencies,"Nucleotide frequencies in percentage (A,T,G,C): ","nucleotidefreq");
-
+  writeToHtml(nucleotideFrequencies,"Nucleotide frequencies in percentage (A,T,G,C): ","nucleotidefreq");                   //Nucleotide Frequency
   var translatedSequence1 = translation(formattedSequence);
-  writeToHtml(translatedSequence1.join(" "),"Translation prediction from first nucleotide position: ","translatedseq1",1);
-  writeToHtml(translationShort(translatedSequence1).join(" "),"Possible protein:","shorttranslatedseq1",1);
-
+  writeToHtml(translatedSequence1.join(" "),"Translation prediction from first nucleotide position: ","translatedseq1",1);  //Translation from first position
+  writeToHtml(translationShort(translatedSequence1).join(" "),"Possible protein:","shorttranslatedseq1",1);                 //Possible protein from first position
   var translatedSequence2 = translation(formattedSequence.slice(1,formattedSequence.length + 1));
-  writeToHtml(translatedSequence2.join(" "),"Translation prediction from second nucleotide position: ","translatedseq2",1);
-  writeToHtml(translationShort(translatedSequence2).join(" "),"Possible protein: ","shorttranslatedseq2",1);
-
+  writeToHtml(translatedSequence2.join(" "),"Translation prediction from second nucleotide position: ","translatedseq2",1); //Translation from second position
+  writeToHtml(translationShort(translatedSequence2).join(" "),"Possible protein: ","shorttranslatedseq2",1);                //Possible protein from second position
   var translatedSequence3 = translation(formattedSequence.slice(2,formattedSequence.length + 1));
-  writeToHtml(translatedSequence3.join(" "),"Translation prediction from third nucleotide position: ","translatedseq3",1);
-  writeToHtml(translationShort(translatedSequence3).join(" "),"Possible protein: ","shorttranslatedseq3",1);
+  writeToHtml(translatedSequence3.join(" "),"Translation prediction from third nucleotide position: ","translatedseq3",1);  //Translation from third position
+  writeToHtml(translationShort(translatedSequence3).join(" "),"Possible protein: ","shorttranslatedseq3",1);                //Possible protein from second position
 };
