@@ -67,19 +67,32 @@ var translation = function(sequence){
 
 //Cuts out the translated sequence between codon start (first Met) to codon STOP
 var translationShort = function (protseq){
+  var a = [];
+  var b = [];
+  var loop = 1;
+  var proteins = [];
+  var start = 0;
+  var end = 0;
   if(protseq.indexOf("Met") === -1){
     return [];
   }
-  var start = protseq.indexOf("Met");
-  var a = protseq.slice(start,protseq.length +1);
-  if(a.indexOf("STOP") === -1){
-    var end = a.length;
+  while(loop){
+    start = protseq.indexOf("Met");
+    a = protseq.slice(start,protseq.length +1);
+    if(a.indexOf("STOP") === -1){
+      end = a.length + 1;
+    }
+    else{
+      end = a.indexOf("STOP");
+    }
+    b = a.slice(0,end);
+    proteins.push(b.join(" "));
+    if (end === a.length + 1){
+      loop = 0;
+    }
+    protseq = a.slice(end + 1, a.length + 1);
   }
-  else{
-    var end = a.indexOf("STOP");
-  }
-  var b = a.slice(0,end);
-  return b;
+  return proteins;
 };
 
 //Writes the result of the function to HTML
@@ -87,20 +100,30 @@ var writeToHtml = function(result,title,id,button){
   var newdiv = document.createElement("div");                //Create a div element
   newdiv.id = id;                                            //Give the div element an id
   var newp = document.createElement("p");                    //Create a p element
-  var newtitle = document.createTextNode(title);             //Create the title
+  newp.innerHTML = title;                                    //Create the title
   var newspan = document.createElement("span");              //Create a span element
-  var newresult = document.createTextNode(result);           //Create the result text
-  newp.appendChild(newtitle);                                //Append the title to the p
+  newspan.id = id + "span";                                  //Give the span element an id
+  newspan.innerHTML = result;                                //Create the result text
   newdiv.appendChild(newp);                                  //Append the p to the div
-  newspan.appendChild(newresult);                            //Append the result text to the span
   newdiv.appendChild(newspan);                               //Append the text span to the div
-  document.getElementById("results").appendChild(newdiv);    //Append the div to div id "results"
-  if(button){                                                //If specified, create a show result button (to tidy up the page)
-    var newbutton = document.createElement("button");
-    var newbuttontext = document.createTextNode("Show");
-    newbutton.appendChild(newbuttontext);
-    newbutton.addEventListener("click", function(){newspan.style.cssText = "display: block;"});
-    newp.appendChild(newbutton);
+  document.getElementById("results").appendChild(newdiv);    //Append the div to div "results"
+  if(button && (result != "")){                              //If specified and if the result isn't blank, create a show/hide result button (to tidy up the page)
+    var newbutton = document.createElement("button");        //Create button
+    newbutton.className = "show";
+    newbutton.innerHTML = "Show";                            //Create button text
+    newbutton.addEventListener("click", function(){          //Onclick calls a function that switches the button and span between show and hide
+      if(newbutton.className === "show"){
+        newspan.style.cssText = "display: block;";
+        newbutton.innerHTML = "Hide";
+        newbutton.className = "hide";
+      }
+      else{
+        newspan.style.cssText = "display: none;";
+        newbutton.innerHTML = "Show";
+        newbutton.className = "show";
+      }
+    });
+    newp.appendChild(newbutton);                             //Append button to p
   }
 };
 
@@ -113,16 +136,16 @@ var analyseDNA = function(){
     alert("The sequence contains at least one forbidden character!");
     return;
   }
-  writeToHtml(formattedSequence,"Formatted sequence: ","formattedseq",1);                                                   //Formatted Sequence
+  writeToHtml(formattedSequence,"Formatted sequence","formattedseq",1);                                                     //Formatted Sequence
   var nucleotideFrequencies = nucleotideFrequency(formattedSequence).join(" ");
-  writeToHtml(nucleotideFrequencies,"Nucleotide frequencies in percentage (A,T,G,C): ","nucleotidefreq");                   //Nucleotide Frequency
+  writeToHtml(nucleotideFrequencies,"Nucleotide frequencies in percentage (A,T,G,C) ","nucleotidefreq",1);                    //Nucleotide Frequency
   var translatedSequence1 = translation(formattedSequence);
-  writeToHtml(translatedSequence1.join(" "),"Translation prediction from first nucleotide position: ","translatedseq1",1);  //Translation from first position
-  writeToHtml(translationShort(translatedSequence1).join(" "),"Possible protein:","shorttranslatedseq1",1);                 //Possible protein from first position
+  writeToHtml(translatedSequence1.join(" "),"Translation prediction from first nucleotide position ","translatedseq1",1);     //Translation from first position
+  writeToHtml(translationShort(translatedSequence1).join("<br/><br/>"),"Possible proteins ","shorttranslatedseq1",1);                 //Possible protein from first position
   var translatedSequence2 = translation(formattedSequence.slice(1,formattedSequence.length + 1));
-  writeToHtml(translatedSequence2.join(" "),"Translation prediction from second nucleotide position: ","translatedseq2",1); //Translation from second position
-  writeToHtml(translationShort(translatedSequence2).join(" "),"Possible protein: ","shorttranslatedseq2",1);                //Possible protein from second position
+  writeToHtml(translatedSequence2.join(" "),"Translation prediction from second nucleotide position ","translatedseq2",1);    //Translation from second position
+  writeToHtml(translationShort(translatedSequence2).join("<br/><br/>"),"Possible proteins ","shorttranslatedseq2",1);                 //Possible protein from second position
   var translatedSequence3 = translation(formattedSequence.slice(2,formattedSequence.length + 1));
-  writeToHtml(translatedSequence3.join(" "),"Translation prediction from third nucleotide position: ","translatedseq3",1);  //Translation from third position
-  writeToHtml(translationShort(translatedSequence3).join(" "),"Possible protein: ","shorttranslatedseq3",1);                //Possible protein from second position
+  writeToHtml(translatedSequence3.join(" "),"Translation prediction from third nucleotide position ","translatedseq3",1);      //Translation from third position
+  writeToHtml(translationShort(translatedSequence3).join("<br/><br/>"),"Possible proteins ","shorttranslatedseq3",1);                //Possible protein from second position
 };
