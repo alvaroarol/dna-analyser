@@ -24,6 +24,7 @@
 }
 
 #nucleotidefreq span{
+  display: none;
   border-width: 1px;
 }
 
