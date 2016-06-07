@@ -171,15 +171,15 @@ var analyseDNA = function(){
 		writeToHtml(formattedSequence,"Formatted sequence", "formattedseq",1);
 	
 		//Nucleotide Frequency
-		writeToHtml(nucleotideFrequency(formattedSequence).join(" "), "Nucleotide frequencies in percentage (A,T,G,C) ", "nucleotidefreq",1);
+		writeToHtml(nucleotideFrequency(formattedSequence).join(" "), "Nucleotide frequencies in percentage (A, T, G, C) ", "nucleotidefreq",1);
 
 		var translatedSequences = [
 			translation(formattedSequence), 
 			translation(formattedSequence.slice(1, formattedSequence.length + 1)), 
-			translation(formattedSequence.slice(2, formattedSequence.length + 1)
+			translation(formattedSequence.slice(2, formattedSequence.length + 1))
 		];
 		
-		for(i = 0; i < translatedSequences.length; i++){
+		for(var i = 0; i < translatedSequences.length; i++){
 			//Translation from first position
 			writeToHtml(translatedSequences[i].join(" "), "Translation prediction from first nucleotide position ", "translatedseq" + i, 1);
 			//Possible protein from first position
