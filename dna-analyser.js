@@ -30,6 +30,7 @@ var isSequenceValid = function(sequence){
   for(var i = 0; i < sequence.length; i ++){
     if (!DNAchars.includes(sequence[i])){
       return false;
+	  break;
     }
   }
   return true;
@@ -77,8 +78,11 @@ var translationShort = function (protseq){
 	
 	do{
 	  start = b.indexOf("Met");
+	  
       //remove all protein before first Met
 	  a = b.slice(start, b.length + 1);
+	  
+	  //get end of current protein interval
 	  if(a.indexOf("STOP") === -1){
 	    end = a.length + 1;
 	    loop = 0;
@@ -105,42 +109,61 @@ var translationShort = function (protseq){
 
 //Writes the result of the function to HTML
 var writeToHtml = function(result,title,id,button){
-  var newdiv = document.createElement("div");                //Create a div element
-  newdiv.id = id;                //Give the div element an id
-  var newp = document.createElement("p");      //Create a p element
-  newp.innerHTML = title;        //Create the title
-  var newspan = document.createElement("span");              //Create a span element
-  newspan.id = id + "span";                    //Give the span element an id
-  newspan.innerHTML = result;                  //Create the result text
-  newdiv.appendChild(newp);                    //Append the p to the div
-  newdiv.appendChild(newspan);                 //Append the text span to the div
-  document.getElementById("results").appendChild(newdiv);    //Append the div to div "results"
-  if(button && (result != "")){                //If specified and if the result isn't blank, create a show/hide result button (to tidy up the page)
-    var newbutton = document.createElement("button");        //Create button
+	
+  //create a div element and give it an id
+  var newdiv = document.createElement("div");
+  newdiv.id = id;
+  
+  //create a p element and set its content
+  var newp = document.createElement("p");
+  newp.innerHTML = title;
+  
+  //Create a span element, give it and id and create the result text
+  var newspan = document.createElement("span");
+  newspan.id = id + "span";
+  newspan.innerHTML = result;
+  
+  //Append the p and text to the div
+  newdiv.appendChild(newp);
+  newdiv.appendChild(newspan);
+  
+  //Append the div to the div #results
+  document.getElementById("results").appendChild(newdiv);
+  
+  //If specified and if the result isn't blank, create a show/hide result button (to tidy up the page)
+  if(button && (result != "")){        
+    //Create button, class and text
+    var newbutton = document.createElement("button");        
     newbutton.className = "show";
-    newbutton.innerHTML = "Show";              //Create button text
-    newbutton.addEventListener("click", function(){          //Onclick calls a function that switches the button and span between show and hide
+    newbutton.innerHTML = "Show";
+	
+	//Onclick calls a function that switches the button and span between show and hide
+    newbutton.addEventListener("click", function(){
       if(newbutton.className === "show"){
         newspan.style.cssText = "display: block;";
         newbutton.innerHTML = "Hide";
         newbutton.className = "hide";
-      }
-      else{
+      }else{
         newspan.style.cssText = "display: none;";
         newbutton.innerHTML = "Show";
         newbutton.className = "show";
       }
     });
-    newp.appendChild(newbutton);               //Append button to p
+	
+	//Append button to p
+    newp.appendChild(newbutton);
   }
 };
 
 //Main function
 var analyseDNA = function(){
+	
   //erases all previous analysis results
   document.getElementById("results").innerHTML = "";
+  
   //stores submitted DNA sequence
   var submittedSequence = document.getElementById("DNA").value;
+  
   //Formats the sequence to have a continuous series of letters (removes numbers, blanks, hyphens, tabs and line breaks)
   var formattedSequence = submittedSequence.split(/[0-9]|\s|\n|\t|\/|\-/g).join("").toUpperCase();
   
@@ -149,21 +172,20 @@ var analyseDNA = function(){
 	writeToHtml(formattedSequence,"Formatted sequence", "formattedseq",1);                         
   
 	//Nucleotide Frequency
-    var nucleotideFrequencies = nucleotideFrequency(formattedSequence).join(" ");
-    writeToHtml(nucleotideFrequencies,"Nucleotide frequencies in percentage (A,T,G,C) ", "nucleotidefreq",1);      
+    writeToHtml(nucleotideFrequency(formattedSequence).join(" "), "Nucleotide frequencies in percentage (A,T,G,C) ", "nucleotidefreq",1);      
   
-    var translatedSequence1 = translation(formattedSequence);
-    writeToHtml(translatedSequence1.join(" "),"Translation prediction from first nucleotide position ", "translatedseq1",1);     //Translation from first position
-    writeToHtml(translationShort(translatedSequence1).join("<br/><br/>"),"Possible proteins ", "shorttranslatedseq1",1);                 //Possible protein from first position
-  
-    var translatedSequence2 = translation(formattedSequence.slice(1,formattedSequence.length + 1));
-    writeToHtml(translatedSequence2.join(" "),"Translation prediction from second nucleotide position ", "translatedseq2",1);    //Translation from second position
-    writeToHtml(translationShort(translatedSequence2).join("<br/><br/>"),"Possible proteins ", "shorttranslatedseq2",1);                 //Possible protein from second position
-  
-    var translatedSequence3 = translation(formattedSequence.slice(2,formattedSequence.length + 1));
-    writeToHtml(translatedSequence3.join(" "),"Translation prediction from third nucleotide position ", "translatedseq3",1);      //Translation from third position
-    writeToHtml(translationShort(translatedSequence3).join("<br/><br/>"),"Possible proteins ", "shorttranslatedseq3",1);                //Possible protein from second position
+    var translatedSequences = [
+	  translation(formattedSequence), 
+	  translation(formattedSequence.slice(1,formattedSequence.length + 1)), 
+	  translation(formattedSequence.slice(2,formattedSequence.length + 1)
+	];
 	
+	for(i = 0; i < translatedSequences.length; i++){
+      //Translation from first position
+      writeToHtml(translatedSequences[i].join(" "), "Translation prediction from first nucleotide position ", "translatedseq" + i, 1);     
+	  //Possible protein from first position
+      writeToHtml(translationShort(translatedSequences[i]).join("<br/><br/>"),"Possible proteins ", "shorttranslatedseq" + i, 1);     
+	}
   }else{
 	alert("The sequence contains at least one forbidden, non-nucleotide character!");
   }
