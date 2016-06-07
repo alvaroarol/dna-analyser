@@ -30,7 +30,6 @@ var isSequenceValid = function(sequence){
   for(var i = 0; i < sequence.length; i ++){
     if (!DNAchars.includes(sequence[i])){
       return false;
-	  break;
     }
   }
   return true;
