@@ -166,7 +166,7 @@ var analyseDNA = function(){
 		var positionStrings = ["first","second","third"];
 		for(var i = 0; i < translatedSequences.length; i++){
 			//Translation
-			writeToHtml(translatedSequences[i].join(" "), "Translation prediction from " + positionStrings + " nucleotide position ", "translatedseq" + (i+1), 1);
+			writeToHtml(translatedSequences[i].join(" "), "Translation prediction from " + positionStrings[i] + " nucleotide position ", "translatedseq" + (i+1), 1);
 			//Possible protein
 			writeToHtml(translationShort(translatedSequences[i]).join("<br/><br/>"), "Possible proteins ", "shorttranslatedseq" + (i+1), 1);
 		}
