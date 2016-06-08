@@ -163,11 +163,12 @@ var analyseDNA = function(){
 			translation(formattedSequence.slice(1, formattedSequence.length + 1)), 
 			translation(formattedSequence.slice(2, formattedSequence.length + 1))
 		];
-		for(var i = 1; i <= translatedSequences.length; i++){
+		var positionStrings = ["first","second","third"];
+		for(var i = 0; i < translatedSequences.length; i++){
 			//Translation
-			writeToHtml(translatedSequences[i].join(" "), "Translation prediction from first nucleotide position ", "translatedseq" + i, 1);
+			writeToHtml(translatedSequences[i].join(" "), "Translation prediction from " + positionStrings + " nucleotide position ", "translatedseq" + (i+1), 1);
 			//Possible protein
-			writeToHtml(translationShort(translatedSequences[i]).join("<br/><br/>"), "Possible proteins ", "shorttranslatedseq" + i, 1);
+			writeToHtml(translationShort(translatedSequences[i]).join("<br/><br/>"), "Possible proteins ", "shorttranslatedseq" + (i+1), 1);
 		}
 	}
 	//If there are non-nucleotide characters, abort and warn user
