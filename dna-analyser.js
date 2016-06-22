@@ -73,7 +73,7 @@ var translationShort = function (protseq){
 		var proteins = [];
 		var start = 0;
 		var end = 0;
-	
+
 		do{
 			start = b.indexOf("Met");
 			//Remove the translated sequence before first Met
@@ -83,7 +83,7 @@ var translationShort = function (protseq){
 				end = a.length + 1;
 				loop = 0;
 			}
-			//Else, find the STOP codon of the current protein 
+			//Else, find the STOP codon of the current protein
 			else{
 				end = a.indexOf("STOP");
 			}
@@ -100,6 +100,25 @@ var translationShort = function (protseq){
 		} while(loop);
 		return proteins;
 	}
+};
+
+//Finds the most common codon and it's frequency
+var commonCodons = function(codonSequence){
+  codonCount = {};
+  frequentCodon = ["",0];
+  for(var i = 0; i < codonSequence.length; i ++){
+    //Add the codon to the counting object if it isn't already
+    if(!codonCount[codonSequence[i]]){
+      codonCount[codonSequence[i]] = 0;
+    }
+    //Add a count to the correspondent codon in the counting object
+    codonCount[codonSequence[i]] ++;
+    //If the codon has more counts than the previous most counted codon, make it the most counted codon
+    if(codonCount[codonSequence[i]] > frequentCodon[1]){
+      frequentCodon = [codonSequence[i],codonCount[codonSequence[i]]];
+    }
+  }
+  return frequentCodon;
 };
 
 //Writes the result of the function to HTML
@@ -154,21 +173,23 @@ var analyseDNA = function(){
 	//If sequence hasn't got any non-nucleotide characters, analyse it
 	if(isSequenceValid(formattedSequence)){
 		//Format Sequence
-		writeToHtml(formattedSequence,"Formatted sequence", "formattedseq",1);
+		writeToHtml(formattedSequence,"Formatted sequence ", "formattedseq",1);
 		//Nucleotide Frequency
-		writeToHtml(nucleotideFrequency(formattedSequence).join(" "), "Nucleotide frequencies in percentage (A, T, G, C) ", "nucleotidefreq",1);
+		writeToHtml(nucleotideFrequency(formattedSequence).join(" / "), "Nucleotide frequencies in percentage (A, T, G, C) ", "nucleotidefreq",1);
 		//Translations for 3 possible starting positions
 		var translatedSequences = [
-			translation(formattedSequence), 
-			translation(formattedSequence.slice(1, formattedSequence.length + 1)), 
+			translation(formattedSequence),
+			translation(formattedSequence.slice(1, formattedSequence.length + 1)),
 			translation(formattedSequence.slice(2, formattedSequence.length + 1))
 		];
 		var positionStrings = ["first","second","third"];
 		for(var i = 0; i < translatedSequences.length; i++){
 			//Translation
-			writeToHtml(translatedSequences[i].join(" "), "Translation prediction from " + positionStrings[i] + " nucleotide position ", "translatedseq" + (i+1), 1);
+			writeToHtml(translatedSequences[i].join(" "), "Translation prediction from " + positionStrings[i] + " reading frame ", "translatedseq" + (i+1), 1);
+      //Most frequent codon
+      writeToHtml(commonCodons(translatedSequences[i]).join(" : ") + " times", "Most frequent codon ", "frequentcodon" + (i+1), 1);
 			//Possible protein
-			writeToHtml(translationShort(translatedSequences[i]).join("<br/><br/>"), "Possible proteins ", "shorttranslatedseq" + (i+1), 1);
+			writeToHtml(translationShort(translatedSequences[i]).join("<br/><br/>"), "Possible proteins (translated sequences between Met and STOP) ", "shorttranslatedseq" + (i+1), 1);
 		}
 	}
 	//If there are non-nucleotide characters, abort and warn user
