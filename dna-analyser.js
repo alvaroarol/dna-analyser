@@ -1,5 +1,8 @@
 var DNAchars = ["A", "C", "G", "T"];
 
+//Molecular weight of each nucleotidefreq
+var nucleotideWeight = [330.22,306.19,346.22,321.21];
+
 //Table of correspondence between codons and translated amino-acids or STOP
 var codonTable = [
 	["Phe", "TTT", "TTC"],
@@ -37,7 +40,7 @@ var isSequenceValid = function(sequence){
 
 //Gives the frequency of each nucleotide
 var nucleotideFrequency = function(sequence){
-	var DNAcharFreq = [];
+	DNAcharFreq = [];
 	for (var i = 0; i < DNAchars.length; i++) {
 		//(Number of each nucleotide in sequence / length of sequence * 100).toFixed(2);
 		DNAcharFreq[i] = +(((sequence.split(DNAchars[i]).length - 1) / sequence.length) * 100).toFixed(2);
@@ -102,8 +105,8 @@ var translationShort = function (protseq){
 	}
 };
 
-//Finds the most common codon and it's frequency
-var commonCodons = function(codonSequence){
+//Finds the most common codon and its frequency
+var commonCodon = function(codonSequence){
   codonCount = {};
   frequentCodon = ["",0];
   for(var i = 0; i < codonSequence.length; i ++){
@@ -119,6 +122,56 @@ var commonCodons = function(codonSequence){
     }
   }
   return frequentCodon;
+};
+
+//Finds CpG islands (200bp regions with GC content higher than 50% and a ratio of observed/expected CpG dimers higer than 60%)
+var findCpGIslands = function(sequence){
+	cpgArray = [];
+	//Checks if the sequence has at least 200 bp
+	if(sequence.length >= 200){
+		//Moves the 200 bp window across the sequence 1 bp at a time
+		for(var i = 0; i < sequence.length - 200; i ++){
+			windowNucleotides = {};
+			cpgPairs = 0;
+			//Reads every nucleotide in the 200 bp window
+			for(var j = 0; j < 200; j++){
+				//If the nucleotide hasn't been counted once yet, add it to the object
+				if(!windowNucleotides[sequence[i+j]]){
+					windowNucleotides[sequence[i+j]] = 0;
+				}
+				//Add a count to the correspondent nucleotide in the object
+				windowNucleotides[sequence[i+j]] ++;
+				//Count the CpG pairs
+				if((sequence[i+j] === "C") && (sequence[i+j+1] === "G")){
+					cpgPairs ++;
+				}
+			}
+			//Checks if content in GC is > 50%
+			if(windowNucleotides["C"] + windowNucleotides["G"] > windowNucleotides["A"] + windowNucleotides["T"]){
+				//Checks if obs/exp ratio is > 60%
+				if(cpgPairs / ((windowNucleotides["C"] * windowNucleotides["G"]) / 200) > 0.6){
+					cpgArray.push("start : " + (i + 1) + " / end : " + (i + 200));
+				}
+			}
+		}
+	}
+	return cpgArray;
+};
+
+var molecularWeight = function(sequence){
+	var totalWeight = [];
+	totalWeight[0] = 0;
+	totalWeight[1] = 0;
+	for(var i = 0; i < sequence.length; i++){
+		for(var j = 0; j < DNAchars.length; j++){
+			if(sequence[i] === DNAchars[j]){
+				totalWeight[0] += nucleotideWeight[j];
+				break;
+			}
+		}
+	}
+	totalWeight[1] = (totalWeight[0] / 1000).toFixed(2);
+	return totalWeight;
 };
 
 //Writes the result of the function to HTML
@@ -175,7 +228,12 @@ var analyseDNA = function(){
 		//Format Sequence
 		writeToHtml(formattedSequence,"Formatted sequence ", "formattedseq",1);
 		//Nucleotide Frequency
-		writeToHtml(nucleotideFrequency(formattedSequence).join(" / "), "Nucleotide frequencies in percentage (A, T, G, C) ", "nucleotidefreq",1);
+		writeToHtml(nucleotideFrequency(formattedSequence).join(" / "), "Nucleotide frequencies in percentage (A, T, G, C) ", "nucleotidefreq", 1);
+		//Molecular weigth
+		var molWeightDNA = molecularWeight(formattedSequence);
+		writeToHtml(molWeightDNA[0].toFixed(2) + " Da" + " (" + molWeightDNA[1] + " kDa)","Molecular weight ","molweightDNA", 1);
+		//CpG Islands
+		writeToHtml(findCpGIslands(formattedSequence).join("<br/>"), "CpG islands (200 bp intervals) ", "cpgislands", 1);
 		//Translations for 3 possible starting positions
 		var translatedSequences = [
 			translation(formattedSequence),
@@ -187,7 +245,8 @@ var analyseDNA = function(){
 			//Translation
 			writeToHtml(translatedSequences[i].join(" "), "Translation prediction from " + positionStrings[i] + " reading frame ", "translatedseq" + (i+1), 1);
       //Most frequent codon
-      writeToHtml(commonCodons(translatedSequences[i]).join(" : ") + " times", "Most frequent codon ", "frequentcodon" + (i+1), 1);
+			var mostFreqCodon = commonCodon(translatedSequences[i]);
+      writeToHtml(mostFreqCodon.join(" : ") + " times " + "&emsp;&emsp;" + ((translatedSequences[i].length) / mostFreqCodon[1]).toFixed(2) + "%", "Most frequent codon ", "frequentcodon" + (i+1), 1);
 			//Possible protein
 			writeToHtml(translationShort(translatedSequences[i]).join("<br/><br/>"), "Possible proteins (translated sequences between Met and STOP) ", "shorttranslatedseq" + (i+1), 1);
 		}

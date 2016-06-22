@@ -8,29 +8,19 @@
   margin-bottom: 20px;
 }
 
-#formattedseq span{
+#formattedseq span, #nucleotidefreq span, #cpgislands span, #molweightDNA span{
   display: none;
 }
 
-#formattedseq p{
+#formattedseq p, #nucleotidefreq p, #cpgislands p, #molweightDNA p{
   font-weight: bold;
   font-size: 22px;
 }
 
-#nucleotidefreq{
+#nucleotidefreq, #cpgislands, #molweightDNA{
   border-top-style: solid;
   border-width: 1px;
   margin-bottom: 20px;
-}
-
-#nucleotidefreq span{
-  display: none;
-  border-width: 1px;
-}
-
-#nucleotidefreq p{
-  font-weight: bold;
-  font-size: 22px;
 }
 
 #translatedseq1{
