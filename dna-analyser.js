@@ -262,10 +262,10 @@ var analyseDNA = function(){
 		var positionStrings = ["first","second","third"];
 		for(var i = 0; i < translatedSequences.length; i++){
 			//Translation
-			writeToHtml(translatedSequences[i].join(" "), "Translation prediction from " + positionStrings[i] + " reading frame ", "translatedseq" + (i+1), 1);
-      //Most frequent codon
+			writeToHtml(translatedSequences[i].join(" ") + "<br/>(" + translatedSequences[i].length + " codons)", "Translation prediction from " + positionStrings[i] + " reading frame ", "translatedseq" + (i+1), 1);
+			//Most frequent codon
 			var mostFreqCodon = commonCodon(translatedSequences[i]);
-      writeToHtml(mostFreqCodon.join(" : ") + " times " + "&emsp;&emsp;" + ((mostFreqCodon[1] / translatedSequences[i].length) * 100 ).toFixed(2) + "%", "Most frequent codon ", "frequentcodon" + (i+1), 1);
+			writeToHtml(mostFreqCodon.join(" : ") + " times " + "&emsp;&emsp;" + ((mostFreqCodon[1] / translatedSequences[i].length) * 100 ).toFixed(2) + "%", "Most frequent codon ", "frequentcodon" + (i+1), 1);
 			//Possible protein
 			writeToHtml(translationShort(translatedSequences[i]).join("<br/><br/>"), "Possible proteins (translated sequences between Met and STOP) ", "shorttranslatedseq" + (i+1), 1);
 		}
