@@ -1,4 +1,4 @@
-//Molecular weight of each nucleotidefreq
+//Molecular weight of each nucleotide
 var DNAchars = {
 	"A" : 330.22,
 	"T" : 321.21,
@@ -34,8 +34,7 @@ var codonTable = {
 //Checks if the sequence contains unexpected characters
 var isSequenceValid = function(sequence){
 	for(var i = 0; i < sequence.length; i ++){
-		var validChars = ["A","T","G","C"];
-		if (!validChars.includes(sequence[i])){
+		if (!Object.keys(DNAchars).includes(sequence[i])){
 			return false;
 		}
 	}
