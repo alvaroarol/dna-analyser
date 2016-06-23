@@ -265,7 +265,7 @@ var analyseDNA = function(){
 			writeToHtml(translatedSequences[i].join(" "), "Translation prediction from " + positionStrings[i] + " reading frame ", "translatedseq" + (i+1), 1);
       //Most frequent codon
 			var mostFreqCodon = commonCodon(translatedSequences[i]);
-      writeToHtml(mostFreqCodon.join(" : ") + " times " + "&emsp;&emsp;" + ((translatedSequences[i].length) / mostFreqCodon[1]).toFixed(2) + "%", "Most frequent codon ", "frequentcodon" + (i+1), 1);
+      writeToHtml(mostFreqCodon.join(" : ") + " times " + "&emsp;&emsp;" + ((mostFreqCodon[1] / translatedSequences[i].length) * 100 ).toFixed(2) + "%", "Most frequent codon ", "frequentcodon" + (i+1), 1);
 			//Possible protein
 			writeToHtml(translationShort(translatedSequences[i]).join("<br/><br/>"), "Possible proteins (translated sequences between Met and STOP) ", "shorttranslatedseq" + (i+1), 1);
 		}
