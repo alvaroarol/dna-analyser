@@ -1,37 +1,41 @@
-var DNAchars = ["A", "C", "G", "T"];
-
 //Molecular weight of each nucleotidefreq
-var nucleotideWeight = [330.22,306.19,346.22,321.21];
+var DNAchars = {
+	"A" : 330.22,
+	"T" : 321.21,
+	"G" : 346.22,
+	"C" : 306.19
+};
 
 //Table of correspondence between codons and translated amino-acids or STOP
-var codonTable = [
-	["Phe", "TTT", "TTC"],
-	["Leu", "TTA", "TTG", "CTT", "CTC", "CTA", "CTG"],
-	["Ile", "ATT", "ATC", "ATA"],
-	["Met", "ATG"],
-	["Val", "GTT", "GTC", "GTA", "GTG"],
-	["Ser", "TCT", "TCC", "TCA", "TCG", "AGT", "AGC"],
-	["Pro", "CCT", "CCC", "CCA", "CCG"],
-	["Thr", "ACT", "ACC", "ACA", "ACG"],
-	["Ala", "GCT", "GCC", "GCA", "GCG"],
-	["Tyr", "TAT", "TAC"],
-	["STOP", "TAA", "TAG", "TGA"],
-	["His", "CAT", "CAC"],
-	["Gln", "CAA", "CAG"],
-	["Asn", "AAT", "AAC"],
-	["Lys", "AAA", "AAG"],
-	["Asp", "GAT", "GAC"],
-	["Glu", "GAA", "GAG"],
-	["Cys", "TGT", "TGC"],
-	["Trp", "TGG"],
-	["Arg", "CGT", "CGC", "CGA", "CGG", "AGA", "AGG"],
-	["Gly", "GGT", "GGC", "GGA", "GGG"]
-];
+var codonTable = {
+	"Phe" : ["TTT","TTC"],
+	"Leu" : ["TTA", "TTG", "CTT", "CTC", "CTA", "CTG"],
+	"Ile" : ["ATT", "ATC", "ATA"],
+	"Met" : ["ATG"],
+	"Val" : ["GTT", "GTC", "GTA", "GTG"],
+	"Ser" : ["TCT", "TCC", "TCA", "TCG", "AGT", "AGC"],
+	"Pro" : ["CCT", "CCC", "CCA", "CCG"],
+	"Thr" : ["ACT", "ACC", "ACA", "ACG"],
+	"Ala" : ["GCT", "GCC", "GCA", "GCG"],
+	"Tyr" : ["TAT", "TAC"],
+	"STOP" : ["TAA", "TAG", "TGA"],
+	"His" : ["CAT", "CAC"],
+	"Gln" : ["CAA", "CAG"],
+	"Asn" : ["AAT", "AAC"],
+	"Lys" : ["AAA", "AAG"],
+	"Asp" : ["GAT", "GAC"],
+	"Glu" : ["GAA", "GAG"],
+	"Cys" : ["TGT", "TGC"],
+	"Trp" : ["TGG"],
+	"Arg" : ["CGT", "CGC", "CGA", "CGG", "AGA", "AGG"],
+	"Gly" : ["GGT", "GGC", "GGA", "GGG"]
+};
 
 //Checks if the sequence contains unexpected characters
 var isSequenceValid = function(sequence){
 	for(var i = 0; i < sequence.length; i ++){
-		if (!DNAchars.includes(sequence[i])){
+		var validChars = ["A","T","G","C"];
+		if (!validChars.includes(sequence[i])){
 			return false;
 		}
 	}
@@ -41,21 +45,31 @@ var isSequenceValid = function(sequence){
 //Gives the frequency of each nucleotide
 var nucleotideFrequency = function(sequence){
 	DNAcharFreq = [];
-	for (var i = 0; i < DNAchars.length; i++) {
+	for (var nucleotide in DNAchars){
 		//(Number of each nucleotide in sequence / length of sequence * 100).toFixed(2);
-		DNAcharFreq[i] = +(((sequence.split(DNAchars[i]).length - 1) / sequence.length) * 100).toFixed(2);
+		DNAcharFreq.push(nucleotide + " : " + (((sequence.split(nucleotide).length - 1) / sequence.length) * 100).toFixed(2) + "% (" + (sequence.split(nucleotide).length - 1) + ")");
 	}
 	return DNAcharFreq;
 };
 
 //Predicts translation of gene to protein
 var translation = function(sequence){
+	//Cuts the sequence in pieces of three nucleotides ( = codons)
 	var trioSequence = sequence.match(/[ATGC]{1,3}/g);
 	var translation = [];
+	//Loops through the codons in the sequence
 	for(var i = 0; i < trioSequence.length; i ++){
-		for(var j = 1; j < codonTable.length; j ++){
-			if (codonTable[j].includes(trioSequence[i])){
-				translation.push(codonTable[j][0]);
+		var breakCheck = 0;
+		//Loops through the codon table to find the correspondent amino-acid
+		for(var aminoacid in codonTable){
+			for(var codon in codonTable[aminoacid]){
+				if (trioSequence[i].includes(codonTable[aminoacid][codon])){
+					translation.push(aminoacid);
+					breakCheck = 1;
+					break;
+				}
+			}
+			if(breakCheck){
 				break;
 			}
 		}
@@ -158,60 +172,66 @@ var findCpGIslands = function(sequence){
 	return cpgArray;
 };
 
+//Calculates the total nuclear weight of the sequence
 var molecularWeight = function(sequence){
 	var totalWeight = [];
 	totalWeight[0] = 0;
 	totalWeight[1] = 0;
+	//Cycles through the entire sequence
 	for(var i = 0; i < sequence.length; i++){
-		for(var j = 0; j < DNAchars.length; j++){
-			if(sequence[i] === DNAchars[j]){
-				totalWeight[0] += nucleotideWeight[j];
+		//Looks at the molecular weight of the nucleotide in the DNAchars array and adds it to the total
+		for(var nucleotide in DNAchars){
+			if(sequence[i] === nucleotide){
+				totalWeight[0] += DNAchars[nucleotide];
 				break;
 			}
 		}
 	}
+	//totalWeight[0] is in Da, totalWeight[1] is in kDa
 	totalWeight[1] = (totalWeight[0] / 1000).toFixed(2);
 	return totalWeight;
 };
 
 //Writes the result of the function to HTML
 var writeToHtml = function(result,title,id,button){
-	//Create a div element and give it an id
-	var newdiv = document.createElement("div");
-	newdiv.id = id;
-	//Create a p element and set its content
-	var newp = document.createElement("p");
-	newp.innerHTML = title;
-	//Create a span element, give it an id and create the result text
-	var newspan = document.createElement("span");
-	newspan.id = id + "span";
-	newspan.innerHTML = result;
-	//Append the p and text to the div
-	newdiv.appendChild(newp);
-	newdiv.appendChild(newspan);
-	//Append the div to the div #results
-	document.getElementById("results").appendChild(newdiv);
-	//If specified and if the result isn't blank, create a show/hide result button (to tidy up the page)
-	if(button && (result != "")){
-		//Create button, class and text
-		var newbutton = document.createElement("button");
-		newbutton.className = "show";
-		newbutton.innerHTML = "Show";
-		//Onclick calls a function that switches the button and span between show and hide
-		newbutton.addEventListener("click", function(){
-			if(newbutton.className === "show"){
-				newspan.style.cssText = "display: block;";
-				newbutton.innerHTML = "Hide";
-				newbutton.className = "hide";
-			}
-			else{
-				newspan.style.cssText = "display: none;";
-				newbutton.innerHTML = "Show";
-				newbutton.className = "show";
-			}
-		});
-		//Append button to p
-		newp.appendChild(newbutton);
+	if(result != ""){
+		//Create a div element and give it an id
+		var newdiv = document.createElement("div");
+		newdiv.id = id;
+		//Create a p element and set its content
+		var newp = document.createElement("p");
+		newp.innerHTML = title;
+		//Create a span element, give it an id and create the result text
+		var newspan = document.createElement("span");
+		newspan.id = id + "span";
+		newspan.innerHTML = result;
+		//Append the p and text to the div
+		newdiv.appendChild(newp);
+		newdiv.appendChild(newspan);
+		//Append the div to the div #results
+		document.getElementById("results").appendChild(newdiv);
+		//If specified and if the result isn't blank, create a show/hide result button (to tidy up the page)
+		if(button){
+			//Create button, class and text
+			var newbutton = document.createElement("button");
+			newbutton.className = "show";
+			newbutton.innerHTML = "Show";
+			//Onclick calls a function that switches the button and span between show and hide
+			newbutton.addEventListener("click", function(){
+				if(newbutton.className === "show"){
+					newspan.style.cssText = "display: block;";
+					newbutton.innerHTML = "Hide";
+					newbutton.className = "hide";
+				}
+				else{
+					newspan.style.cssText = "display: none;";
+					newbutton.innerHTML = "Show";
+					newbutton.className = "show";
+				}
+			});
+			//Append button to p
+			newp.appendChild(newbutton);
+		}
 	}
 };
 
@@ -228,7 +248,7 @@ var analyseDNA = function(){
 		//Format Sequence
 		writeToHtml(formattedSequence,"Formatted sequence ", "formattedseq",1);
 		//Nucleotide Frequency
-		writeToHtml(nucleotideFrequency(formattedSequence).join(" / "), "Nucleotide frequencies in percentage (A, T, G, C) ", "nucleotidefreq", 1);
+		writeToHtml(nucleotideFrequency(formattedSequence).join("<br/>"), "Nucleotide frequencies ", "nucleotidefreq", 1);
 		//Molecular weigth
 		var molWeightDNA = molecularWeight(formattedSequence);
 		writeToHtml(molWeightDNA[0].toFixed(2) + " Da" + " (" + molWeightDNA[1] + " kDa)","Molecular weight ","molweightDNA", 1);

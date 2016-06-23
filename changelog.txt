@@ -1,0 +1,4 @@
+23/06/2016
+- Added CpG islands detection, most frequent codon and molecular weight
+- Cleaner code using objects instead of arrays where relevant
+- Better presentation of results
