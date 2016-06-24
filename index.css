@@ -1,20 +1,29 @@
+#hr{
+width: 550px;
+margin-left: 0px;
+margin-top: 5px;
+margin-bottom: 5px;
+border-style: dotted;;
+border-width: 1px;
+}
+
 #DNA{
   height: 300px;
   width: 500px;
 }
 
 #formattedseq{
-  word-wrap: break-word;
   margin-bottom: 20px;
 }
 
 #formattedseq span, #nucleotidefreq span, #cpgislands span, #molweightDNA span{
   display: none;
+  font-family: monospace;
 }
 
 #formattedseq p, #nucleotidefreq p, #cpgislands p, #molweightDNA p{
   font-weight: bold;
-  font-size: 22px;
+  font-size: 18px;
 }
 
 #nucleotidefreq, #cpgislands, #molweightDNA{
@@ -28,7 +37,7 @@
   border-width: 1px;
 }
 
-*[id^='frequentcodon'] p{
+*[id^='frequentcodon'] p, *[id^='shorttranslatedseq'] p{
   font-weight: bold;
   padding-left: 20px;
 }
@@ -36,21 +45,18 @@
 *[id^='frequentcodon'] span{
   display: none;
   position: relative;
-  left: 20px;
+  left: 22px;
+  font-family: monospace;
 }
 
 *[id^='translatedseq'] p{
   font-weight: bold;
-  font-size: 22px;
+  font-size: 18px;
 }
 
 *[id^='translatedseq'] span{
   display: none;
-}
-
-*[id^='shorttranslatedseq'] p{
-  font-weight: bold;
-  padding-left: 20px;
+  font-family: monospace;
 }
 
 *[id^='shorttranslatedseq'] span{
@@ -58,4 +64,5 @@
   left: 20px;
   margin-bottom: 20px;
   display:none;
+  font-family: monospace;
 }

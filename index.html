@@ -4,11 +4,12 @@
       <title>DNA analyser</title>
       <meta charset="utf-8"/>
       <script type="text/javascript" src="dna-analyser.js"></script>
+      <script type="text/javascript" src="dna-functions.js"></script>
       <link rel="stylesheet" type="text/css" href="index.css"/>
     </head>
       <body>
         <form>
-          <p>Introduce your DNA sequence in the following box.<br/>Only formats containing A,T,G,C, blanks, line breaks, hypens and numbers are accepted.<br/>(for example FASTA or GenBank formats)</p>
+          <p>Introduce your DNA sequence in the following box.<br/>Only formats containing A,T,G,C, blanks, line breaks, hypens and numbers are accepted.<br/>(for example FASTA or GenBank formats)<br/>A STOP codon is represented by a * in the translated sequences</p>
           <textarea id="DNA"></textarea>
           <input value="analyse" type="button" onclick="analyseDNA()">
         </form>
