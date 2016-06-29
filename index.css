@@ -12,57 +12,47 @@ border-width: 1px;
   width: 500px;
 }
 
-#formattedseq{
-  margin-bottom: 20px;
-}
-
-#formattedseq span, #nucleotidefreq span, #cpgislands span, #molweightDNA span{
+#formattedseq, #nucleotidefreq, #cpgislands, #molweightDNA{
   display: none;
-  font-family: monospace;
+  border-bottom-style: solid;
+  border-width: 1px;
 }
 
-#formattedseq p, #nucleotidefreq p, #cpgislands p, #molweightDNA p{
+#formattedseqspan, #nucleotidefreqspan, #cpgislandsspan, #molweightDNAspan{
+  padding-bottom: 20px;
+}
+
+
+#translatedseq1, #translatedseq2, #translatedseq3, #codonfreq1, #codonfreq2, #codonfreq3, #shorttranslatedseq1, #shorttranslatedseq2, #shorttranslatedseq3{
+  display: none;
+}
+
+#shorttranslatedseq3{
+  border-bottom-style: solid;
+  border-width: 1px;
+}
+
+#shorttranslatedseq3 span{
+  padding-bottom: 10px;
+}
+
+#formattedseqspan, #nucleotidefreqspan, #cpgislandsspan, #molweightDNAspan, #codonfreq1span, #codonfreq2span, #codonfreq3span, #shorttranslatedseq1span, #shorttranslatedseq2span, #shorttranslatedseq3span, #translatedseq1span, #translatedseq2span, #translatedseq3span{
+  font-family: monospace;
+  display: none;
+}
+
+#formattedseq p, #nucleotidefreq p, #cpgislands p, #molweightDNA p, #translatedseq1 p, #translatedseq2 p, #translatedseq3 p{
   font-weight: bold;
   font-size: 18px;
 }
 
-#nucleotidefreq, #cpgislands, #molweightDNA{
-  border-top-style: solid;
-  border-width: 1px;
-  margin-bottom: 20px;
-}
-
-#translatedseq1{
-  border-top-style: solid;
-  border-width: 1px;
-}
-
-*[id^='frequentcodon'] p, *[id^='shorttranslatedseq'] p{
+#codonfreq1 p, #codonfreq2 p, #codonfreq3 p, #shorttranslatedseq1 p, #shorttranslatedseq2 p, #shorttranslatedseq3 p{
   font-weight: bold;
-  padding-left: 20px;
+  padding-left: 10px;
+  border-left-style: solid;
+  border-left-width: 1px;
 }
 
-*[id^='frequentcodon'] span{
-  display: none;
-  position: relative;
-  left: 22px;
-  font-family: monospace;
-}
-
-*[id^='translatedseq'] p{
-  font-weight: bold;
-  font-size: 18px;
-}
-
-*[id^='translatedseq'] span{
-  display: none;
-  font-family: monospace;
-}
-
-*[id^='shorttranslatedseq'] span{
-  position: relative;
-  left: 20px;
-  margin-bottom: 20px;
-  display:none;
-  font-family: monospace;
+#codonfreq1span, #codonfreq2span, #codonfreq3span, #shorttranslatedseq1span, #shorttranslatedseq2span, #shorttranslatedseq3span{
+  padding-left: 10px;
 }

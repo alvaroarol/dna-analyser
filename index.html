@@ -7,13 +7,65 @@
       <script type="text/javascript" src="dna-functions.js"></script>
       <link rel="stylesheet" type="text/css" href="index.css"/>
     </head>
-      <body>
-        <form>
-          <p>Introduce your DNA sequence in the following box.<br/>Only formats containing A,T,G,C, blanks, line breaks, hypens and numbers are accepted.<br/>(for example FASTA or GenBank formats)<br/>A STOP codon is represented by a * in the translated sequences</p>
-          <textarea id="DNA"></textarea>
-          <input value="analyse" type="button" onclick="analyseDNA()">
-        </form>
-        <div id="results">
+    <body>
+      <form>
+        <p>Introduce your DNA sequence in the following box.<br/>Only formats containing A,T,G,C, blanks, line breaks, hypens and numbers are accepted.<br/>(for example FASTA or GenBank formats)<br/>A STOP codon is represented by a * in the translated sequences</p>
+        <textarea id="DNA"></textarea>
+        <input value="analyse" type="button" onclick="analyseDNA()"/>
+      </form>
+      <div id="results">
+        <div id="formattedseq">
+          <p>Formatted sequence <input id="formattedseqbutton" type="button" value="Show" class="show" onclick="showHideButton(&quot;formattedseq&quot;,&quot;formattedseqbutton&quot;)"/></p>
+          <span id="formattedseqspan"></span>
         </div>
-      </body>
+        <div id="nucleotidefreq">
+          <p>Nucleotide frequencies <input id="nucleotidefreqbutton" type="button" value="Show" class="show" onclick="showHideButton(&quot;nucleotidefreq&quot;,&quot;nucleotidefreqbutton&quot;)"/></p>
+          <span id="nucleotidefreqspan"></span>
+        </div>
+        <div id="molweightDNA">
+          <p>Molecular weight <input id="molweightDNAbutton" type="button" value="Show" class="show" onclick="showHideButton(&quot;molweightDNA&quot;,&quot;molweightDNAbutton&quot;)"/></p>
+          <span id="molweightDNAspan"></span>
+        </div>
+        <div id="cpgislands">
+          <p>CpG islands <input id="cpgislandsbutton" type="button" value="Show" class="show" onclick="showHideButton(&quot;cpgislands&quot;,&quot;cpgislandsbutton&quot;)"/></p>
+          <span id="cpgislandsspan"></span>
+        </div>
+        <div id="translatedseq1">
+          <p>Translation prediction from first reading frame <input id="translatedseq1button" type="button" value="Show" class="show" onclick="showHideButton(&quot;translatedseq1&quot;,&quot;translatedseq1button&quot;)"/></p>
+          <span id="translatedseq1span"></span>
+        </div>
+        <div id="codonfreq1">
+          <p>Codon frequencies <input id="codonfreq1button" type="button" value="Show" class="show" onclick="showHideButton(&quot;codonfreq1&quot;,&quot;codonfreq1button&quot;)"/></p>
+          <span id="codonfreq1span"></span>
+        </div>
+        <div id="shorttranslatedseq1">
+          <p>Possible proteins <input id="shorttranslatedseq1button" type="button" value="Show" class="show" onclick="showHideButton(&quot;shorttranslatedseq1&quot;,&quot;shorttranslatedseq1button&quot;)"/></p>
+          <span id="shorttranslatedseq1span"></span>
+        </div>
+        <div id="translatedseq2">
+          <p>Translation prediction from second reading frame <input id="translatedseq2button" type="button" value="Show" class="show" onclick="showHideButton(&quot;translatedseq2&quot;,&quot;translatedseq2button&quot;)"/></p>
+          <span id="translatedseq2span"></span>
+        </div>
+        <div id="codonfreq2">
+          <p>Codon frequencies <input id="codonfreq2button" type="button" value="Show" class="show" onclick="showHideButton(&quot;codonfreq2&quot;,&quot;codonfreq2button&quot;)"/></p>
+          <span id="codonfreq2span"></span>
+        </div>
+        <div id="shorttranslatedseq2">
+          <p>Possible proteins <input id="shorttranslatedseq2button" type="button" value="Show" class="show" onclick="showHideButton(&quot;shorttranslatedseq2&quot;,&quot;shorttranslatedseq2button&quot;)"/></p>
+          <span id="shorttranslatedseq2span"></span>
+        </div>
+        <div id="translatedseq3">
+          <p>Translation prediction from third reading frame <input id="translatedseq3button" type="button" value="Show" class="show" onclick="showHideButton(&quot;translatedseq3&quot;,&quot;translatedseq3button&quot;)"/></p>
+          <span id="translatedseq3span"></span>
+        </div>
+        <div id="codonfreq3">
+          <p>Codon frequencies <input id="codonfreq3button" type="button" value="Show" class="show" onclick="showHideButton(&quot;codonfreq3&quot;,&quot;codonfreq3button&quot;)"/></p>
+          <span id="codonfreq3span"></span>
+        </div>
+        <div id="shorttranslatedseq3">
+          <p>Possible proteins <input id="shorttranslatedseq3button" type="button" value="Show" class="show" onclick="showHideButton(&quot;shorttranslatedseq3&quot;,&quot;shorttranslatedseq3button&quot;)"/></p>
+          <span id="shorttranslatedseq3span"></span>
+        </div>
+      </div>
+    </body>
   </html>

@@ -68,12 +68,12 @@ var isSequenceValid = function(sequence){
 	return true;
 };
 
-//Gives the frequency of each nucleotide
+//Gives the count of each nucleotide
 var nucleotideFrequency = function(sequence){
-	DNAcharFreq = [];
+	DNAcharFreq = {};
 	for (var nucleotide in DNAchars){
 		//(Number of each nucleotide in sequence / length of sequence * 100).toFixed(2);
-		DNAcharFreq.push(nucleotide + " : " + (((sequence.split(nucleotide).length - 1) / sequence.length) * 100).toFixed(2) + "% (" + (sequence.split(nucleotide).length - 1) + ")");
+		DNAcharFreq[nucleotide] = sequence.split(nucleotide).length - 1;
 	}
 	return DNAcharFreq;
 };
@@ -141,35 +141,26 @@ var translationShort = function (protseq){
 				loop = 0;
 			}
 		} while(loop);
-    for(var i = 0; i < proteins.length; i ++){
-      proteins[i] = formatSequence(proteins[i]);
-    }
 		return proteins;
 	}
 };
 
-//Finds the most common codon and its frequency
-var commonCodon = function(codonSequence){
-  codonCount = {};
-  frequentCodon = ["",0];
+//Counts the quantity of each codon
+var codonFreq = function(codonSequence){
+  var codonCount = {};
   for(var i = 0; i < codonSequence.length; i ++){
-    //Add the codon to the counting object if it isn't already
+    //Add the codon to the counting object if it isn't already in it
     if(!codonCount[codonSequence[i]]){
       codonCount[codonSequence[i]] = 0;
     }
     //Add a count to the correspondent codon in the counting object
     codonCount[codonSequence[i]] ++;
-    //If the codon has more counts than the previous most counted codon, make it the most counted codon
-    if(codonCount[codonSequence[i]] > frequentCodon[1]){
-      frequentCodon = [codonSequence[i],codonCount[codonSequence[i]]];
-    }
   }
-  return frequentCodon;
+  return codonCount;
 };
 
 //Finds CpG islands (200bp regions with GC content higher than 50% and a ratio of observed/expected CpG dimers higer than 60%)
 var findCpGIslands = function(sequence){
-	var cpgArray = [];
   var cpgArrayStart = [];
   var cpgArrayStop = [];
 	//Checks if the sequence has at least 200 bp
@@ -201,6 +192,9 @@ var findCpGIslands = function(sequence){
 			}
 		}
 	}
+  else{
+    return "none";
+  }
   //Puts CpG islands together if they're successive
   var cpgArrayStopNew = [];
   var cpgArrayStartNew = [];
@@ -211,11 +205,8 @@ var findCpGIslands = function(sequence){
       cpgArrayStartNew.push(cpgArrayStart[k+1]);
     }
   }
-  //Formats the results in an easily printable array format
-  for(var x = 0; x < cpgArrayStopNew.length; x ++){
-    cpgArray.push("start : " + cpgArrayStartNew[x] + " / end : " + cpgArrayStopNew[x]);
-  }
-	return cpgArray;
+  //Returns an array containing both arrays (starting and ending positions of cpg islands)
+	return [cpgArrayStartNew,cpgArrayStopNew];
 };
 
 //Calculates the total molecular weight of the sequence

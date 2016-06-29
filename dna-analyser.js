@@ -1,81 +1,90 @@
 //Writes the result of the function to HTML
-var writeToHtml = function(result,title,id,button){
+var writeToHtml = function(result,divId){
+	document.getElementById(divId + "span").innerHTML = "";
 	if(result != ""){
-		//Create a div element and give it an id
-		var newdiv = document.createElement("div");
-		newdiv.id = id;
-		//Create a p element and set its content
-		var newp = document.createElement("p");
-		newp.innerHTML = title;
-		//Create a span element, give it an id and create the result text
-		var newspan = document.createElement("span");
-		newspan.id = id + "span";
-		newspan.innerHTML = result;
-		//Append the p and text to the div
-		newdiv.appendChild(newp);
-		newdiv.appendChild(newspan);
-		//Append the div to the div #results
-		document.getElementById("results").appendChild(newdiv);
-		//If specified and if the result isn't blank, create a show/hide result button (to tidy up the page)
-		if(button){
-			//Create button, class and text
-			var newbutton = document.createElement("button");
-			newbutton.className = "show";
-			newbutton.innerHTML = "Show";
-			//Onclick calls a function that switches the button and span between show and hide
-			newbutton.addEventListener("click", function(){
-				if(newbutton.className === "show"){
-					newspan.style.cssText = "display: block;";
-					newbutton.innerHTML = "Hide";
-					newbutton.className = "hide";
-				}
-				else{
-					newspan.style.cssText = "display: none;";
-					newbutton.innerHTML = "Show";
-					newbutton.className = "show";
-				}
-			});
-			//Append button to p
-			newp.appendChild(newbutton);
-		}
+		//Write the result text to the span
+		document.getElementById(divId + "span").innerHTML = result;
+		document.getElementById(divId + "span").style.cssText = "display: none;";
+		//Set the button values
+		document.getElementById(divId + "button").value = "Show";
+		document.getElementById(divId + "button").className = "show";
+		//Display the div
+		document.getElementById(divId).style.cssText = "display: block;";
+	}
+	else{
+		document.getElementById(divId).style.cssText = "display: none;";
 	}
 };
 
+//Switches the div and button between hide and show
+var showHideButton = function(divId,buttonId){
+	if(document.getElementById(buttonId).className === "show"){
+		document.getElementById(divId + "span").style.cssText = "display: block;";
+		document.getElementById(buttonId).value = "Hide";
+		document.getElementById(buttonId).className = "hide";
+	}
+	else{
+		document.getElementById(divId + "span").style.cssText = "display: none;";
+		document.getElementById(buttonId).value = "Show";
+		document.getElementById(buttonId).className = "show";
+	}
+};
 
 //Main function
 var analyseDNA = function(){
-	//Erases all previous analysis results
-	document.getElementById("results").innerHTML = "";
 	//Gets submitted DNA sequence
 	var submittedSequence = document.getElementById("DNA").value;
 	//Formats the sequence to have a continuous series of letters (removes numbers, blanks, hyphens, tabs and line breaks)
 	var formattedSequence = submittedSequence.split(/[0-9]|\s|\n|\t|\/|\-/g).join("").toUpperCase();
 	//If sequence hasn't got any non-nucleotide characters, analyse it
 	if(isSequenceValid(formattedSequence)){
-		//Format Sequence for display
-		writeToHtml(formatSequence(formattedSequence),"Formatted sequence ", "formattedseq",1);
-		//Nucleotide Frequency
-		writeToHtml(nucleotideFrequency(formattedSequence).join("<br/>"), "Nucleotide frequencies ", "nucleotidefreq", 1);
-		//Molecular weigth
+		//Analyse
+		var formattedSequenceText = formatSequence(formattedSequence);
+		var nucleotideFrequencies = nucleotideFrequency(formattedSequence);
+		var nucleotideFrequenciesArray = [];
+		for(var nucleotide in nucleotideFrequencies){
+			nucleotideFrequenciesArray.push(nucleotide + " : " + ((nucleotideFrequencies[nucleotide] / formattedSequence.length) * 100).toFixed(2) + "% (" + nucleotideFrequencies[nucleotide] + ")");
+		}
 		var molWeightDNA = molecularWeight(formattedSequence);
-		writeToHtml(molWeightDNA[0].toFixed(2) + " Da" + " (" + molWeightDNA[1] + " kDa)","Molecular weight ","molweightDNA", 1);
-		//CpG Islands
-		writeToHtml(findCpGIslands(formattedSequence).join("<br/>"), "CpG islands (200 bp intervals minimum) ", "cpgislands", 1);
-		//Translations for 3 possible starting positions
+		var cpgIslands = findCpGIslands(formattedSequence);
+		var cpgIslandsText = [];
+		if((cpgIslands != "none") && (cpgIslands[0][0] != undefined)){
+			for(var i = 0; i < cpgIslands[0].length - 1; i ++){
+				cpgIslandsText.push("Start : " + cpgIslands[0][i] + " / End : " + cpgIslands[1][i]);
+			}
+		}
+		else{
+			cpgIslandsText = [""];
+		}
 		var translatedSequences = [
 			translation(formattedSequence),
 			translation(formattedSequence.slice(1, formattedSequence.length + 1)),
 			translation(formattedSequence.slice(2, formattedSequence.length + 1))
 		];
-		var positionStrings = ["first","second","third"];
-		for(var i = 0; i < translatedSequences.length; i++){
-			//Translation
-			writeToHtml(formatSequence(translatedSequences[i]) + "<br/><br/>" + translatedSequences[i].length + " codon(s)", "Translation prediction from " + positionStrings[i] + " reading frame ", "translatedseq" + (i+1), 1);
-			//Most frequent codon
-			var mostFreqCodon = commonCodon(translatedSequences[i]);
-			writeToHtml(mostFreqCodon.join(" : ") + " time(s) " + "&emsp;&emsp;" + ((mostFreqCodon[1] / translatedSequences[i].length) * 100 ).toFixed(2) + "%", "Most frequent codon ", "frequentcodon" + (i+1), 1);
-			//Possible protein
-			writeToHtml(translationShort(translatedSequences[i]).join("<div id=\"hr\"></div>"), "Possible proteins (translated sequences between Met and STOP) ", "shorttranslatedseq" + (i+1), 1);
+		var codonFrequencies = [codonFreq(translatedSequences[0]),codonFreq(translatedSequences[1]),codonFreq(translatedSequences[2])];
+		var codonFrequenciesText = [[],[],[]];
+		for(var i = 0; i < codonFrequencies.length; i ++){
+			for(var freq in codonFrequencies[i]){
+				codonFrequenciesText[i].push(freq + " : " + ((codonFrequencies[i][freq] / translatedSequences[i].length) * 100).toFixed(2) + "% (" + codonFrequencies[i][freq] + ")");
+			}
+		}
+		var possibleProtein = [translationShort(translatedSequences[0]),translationShort(translatedSequences[1]),translationShort(translatedSequences[2])];
+		var possibleProteinText = [[],[],[]];
+		for(var i = 0; i < possibleProtein.length; i ++){
+			for(var j = 0; j < possibleProtein[i].length; j ++){
+				possibleProteinText[i][j] = formatSequence(possibleProtein[i][j]);
+			}
+		}
+
+		//Display results on the page
+		writeToHtml(formattedSequenceText, "formattedseq");
+		writeToHtml(nucleotideFrequenciesArray.join("<br/>"), "nucleotidefreq");
+		writeToHtml(molWeightDNA[0].toFixed(2) + " Da (" + molWeightDNA[1] + " kDa)", "molweightDNA");
+		writeToHtml(cpgIslandsText.join("<br/>"), "cpgislands");
+		for(var i = 0; i < translatedSequences.length; i ++){
+			writeToHtml(formatSequence(translatedSequences[i]), "translatedseq" + (i+1));
+			writeToHtml(codonFrequenciesText[i].join("<br/>"), "codonfreq" + (i+1));
+			writeToHtml(possibleProteinText[i].join("<div id=\"hr\"></div>"), "shorttranslatedseq" + (i+1));
 		}
 	}
 	//If there are non-nucleotide characters, abort and warn user
