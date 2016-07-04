@@ -1,3 +1,13 @@
+//Loads saved results to the list
+var loadOldSaved = function(){
+	var oldSavedArray = Object.keys(localStorage);
+	for(var i = 0; i < oldSavedArray.length; i ++){
+		var option = document.createElement("option");
+		option.text = oldSavedArray[i];
+		document.getElementById("selectsave").add(option);
+	}
+};
+
 //Saves the results locally
 var saveResults = function(){
 	var saveName = document.getElementById("savename").value;
