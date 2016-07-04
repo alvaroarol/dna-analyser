@@ -1,30 +1,61 @@
+//Saves the results locally
+var saveResults = function(){
+	var saveName = document.getElementById("savename").value;
+	if(saveName != ""){
+		localStorage.setItem(saveName,document.getElementById("results").outerHTML);
+		var option = document.createElement("option");
+		option.text = saveName;
+		document.getElementById("selectsave").add(option);
+	}
+};
+
+//Loads the results locally
+var loadResults = function(){
+	var loadName = document.getElementById("selectsave").value;
+	if(loadName != ""){
+		var openWindow = window.open();
+		openWindow.document.write("<script type=\"text/javascript\" src=\"dna-analyser.js\"></script><link rel=\"stylesheet\" type=\"text/css\" href=\"index.css\"/>");
+		openWindow.document.write("<div><h1>" + loadName + "</h1></div>");
+		openWindow.document.write(localStorage.getItem(loadName));
+	}
+};
+
+//Deletes entry in saved results
+var deleteEntry = function(){
+	var deleteName = document.getElementById("selectsave").value;
+	if((deleteName != "") && (confirm("Are you sure you want to delete " + deleteName))){
+		localStorage.removeItem(deleteName);
+		document.getElementById("selectsave").remove(document.getElementById("selectsave").selectedIndex);
+	}
+};
+
 //Writes the result of the function to HTML
 var writeToHtml = function(result,divId){
 	document.getElementById(divId + "span").innerHTML = "";
 	if(result != ""){
 		//Write the result text to the span
 		document.getElementById(divId + "span").innerHTML = result;
-		document.getElementById(divId + "span").style.cssText = "display: none;";
+		document.getElementById(divId + "span").style.display = "none";
 		//Set the button values
 		document.getElementById(divId + "button").value = "Show";
 		document.getElementById(divId + "button").className = "show";
 		//Display the div
-		document.getElementById(divId).style.cssText = "display: block;";
+		document.getElementById(divId).style.display = "block";
 	}
 	else{
-		document.getElementById(divId).style.cssText = "display: none;";
+		document.getElementById(divId).style.display = "none";
 	}
 };
 
 //Switches the div and button between hide and show
 var showHideButton = function(divId,buttonId){
 	if(document.getElementById(buttonId).className === "show"){
-		document.getElementById(divId + "span").style.cssText = "display: block;";
+		document.getElementById(divId + "span").style.display = "block";
 		document.getElementById(buttonId).value = "Hide";
 		document.getElementById(buttonId).className = "hide";
 	}
 	else{
-		document.getElementById(divId + "span").style.cssText = "display: none;";
+		document.getElementById(divId + "span").style.display = "none";
 		document.getElementById(buttonId).value = "Show";
 		document.getElementById(buttonId).className = "show";
 	}

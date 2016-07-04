@@ -1,3 +1,6 @@
+04/07/2016
+- Added the possibility to save results locally for later viewing
+
 29/06/2016
 - Made the analysis functions return a more abstract result
 - Changed the way everything is displayed on the page so that most DOM elements are fixed instead of dynamic for an easier manipulation

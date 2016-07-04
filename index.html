@@ -8,11 +8,19 @@
       <link rel="stylesheet" type="text/css" href="index.css"/>
     </head>
     <body>
+      <div id="input">
       <form>
         <p>Introduce your DNA sequence in the following box.<br/>Only formats containing A,T,G,C, blanks, line breaks, hypens and numbers are accepted.<br/>(for example FASTA or GenBank formats)<br/>A STOP codon is represented by a * in the translated sequences</p>
-        <textarea id="DNA"></textarea>
+        <textarea id="DNA"></textarea></br>
         <input value="analyse" type="button" onclick="analyseDNA()"/>
       </form>
+      <div id="savelocally">
+        <b>Save results in local memory</b><br/><br/>
+        Name : <input type="text" id="savename"> <input type="button" id="savebutton" value="save" onclick="saveResults()"></br></br>
+        Saved entries<br/>
+        <select id="selectsave"></select> <input type="button" id="loadbutton" value="load" onclick="loadResults()"> <input type="button" id="deletebutton" value="erase entry" onclick="deleteEntry()">
+      </div>
+     </div>
       <div id="results">
         <div id="formattedseq">
           <p>Formatted sequence <input id="formattedseqbutton" type="button" value="Show" class="show" onclick="showHideButton(&quot;formattedseq&quot;,&quot;formattedseqbutton&quot;)"/></p>
