@@ -209,22 +209,19 @@ var findCpGIslands = function(sequence){
 	return [cpgArrayStartNew,cpgArrayStopNew];
 };
 
+//Converts DaTokDa
+var DaTokDa = function(Da){
+	kDa = (Da / 1000).toFixed(2);
+	return kDa;
+}
+
 //Calculates the total molecular weight of the sequence
 var molecularWeight = function(sequence){
-	var totalWeight = [];
-	totalWeight[0] = 0;
-	totalWeight[1] = 0;
-	//Cycles through the entire sequence
+	var totalWeight = 0;
+	//Looks at the molecular weight of the nucleotide in the DNAchars array and adds it to the total
 	for(var i = 0; i < sequence.length; i++){
-		//Looks at the molecular weight of the nucleotide in the DNAchars array and adds it to the total
-		for(var nucleotide in DNAchars){
-			if(sequence[i] === nucleotide){
-				totalWeight[0] += DNAchars[nucleotide];
-				break;
-			}
-		}
+		totalWeight += DNAchars[sequence[i]];
 	}
-	//totalWeight[0] is in Da, totalWeight[1] is in kDa
-	totalWeight[1] = (totalWeight[0] / 1000).toFixed(2);
-	return totalWeight;
+
+	return (totalWeight.toFixed(2));
 };
