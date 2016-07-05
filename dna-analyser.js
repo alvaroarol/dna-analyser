@@ -120,7 +120,7 @@ var analyseDNA = function(){
 		//Display results on the page
 		writeToHtml(formattedSequenceText, "formattedseq");
 		writeToHtml(nucleotideFrequenciesArray.join("<br/>"), "nucleotidefreq");
-		writeToHtml(molWeightDNA[0].toFixed(2) + " Da (" + molWeightDNA[1] + " kDa)", "molweightDNA");
+		writeToHtml(molWeightDNA + " Da (" + DaTokDa(molWeightDNA) + " kDa)", "molweightDNA");
 		writeToHtml(cpgIslandsText.join("<br/>"), "cpgislands");
 		for(var i = 0; i < translatedSequences.length; i ++){
 			writeToHtml(formatSequence(translatedSequences[i]), "translatedseq" + (i+1));
