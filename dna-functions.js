@@ -155,7 +155,7 @@ var findCpGIslands = function(sequence){
 			//Checks if content in GC is > 50% and CpG obs/exp is > 60% and, if true, adds start/end positions to the arrays
 			if((intervalFreq["C"] + intervalFreq["G"] > intervalFreq["A"] + intervalFreq["T"]) && (cpgPairs / ((intervalFreq["C"] * intervalFreq["G"]) / 200) > 0.6)){
 				start.push(i + 1);
-				end.push(i + 200 + 1);
+				end.push(i + 200);
 			}
 		}
 		//Puts CpG islands together if they're successive
