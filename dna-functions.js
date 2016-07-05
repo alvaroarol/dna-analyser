@@ -130,7 +130,7 @@ var findCpGIslands = function(sequence){
 	}
   else{
 		var start = [];
-		var stop = [];
+		var end = [];
 		//first 200 bp sequence
 		var intervalSeq = sequence.slice(0, 200);
 		//nucleotide count for a
@@ -139,37 +139,41 @@ var findCpGIslands = function(sequence){
 		var cpgPairs = (intervalSeq.match(/CG/g) || []).length;
 		//update a, b and cpgPairs for each new nucleotide
 		for(var i = 0; i < sequence.length - 200; i ++){
-      if(i > 0){
-			  //remove left most nucleotide from current count array
-			  intervalFreq[sequence[i - 1]]--;
-			  //remove 1 from cpgPairs count if relevant
-			  if (sequence[i - 1] == "C" && sequence[i] == "G"){
-				  cpgPairs--;
-			  }
-			  //add right most nucleotide to current count array
-			  intervalFreq[sequence[i + 200]]++;
-			  if (sequence[i + 200] == "G" && sequence[i + 200 - 1] == "C"){
-				  cpgPairs++;
-			  }
-      }
+			if(i > 0){
+				//remove left most nucleotide from current count array
+				intervalFreq[sequence[i - 1]]--;
+				//remove 1 from cpgPairs count if relevant
+				if (sequence[i - 1] == "C" && sequence[i] == "G"){
+					cpgPairs--;
+				}
+				//add right most nucleotide to current count array
+				intervalFreq[sequence[i + 200]]++;
+				if (sequence[i + 200] == "G" && sequence[i + 200 - 1] == "C"){
+					cpgPairs++;
+				}
+			}
 			//Checks if content in GC is > 50% and CpG obs/exp is > 60% and, if true, adds start/end positions to the arrays
 			if((intervalFreq["C"] + intervalFreq["G"] > intervalFreq["A"] + intervalFreq["T"]) && (cpgPairs / ((intervalFreq["C"] * intervalFreq["G"]) / 200) > 0.6)){
 				start.push(i + 1);
-				stop.push(i + 200 + 1);
+				end.push(i + 200 + 1);
 			}
 		}
 		//Puts CpG islands together if they're successive
-		var stopNew = [];
 		var startNew = [];
+		var endNew = [];
+		
 		startNew[0] = start[0];
-		for(var i = 0; i < stop.length; i++){
-			if(stop[i] != stop[i + 1] - 1){
-				stopNew.push(stop[i]);
+		
+		for(var i = 0; i < end.length; i++){
+			if((i < end.length - 1) && (end[i] != end[i + 1] - 1)){
 				startNew.push(start[i + 1]);
+				endNew.push(end[i]);
 			}
 		}
+		
+		endNew.push(end[end.length - 1]);
 		//Returns an array containing both arrays (starting and ending positions of cpg islands)
-		return [startNew, stopNew];
+		return [startNew, endNew];
 	}
 };
 
