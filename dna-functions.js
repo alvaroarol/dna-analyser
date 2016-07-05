@@ -77,20 +77,20 @@ var translation = function(sequence){
 	return translation;
 };
 
-//Cuts out the translated sequence between codon start (first codon Met ("M")) to codon STOP ("*")
+//Cuts out the translated sequence between codon start (first M codon) to codon STOP (*)
 var translationShort = function (codonseq){
 	var a = [];
 	var b = codonseq;
 	var codons = [];
 	var start = 0;
 	var end = 0;
-		
-	//If the translated sequence doesn't contain a start codon ("M"), stop loop
+
+	//If the translated sequence doesn't contain a start codon (M), stop loop
 	while(b.indexOf("M") != -1){
 		start = b.indexOf("M");
-		//Remove the translated sequence before first Met
+		//Remove the translated sequence before first M
 		a = b.slice(start, b.length + 1);
-		//If there isn't a STOP codon after the previously found Met, the protein ends at the end of the sequence
+		//If there isn't a STOP codon after the previously found M, the protein ends at the end of the sequence
 		if(a.indexOf("*") === -1){
 			end = a.length + 1;
 		}
@@ -98,7 +98,7 @@ var translationShort = function (codonseq){
 		else{
 			end = a.indexOf("*");
 		}
-		//Add the protein found from Met to STOP into the protein array
+		//Add the protein found from M to STOP into the protein array
 		b = a.slice(0, end);
 		codons.push(b.join(""));
 		//Remove everything before the last used STOP codon (including the STOP itself), for next loop iteration
@@ -124,46 +124,40 @@ var codonFreq = function(codonSequence){
 
 //Finds CpG islands (200bp regions with GC content higher than 50% and a ratio of observed/expected CpG dimers higer than 60%)
 var findCpGIslands = function(sequence){
-	var minBP = 200;
 	//Checks if the sequence has at least 200 bp
-	if(sequence.length < minBP){
+	if(sequence.length < 200){
 		return [];
-	}else{
+	}
+  else{
 		var start = [];
 		var stop = [];
 		//first 200 bp sequence
-		var a = sequence.slice(0, minBP);
+		var intervalSeq = sequence.slice(0, 200);
 		//nucleotide count for a
-		var b = nucleotideFrequency(a);
-
+		var intervalFreq = nucleotideFrequency(intervalSeq);
 		//Counts "CG" pairs in a;
-		var cpgPairs = (a.match(/CG/g) || []).length;
-		
+		var cpgPairs = (intervalSeq.match(/CG/g) || []).length;
 		//update a, b and cpgPairs for each new nucleotide
-		for(var i = 0; i < sequence.length - minBP; i++){
-			if(i != 0){
-				//remove left most nucleotide from current count array
-				b[sequence[i-1]]--;
-				//remove 1 from cpgPairs count if relevant
-				if (sequence[i-1] == "C" && sequence[i] == "G"){
-					cpgPairs--;
-				}
-
-				//add right most nucleotide to current count array
-				b[sequence[i + minBP - 1]]++;
-				if (sequence[i + minBP - 1] == "G" && sequence[i + minBP - 2] == "C"){
-					cpgPairs++;
-				}
-			}
-		
-			//Checks if content in GC is > 50%
-			if((b["C"] + b["G"] > b["A"] + b["T"])
-				&&(cpgPairs / ((b["C"] * b["G"]) / minBP) > 0.6)){
+		for(var i = 0; i < sequence.length - 200; i ++){
+      if(i > 0){
+			  //remove left most nucleotide from current count array
+			  intervalFreq[sequence[i - 1]]--;
+			  //remove 1 from cpgPairs count if relevant
+			  if (sequence[i - 1] == "C" && sequence[i] == "G"){
+				  cpgPairs--;
+			  }
+			  //add right most nucleotide to current count array
+			  intervalFreq[sequence[i + 200]]++;
+			  if (sequence[i + 200] == "G" && sequence[i + 200 - 1] == "C"){
+				  cpgPairs++;
+			  }
+      }
+			//Checks if content in GC is > 50% and CpG obs/exp is > 60% and, if true, adds start/end positions to the arrays
+			if((intervalFreq["C"] + intervalFreq["G"] > intervalFreq["A"] + intervalFreq["T"]) && (cpgPairs / ((intervalFreq["C"] * intervalFreq["G"]) / 200) > 0.6)){
 				start.push(i + 1);
-				stop.push(i + minBP);
+				stop.push(i + 200 + 1);
 			}
 		}
-
 		//Puts CpG islands together if they're successive
 		var stopNew = [];
 		var startNew = [];
@@ -174,7 +168,6 @@ var findCpGIslands = function(sequence){
 				startNew.push(start[i + 1]);
 			}
 		}
-		
 		//Returns an array containing both arrays (starting and ending positions of cpg islands)
 		return [startNew, stopNew];
 	}
@@ -184,7 +177,7 @@ var findCpGIslands = function(sequence){
 var DaTokDa = function(Da){
 	kDa = (Da / 1000).toFixed(2);
 	return kDa;
-}
+};
 
 //Calculates the total molecular weight of the sequence
 var molecularWeight = function(sequence){
@@ -193,6 +186,5 @@ var molecularWeight = function(sequence){
 	for(var i = 0; i < sequence.length; i++){
 		totalWeight += DNAchars[sequence[i]];
 	}
-
 	return (totalWeight.toFixed(2));
 };
