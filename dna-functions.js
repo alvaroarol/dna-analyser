@@ -111,7 +111,7 @@ var translationShort = function (codonseq){
 //Counts the quantity of each codon
 var codonFreq = function(codonSequence){
   var codonCount = {};
-  for(var i = 0; i < codonSequence.length; i ++){
+  for(var i = 0; i < codonSequence.length; i++){
     //Add the codon to the counting object if it isn't already in it
     if(!codonCount[codonSequence[i]]){
       codonCount[codonSequence[i]] = 0;
@@ -124,41 +124,46 @@ var codonFreq = function(codonSequence){
 
 //Finds CpG islands (200bp regions with GC content higher than 50% and a ratio of observed/expected CpG dimers higer than 60%)
 var findCpGIslands = function(sequence){
-	var start = [];
-	var stop = [];
 	var minBP = 200;
-	
 	//Checks if the sequence has at least 200 bp
 	if(sequence.length < minBP){
 		return [];
 	}else{
-		//Moves the 200 bp window across the sequence 1 bp at a time
+		var start = [];
+		var stop = [];
+		//first 200 bp sequence
+		var a = sequence.slice(0, minBP);
+		//nucleotide count for a
+		var b = nucleotideFrequency(a);
+
+		//Counts "CG" pairs in a;
+		var cpgPairs = (a.match(/CG/g) || []).length;
+		
+		//update a, b and cpgPairs for each new nucleotide
 		for(var i = 0; i < sequence.length - minBP; i++){
-			windowNucleotides = {};
-			cpgPairs = 0;
-			//Reads every nucleotide in the 200 bp window
-			for(var j = 0; j < minBP; j++){
-				//If the nucleotide hasn't been counted once yet, add it to the object
-				if(!windowNucleotides[sequence[i + j]]){
-					windowNucleotides[sequence[i + j]] = 0;
+			if(i != 0){
+				//remove left most nucleotide from current count array
+				b[sequence[i-1]]--;
+				//remove 1 from cpgPairs count if relevant
+				if (sequence[i-1] == "C" && sequence[i] == "G"){
+					cpgPairs--;
 				}
-				//Add a count to the correspondent nucleotide in the object
-				windowNucleotides[sequence[i + j]]++;
-				//Count the CpG pairs
-				if((sequence[i + j] === "C") && (sequence[i + j + 1] === "G")){
+
+				//add right most nucleotide to current count array
+				b[sequence[i + minBP - 1]]++;
+				if (sequence[i + minBP - 1] == "G" && sequence[i + minBP - 2] == "C"){
 					cpgPairs++;
 				}
 			}
+		
 			//Checks if content in GC is > 50%
-			if(windowNucleotides["C"] + windowNucleotides["G"] > windowNucleotides["A"] + windowNucleotides["T"]){
-				//Checks if obs/exp ratio is > 60%
-				if(cpgPairs / ((windowNucleotides["C"] * windowNucleotides["G"]) / minBP) > 0.6){
-					start.push(i + 1);
-					stop.push(i + minBP);
-				}
+			if((b["C"] + b["G"] > b["A"] + b["T"])
+				&&(cpgPairs / ((b["C"] * b["G"]) / minBP) > 0.6)){
+				start.push(i + 1);
+				stop.push(i + minBP);
 			}
 		}
-		
+
 		//Puts CpG islands together if they're successive
 		var stopNew = [];
 		var startNew = [];
