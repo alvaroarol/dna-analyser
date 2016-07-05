@@ -1,42 +1,20 @@
-//Loads saved results to the list
-var loadOldSaved = function(){
-	var oldSavedArray = Object.keys(localStorage);
-	for(var i = 0; i < oldSavedArray.length; i ++){
-		var option = document.createElement("option");
-		option.text = oldSavedArray[i];
-		document.getElementById("selectsave").add(option);
-	}
-};
-
-//Saves the results locally
-var saveResults = function(){
-	var saveName = document.getElementById("savename").value;
-	if(saveName != ""){
-		localStorage.setItem(saveName,document.getElementById("results").outerHTML);
-		var option = document.createElement("option");
-		option.text = saveName;
-		document.getElementById("selectsave").add(option);
-	}
-};
-
-//Loads the results locally
-var loadResults = function(){
-	var loadName = document.getElementById("selectsave").value;
-	if(loadName != ""){
-		var openWindow = window.open();
-		openWindow.document.write("<script type=\"text/javascript\" src=\"dna-analyser.js\"></script><link rel=\"stylesheet\" type=\"text/css\" href=\"index.css\"/>");
-		openWindow.document.write("<div><h1>" + loadName + "</h1></div>");
-		openWindow.document.write(localStorage.getItem(loadName));
-	}
-};
-
-//Deletes entry in saved results
-var deleteEntry = function(){
-	var deleteName = document.getElementById("selectsave").value;
-	if((deleteName != "") && (confirm("Are you sure you want to delete " + deleteName))){
-		localStorage.removeItem(deleteName);
-		document.getElementById("selectsave").remove(document.getElementById("selectsave").selectedIndex);
-	}
+//Formats the sequence for a better display
+var formatSequence = function(sequence){
+  var spacedSequence = [];
+  spacedSequence.push(Array(7).join("&nbsp") + 1 + " ");
+  for(var i = 0; i < sequence.length; i++){
+    var spaces = 7 - i.toString().length;
+    if((i + 1) % 60 === 0){
+      spacedSequence.push(sequence[i] + "<br/>" + Array(spaces + 1).join("&nbsp;") + (i + 2) + " ");
+    }
+    else if((i + 1) % 10 === 0){
+      spacedSequence.push(sequence[i] + " ");
+    }
+    else{
+      spacedSequence.push(sequence[i]);
+    }
+  }
+  return spacedSequence.join("")
 };
 
 //Writes the result of the function to HTML
@@ -89,7 +67,7 @@ var analyseDNA = function(){
 		var molWeightDNA = molecularWeight(formattedSequence);
 		var cpgIslands = findCpGIslands(formattedSequence);
 		var cpgIslandsText = [];
-		if((cpgIslands != "none") && (cpgIslands[0][0] != undefined)){
+		if((cpgIslands.length != 0) && (cpgIslands[0][0] != undefined)){
 			for(var i = 0; i < cpgIslands[0].length - 1; i ++){
 				cpgIslandsText.push("Start : " + cpgIslands[0][i] + " / End : " + cpgIslands[1][i]);
 			}
@@ -120,7 +98,7 @@ var analyseDNA = function(){
 		//Display results on the page
 		writeToHtml(formattedSequenceText, "formattedseq");
 		writeToHtml(nucleotideFrequenciesArray.join("<br/>"), "nucleotidefreq");
-		writeToHtml(molWeightDNA[0].toFixed(2) + " Da (" + molWeightDNA[1] + " kDa)", "molweightDNA");
+		writeToHtml(molWeightDNA + " Da (" + DaTokDa(molWeightDNA) + " kDa)", "molweightDNA");
 		writeToHtml(cpgIslandsText.join("<br/>"), "cpgislands");
 		for(var i = 0; i < translatedSequences.length; i ++){
 			writeToHtml(formatSequence(translatedSequences[i]), "translatedseq" + (i+1));

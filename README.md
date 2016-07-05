@@ -3,6 +3,11 @@ Analyses DNA sequences
 
 #Changelog
 
+05/07/2016
+- Optimize dna-functions.js
+- Move save and load functions to loadsave.js
+- Move formatSequence function to dna-alayser.js where most display formatting is going on
+
 04/07/2016
 - Added the possibility to save results locally for later viewing
 
@@ -22,3 +27,7 @@ Analyses DNA sequences
 - Added CpG islands detection, most frequent codon and molecular weight
 - Cleaner code using objects instead of arrays where relevant
 - Better presentation of results
+
+#Future updates suggestions
+- FASTA DNA text file as example and as reference for testing
+- Total execution time counter
