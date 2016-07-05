@@ -141,9 +141,9 @@ var findCpGIslands = function(sequence){
 		for(var i = 0; i < sequence.length - 200; i ++){
       if(i > 0){
 			  //remove left most nucleotide from current count array
-			  intervalFreq[sequence[i]]--;
+			  intervalFreq[sequence[i - 1]]--;
 			  //remove 1 from cpgPairs count if relevant
-			  if (sequence[i] == "C" && sequence[i+1] == "G"){
+			  if (sequence[i - 1] == "C" && sequence[i] == "G"){
 				  cpgPairs--;
 			  }
 			  //add right most nucleotide to current count array
