@@ -103,46 +103,35 @@ var translation = function(sequence){
 	return translation;
 };
 
-//Cuts out the translated sequence between codon start (first Met) to codon STOP
-var translationShort = function (protseq){
-	//If the translated sequence doesn't contain a start codon (Met), return nothing
-	if(protseq.indexOf("M") === -1){
-		return [];
-	}
-	else{
-		var a = [];
-		var b = protseq;
-		var loop = 1;
-		var proteins = [];
-		var start = 0;
-		var end = 0;
-
-		do{
-			start = b.indexOf("M");
-			//Remove the translated sequence before first Met
-			a = b.slice(start, b.length + 1);
-			//If there isn't a STOP codon after the previously found Met, the protein ends at the end of the sequence
-			if(a.indexOf("*") === -1){
-				end = a.length + 1;
-				loop = 0;
-			}
-			//Else, find the STOP codon of the current protein
-			else{
-				end = a.indexOf("*");
-			}
-			//Add the protein found from Met to STOP into the protein array
-			b = a.slice(0, end);
-			proteins.push(b.join(""));
-			//Remove everything before the last used STOP codong(including the STOP itself), for next loop iteration
-			b = a.slice(end + 1, a.length + 1);
-			a = b;
-			//If there isn't any Met left after that, end the loop
-			if(b.indexOf("M") === -1){
-				loop = 0;
-			}
-		} while(loop);
-		return proteins;
-	}
+//Cuts out the translated sequence between codon start (first codon Met ("M")) to codon STOP ("*")
+var translationShort = function (codonseq){
+	var a = [];
+	var b = codonseq;
+	var codons = [];
+	var start = 0;
+	var end = 0;
+		
+	//If the translated sequence doesn't contain a start codon ("M"), stop loop
+	while(b.indexOf("M") != -1){
+		start = b.indexOf("M");
+		//Remove the translated sequence before first Met
+		a = b.slice(start, b.length + 1);
+		//If there isn't a STOP codon after the previously found Met, the protein ends at the end of the sequence
+		if(a.indexOf("*") === -1){
+			end = a.length + 1;
+		}
+		//Else, find the STOP codon of the current protein
+		else{
+			end = a.indexOf("*");
+		}
+		//Add the protein found from Met to STOP into the protein array
+		b = a.slice(0, end);
+		codons.push(b.join(""));
+		//Remove everything before the last used STOP codon (including the STOP itself), for next loop iteration
+		b = a.slice(end + 1, a.length + 1);
+		a = b;
+	};
+	return codons;
 };
 
 //Counts the quantity of each codon
