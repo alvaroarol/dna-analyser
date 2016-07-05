@@ -3,10 +3,10 @@ Analyses DNA sequences
 
 #Changelog
 
-05/07/2016
-- Optimize dna-functions.js
-- Move save and load functions to loadsave.js
-- Move formatSequence function to dna-alayser.js where most display formatting is going on
+05/07/2016 - hugocartwright ( https://github.com/hugocartwright )
+- Optimised various functions in dna-functions.js
+- Moved save and load localstorage functions to loadsave.js
+- Moved formatSequence function to dna-alayser.js where most display formatting is going on
 
 04/07/2016
 - Added the possibility to save results locally for later viewing
@@ -31,3 +31,7 @@ Analyses DNA sequences
 #Future updates suggestions
 - FASTA DNA text file as example and as reference for testing
 - Total execution time counter
+
+#memo for testing purposes
+DNA sequence: http://www.ncbi.nlm.nih.gov/nuccore/NC_000074.6?report=genbank&from=3150922&to=3279649&strand=true
+Bioinformatics.org CpG islands finder : http://www.bioinformatics.org/sms2/cpg_islands.html
