@@ -13,13 +13,16 @@
       <form>
         <p>Introduce your DNA sequence in the following box.<br/>Only formats containing A,T,G,C, blanks, line breaks, hypens and numbers are accepted.<br/>(for example FASTA or GenBank formats)<br/>A STOP codon is represented by a * in the translated sequences</p>
         <textarea id="DNA"></textarea></br>
-        <input value="analyse" type="button" onclick="analyseDNA()"/>
+        <input id="analysebutton" value="Analyse" type="button" onclick="analyseDNA()"/>
+        <div id="timer"></div>
       </form>
-      <div id="savelocally">
+      <div id="saveload">
         <b>Save results in local memory</b><br/><br/>
-        Name : <input type="text" id="savename"> <input type="button" id="savebutton" value="save" onclick="saveResults()"></br></br>
+        Name : <input type="text" id="savename"> <input type="button" id="savebutton" value="Save" onclick="saveResults()"></br></br>
         Saved entries<br/>
-        <select id="selectsave"></select> <input type="button" id="loadbutton" value="load" onclick="loadResults()"> <input type="button" id="deletebutton" value="erase entry" onclick="deleteEntry()">
+        <select id="selectsave"></select> <input type="button" id="loadbutton" value="Load" onclick="loadResults()"> <input type="button" id="deletebutton" value="Erase entry" onclick="deleteEntry()">
+      </br></br><b>Load example sequence </b></br><input id="loadexamplebutton" value="Load example" type="button" onclick="loadExample()"/>
+    </br><b>Load sequence from text file</b></br><input id="loadfromfilebutton" type="file" onchange="loadFromFile()"/>
       </div>
      </div>
       <div id="results">

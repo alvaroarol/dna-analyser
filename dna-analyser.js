@@ -51,6 +51,9 @@ var showHideButton = function(divId,buttonId){
 
 //Main function
 var analyseDNA = function(){
+  //Gets starting time (for execution time)
+  var localTime = new Date();
+  var startingTime = localTime.getTime();
 	//Gets submitted DNA sequence
 	var submittedSequence = document.getElementById("DNA").value;
 	//Formats the sequence to have a continuous series of letters (removes numbers, blanks, hyphens, tabs and line breaks)
@@ -67,8 +70,8 @@ var analyseDNA = function(){
 		var molWeightDNA = molecularWeight(formattedSequence);
 		var cpgIslands = findCpGIslands(formattedSequence);
 		var cpgIslandsText = [];
-		if((cpgIslands[0][0] != undefined) && (cpgIslands[0].length != 0)){
-			for(var i = 0; i < cpgIslands[0].length; i++){
+		if((cpgIslands.length != 0) && (cpgIslands[0][0] != undefined)){
+			for(var i = 0; i < cpgIslands[0].length - 1; i ++){
 				cpgIslandsText.push("Start : " + cpgIslands[0][i] + " / End : " + cpgIslands[1][i]);
 			}
 		}
@@ -105,6 +108,10 @@ var analyseDNA = function(){
 			writeToHtml(codonFrequenciesText[i].join("<br/>"), "codonfreq" + (i+1));
 			writeToHtml(possibleProteinText[i].join("<div id=\"hr\"></div>"), "shorttranslatedseq" + (i+1));
 		}
+    //Gets ending time and computes total execution time
+    var localTime = new Date();
+    var endingTime = localTime.getTime();
+    document.getElementById("timer").innerHTML = "Execution time : <br/>" + ((endingTime - startingTime) / 1000) + " s";
 	}
 	//If there are non-nucleotide characters, abort and warn user
 	else{

@@ -3,6 +3,10 @@ Analyses DNA sequences
 
 #Changelog
 
+06/07/2016
+- Added options to load an example sequence or to load a sequence from a local text file
+- Added a timer for execution time
+
 05/07/2016 - hugocartwright ( https://github.com/hugocartwright )
 - Optimised various functions in dna-functions.js
 - Moved save and load localstorage functions to loadsave.js

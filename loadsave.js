@@ -38,3 +38,25 @@ var deleteEntry = function(){
 		document.getElementById("selectsave").remove(document.getElementById("selectsave").selectedIndex);
 	}
 };
+
+//Loads sequence from a text file
+var loadFromFile = function(){
+  var fileInput = document.getElementById("loadfromfilebutton").files[0];
+	if(fileInput.type.match("text.*")){
+  	var reader = new FileReader();
+  	reader.onload = function(event){
+    	document.getElementById("DNA").value = event.target.result;
+  	}
+  	reader.readAsText(fileInput);
+	}
+	else{
+		alert(fileInput.name + " is not a valid text file!")
+	}
+};
+
+//Loads example sequence
+var loadExample = function(){
+  document.getElementById("DNA").value = exampleSeq;
+};
+
+var exampleSeq = "taacatacttattgtttttaactactcgttttccattcgactcatcacgctccccccccccccccccccccttatccgttccgttcgacgtatttcgttgtctaatttctgacgtaacttgttccctgttaagtaccgtttatggcctatactccggtatttaaaacgacgacgattccaccgtaaagccgtcaaccagatgaacgacctcgctcgttatatttttccggcaaaatccctatttccgattcgcttagtgctaccgacgctatatcgttccgcaattcctcgagatcatcgatttcttctccggcgacgtctcaagtttttccgttacaacgcgatctatcctgtaaattcgaccgcgctcattctcacgttttatacattgcgcagttgattacgctaaataatccgctgactgttaccttccctgttagattcgcgcattataaactacttactttaacaaacgattttcacagtttaatttctgcgatgacgtctaactcttcagttttaaccgataacaaccttctcgacacttcgtttcttataccatcctcgttatccatacccattcttaaatttctcactactattctctttacaaccacattagctctaatcttacatctaatttctatacataaaatgctccttctgctgtatgtttctctttctcataattacatttttaattactaaatccctcatccctcccacccatctattccaccatcaaggttatacaccatgtattactgtaaaacccactaatattaattgtcaccgatattaaacgaaattcattcacacaaatttcattaattaccttttcttattaattgcatatgtactctacatatactcaaccaactaaaaatcgatattttacatttgatttctaatgtaccccacaactttcttgctttatgattgaacttagctttataataatagttatttaccctaacgcatatactcttatccttatatgaaccttgcttatttgttagatttatccaatctaaaccacagataatatcccttctcttacttcattttattatcaccattttcacttcttcctagatatatacaattatataactctattaccacattttcccttaactttctgttctgcactattatatttactctttttctaaaaccttcttaactttttcagatgca"
