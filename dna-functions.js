@@ -130,7 +130,7 @@ var findCpGIslands = function(sequence){
 	}
   else{
 		var start = [];
-		var stop = [];
+		var end = [];
 		//first 200 bp sequence
 		var intervalSeq = sequence.slice(0, 200);
 		//nucleotide count for a
@@ -155,7 +155,7 @@ var findCpGIslands = function(sequence){
 			//Checks if content in GC is > 50% and CpG obs/exp is > 60% and, if true, adds start/end positions to the arrays
 			if((intervalFreq["C"] + intervalFreq["G"] > intervalFreq["A"] + intervalFreq["T"]) && (cpgPairs / ((intervalFreq["C"] * intervalFreq["G"]) / 200) > 0.6)){
 				start.push(i + 1);
-				stop.push(i + 200);
+				end.push(i + 200);
 			}
 		}
 		//Puts CpG islands together if they're successive
@@ -164,12 +164,12 @@ var findCpGIslands = function(sequence){
 		startNew[0] = start[0];
 		for(var i = 0; i < stop.length; i++){
 			if(stop[i] != stop[i + 1] - 1){
-				stopNew.push(stop[i]);
+				endNew.push(stop[i]);
 				startNew.push(start[i + 1]);
 			}
 		}
 		//Returns an array containing both arrays (starting and ending positions of cpg islands)
-		return [startNew, stopNew];
+		return [startNew, endNew];
 	}
 };
 

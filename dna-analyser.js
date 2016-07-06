@@ -70,7 +70,7 @@ var analyseDNA = function(){
 		var molWeightDNA = molecularWeight(formattedSequence);
 		var cpgIslands = findCpGIslands(formattedSequence);
 		var cpgIslandsText = [];
-		if((cpgIslands.length != 0) && (cpgIslands[0][0] != undefined)){
+		if((cpgIslands[0].length != 0) && (cpgIslands[0][0] != undefined)){
 			for(var i = 0; i < cpgIslands[0].length - 1; i ++){
 				cpgIslandsText.push("Start : " + cpgIslands[0][i] + " / End : " + cpgIslands[1][i]);
 			}
