@@ -162,9 +162,9 @@ var findCpGIslands = function(sequence){
 		var endNew = [];
 		var startNew = [];
 		startNew[0] = start[0];
-		for(var i = 0; i < stop.length; i++){
-			if(stop[i] != stop[i + 1] - 1){
-				endNew.push(stop[i]);
+		for(var i = 0; i < end.length; i++){
+			if(end[i] != end[i + 1] - 1){
+				endNew.push(end[i]);
 				startNew.push(start[i + 1]);
 			}
 		}
