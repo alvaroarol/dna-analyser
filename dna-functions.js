@@ -159,7 +159,7 @@ var findCpGIslands = function(sequence){
 			}
 		}
 		//Puts CpG islands together if they're successive
-		var stopNew = [];
+		var endNew = [];
 		var startNew = [];
 		startNew[0] = start[0];
 		for(var i = 0; i < stop.length; i++){
