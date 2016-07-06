@@ -32,10 +32,6 @@ Analyses DNA sequences
 - Cleaner code using objects instead of arrays where relevant
 - Better presentation of results
 
-#Future updates suggestions
-- FASTA DNA text file as example and as reference for testing
-- Total execution time counter
-
 #memo for testing purposes
 DNA sequence: http://www.ncbi.nlm.nih.gov/nuccore/NC_000074.6?report=genbank&from=3150922&to=3279649&strand=true
 
