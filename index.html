@@ -3,6 +3,7 @@
     <head>
       <title>DNA analyser</title>
       <meta charset="utf-8"/>
+      <script type="text/javascript" src="options.js"></script>
       <script type="text/javascript" src="loadsave.js"></script>
       <script type="text/javascript" src="dna-analyser.js"></script>
       <script type="text/javascript" src="dna-functions.js"></script>
@@ -24,10 +25,12 @@
       </br></br><b>Load example sequence </b></br><input id="loadexamplebutton" value="Load example" type="button" onclick="loadExample()"/>
     </br><b>Load sequence from text file</b></br><input id="loadfromfilebutton" type="file" onchange="loadFromFile()"/>
       </div>
+      <div>
+      <input type="button" id="optionsButton" value="Options" onclick="openOptions()"/></div>
      </div>
       <div id="results">
         <div id="formattedseq">
-          <p>Formatted sequence <input id="formattedseqbutton" type="button" value="Show" class="show" onclick="showHideButton(&quot;formattedseq&quot;,&quot;formattedseqbutton&quot;)"/></p>
+          <p>Sequence input <input id="formattedseqbutton" type="button" value="Show" class="show" onclick="showHideButton(&quot;formattedseq&quot;,&quot;formattedseqbutton&quot;)"/></p>
           <span id="formattedseqspan"></span>
         </div>
         <div id="nucleotidefreq">

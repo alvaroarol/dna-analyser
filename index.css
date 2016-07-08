@@ -41,6 +41,10 @@ border-width: 1px;
   width: 600px;
 }
 
+#formattedseq, #translatedseq1, #translatedseq2, #translatedseq3, #shorttranslatedseq1, #shorttranslatedseq2, #shorttranslatedseq3{
+  word-wrap: break-word;
+}
+
 #formattedseq, #nucleotidefreq, #cpgislands, #molweightDNA{
   display: none;
   border-bottom-style: solid;

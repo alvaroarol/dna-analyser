@@ -3,8 +3,11 @@ Analyses DNA sequences
 
 #Changelog
 
+08/07/2016
+- Added an options menu to restrict which functions should be ran
+
 06/07/2016
-- Added options to load an example sequence or to load a sequence from a local text file
+- Added the possibility to load an example sequence or to load a sequence from a local text file
 - Added a timer for execution time
 
 05/07/2016 - hugocartwright ( https://github.com/hugocartwright )
