@@ -3,6 +3,10 @@ Analyses DNA sequences
 
 #Changelog
 
+09/07/2016
+- Added reverse, complement and reverse-complement sequences
+- Warns you if remaining localStorage space is insufficient to save results
+
 08/07/2016
 - Added an options menu to restrict which functions should be ran
 

@@ -188,3 +188,29 @@ var molecularWeight = function(sequence){
 	}
 	return (totalWeight.toFixed(2));
 };
+
+//Returns reverse, complement and reverse-complement sequence
+var reverseComplement = function(sequence){
+  var reverse_complement = {
+    reverse : "",
+    complement : "",
+    reverse_complement : ""
+  };
+  var complement_nucleotides = {
+    "A" : "T",
+    "G" : "C",
+    "T" : "A",
+    "C" : "G"
+  };
+  //Reverse
+  reverse_complement.reverse = sequence.split("").reverse().join("");
+  //Complement
+  var complementArray = [];
+  for(var i = 0; i < sequence.length; i ++){
+    complementArray.push(complement_nucleotides[sequence[i]]);
+  }
+  reverse_complement.complement = complementArray.join("");
+  //Reverse complement
+  reverse_complement.reverse_complement = reverse_complement.complement.split("").reverse().join("");
+  return reverse_complement;
+};

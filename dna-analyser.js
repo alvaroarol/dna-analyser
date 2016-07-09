@@ -1,4 +1,4 @@
-//Formats the sequence for a better display
+//Formats the sequence for a better display with blocks of 10, line-breaks every 60 nucleotides and an index before each line
 var formatSequence = function(sequence){
   var spacedSequence = [];
   spacedSequence.push(Array(7).join("&nbsp") + 1 + " ");
@@ -54,19 +54,19 @@ var analyseDNA = function(){
   //Gets starting time (for execution time)
   var localTime = new Date();
   var startingTime = localTime.getTime();
-	//Gets submitted DNA sequence
+	//Gets submitted DNA sequence and formats it to have a continuous series of letters (removes numbers, blanks, hyphens, tabs and line breaks)
 	var submittedSequence = document.getElementById("DNA").value;
-	//Formats the sequence to have a continuous series of letters (removes numbers, blanks, hyphens, tabs and line breaks)
 	var formattedSequence = submittedSequence.split(/[0-9]|\s|\n|\t|\/|\-/g).join("").toUpperCase();
 	//If sequence hasn't got any non-nucleotide characters, analyse it
 	if(isSequenceValid(formattedSequence)){
-		//Analyse
+		//Sequence input
     if(options["Format DNA sequence"]){
 		  var formattedSequenceText = formatSequence(formattedSequence);
     }
     else{
       var formattedSequenceText = formattedSequence;
     }
+    //Nucleotide frequency
     if(options["Nucleotide frequency"]){
       var nucleotideFrequencies = nucleotideFrequency(formattedSequence);
       var nucleotideFrequenciesArray = [];
@@ -78,6 +78,7 @@ var analyseDNA = function(){
     else{
       nucleotideFrequenciesArray = "";
     }
+    //Molecular weight
     if(options["Molecular weight"]){
       var molWeightDNA = molecularWeight(formattedSequence);
       molWeightDNA = molWeightDNA + " Da (" + DaTokDa(molWeightDNA) + " kDa)";
@@ -85,6 +86,23 @@ var analyseDNA = function(){
     else{
       var molWeightDNA = "";
     }
+    //Reverse, complement and reverse-complement
+    if(options["Reverse-complement"]){
+      var reverseComplementText = reverseComplement(formattedSequence);
+      if(options["Format DNA sequence"]){
+        for(var elements in reverseComplementText){
+          reverseComplementText[elements] = formatSequence(reverseComplementText[elements]);
+        }
+      }
+    }
+    else{
+      var reverseComplementText = {
+        reverse : "",
+        complement : "",
+        reverse_complement : ""
+      };
+    }
+    //CpG islands
     if(options["CpG islands"]){
       var cpgIslands = findCpGIslands(formattedSequence);
   		var cpgIslandsText = [];
@@ -101,6 +119,7 @@ var analyseDNA = function(){
     else{
       cpgIslandsText = "";
     }
+    // Translation prediction, codon frequencies and possible proteins
     if(options["Translation prediction"]){
       var translatedSequences = [
   			translation(formattedSequence),
@@ -152,6 +171,9 @@ var analyseDNA = function(){
     writeToHtml(formattedSequenceText, "formattedseq");
 		writeToHtml(nucleotideFrequenciesArray, "nucleotidefreq");
 		writeToHtml(molWeightDNA, "molweightDNA");
+    writeToHtml(reverseComplementText.reverse, "reverse");
+    writeToHtml(reverseComplementText.complement, "complement");
+    writeToHtml(reverseComplementText.reverse_complement, "reverse-complement");
 		writeToHtml(cpgIslandsText, "cpgislands");
 		for(var i = 0; i < translatedSequencesText.length; i ++){
 			writeToHtml(translatedSequencesText[i], "translatedseq" + (i+1));

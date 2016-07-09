@@ -5,6 +5,7 @@ var options = {
   "Molecular weight" : true,
   "CpG islands" : true,
   "Translation prediction" : true,
+  "Reverse-complement" : true
 };
 
 var openOptions = function(){

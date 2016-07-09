@@ -8,14 +8,32 @@ var loadOldSaved = function(){
 	}
 };
 
+//Tests if localStorage still has enough space
+var testStorage = function(value) {
+  try{
+    localStorage.setItem("testRemainingSpace",value);
+		localStorage.removeItem("testRemainingSpace");
+    return true;
+  }
+	catch (e) {
+    return false;
+  }
+};
+
 //Saves the results locally
 var saveResults = function(){
-	var saveName = document.getElementById("savename").value;
-	if(saveName != ""){
-		localStorage.setItem(saveName,document.getElementById("results").outerHTML);
-		var option = document.createElement("option");
-		option.text = saveName;
-		document.getElementById("selectsave").add(option);
+	if(testStorage(document.getElementById("results").outerHTML)){
+		var saveName = document.getElementById("savename").value;
+		if(saveName != ""){
+			localStorage.setItem(saveName,document.getElementById("results").outerHTML);
+			var option = document.createElement("option");
+			option.text = saveName;
+			document.getElementById("selectsave").add(option);
+		}
+	}
+	else{
+		var storageUsed = (JSON.stringify(localStorage).length / (1024*1024)).toFixed(1);
+		alert("The results you are trying to save exceed the remaining local storage. \nUsed space : " + storageUsed + " MB. \nTry erasing older saves to free space.");
 	}
 };
 

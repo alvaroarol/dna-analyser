@@ -41,11 +41,11 @@ border-width: 1px;
   width: 600px;
 }
 
-#formattedseq, #translatedseq1, #translatedseq2, #translatedseq3, #shorttranslatedseq1, #shorttranslatedseq2, #shorttranslatedseq3{
+#formattedseq, #translatedseq1, #translatedseq2, #translatedseq3, #shorttranslatedseq1, #shorttranslatedseq2, #shorttranslatedseq3, #reverse, #complement, #reverse-complement{
   word-wrap: break-word;
 }
 
-#formattedseq, #nucleotidefreq, #cpgislands, #molweightDNA{
+#formattedseq, #nucleotidefreq, #cpgislands, #molweightDNA, #shorttranslatedseq3, #reverse-complement{
   display: none;
   border-bottom-style: solid;
   border-width: 1px;
@@ -56,36 +56,31 @@ border-width: 1px;
 }
 
 
-#translatedseq1, #translatedseq2, #translatedseq3, #codonfreq1, #codonfreq2, #codonfreq3, #shorttranslatedseq1, #shorttranslatedseq2, #shorttranslatedseq3{
+#translatedseq1, #translatedseq2, #translatedseq3, #codonfreq1, #codonfreq2, #codonfreq3, #shorttranslatedseq1, #shorttranslatedseq2, #reverse, #complement{
   display: none;
 }
 
-#shorttranslatedseq3{
-  border-bottom-style: solid;
-  border-width: 1px;
-}
-
-#shorttranslatedseq3 span{
+#shorttranslatedseq3 span, #reverse-complement span{
   padding-bottom: 10px;
 }
 
-#formattedseqspan, #nucleotidefreqspan, #cpgislandsspan, #molweightDNAspan, #codonfreq1span, #codonfreq2span, #codonfreq3span, #shorttranslatedseq1span, #shorttranslatedseq2span, #shorttranslatedseq3span, #translatedseq1span, #translatedseq2span, #translatedseq3span{
+#formattedseqspan, #nucleotidefreqspan, #cpgislandsspan, #molweightDNAspan, #codonfreq1span, #codonfreq2span, #codonfreq3span, #shorttranslatedseq1span, #shorttranslatedseq2span, #shorttranslatedseq3span, #translatedseq1span, #translatedseq2span, #translatedseq3span, #reversespan, #complementspan, #reverse-complementspan{
   font-family: monospace;
   display: none;
 }
 
 #formattedseq p, #nucleotidefreq p, #cpgislands p, #molweightDNA p, #translatedseq1 p, #translatedseq2 p, #translatedseq3 p{
   font-weight: bold;
-  font-size: 18px;
+  font-size: 15px;
 }
 
-#codonfreq1 p, #codonfreq2 p, #codonfreq3 p, #shorttranslatedseq1 p, #shorttranslatedseq2 p, #shorttranslatedseq3 p{
+#codonfreq1 p, #codonfreq2 p, #codonfreq3 p, #shorttranslatedseq1 p, #shorttranslatedseq2 p, #shorttranslatedseq3 p, #reverse p, #complement p, #reverse-complement p{
   font-weight: bold;
   padding-left: 10px;
   border-left-style: solid;
   border-left-width: 1px;
 }
 
-#codonfreq1span, #codonfreq2span, #codonfreq3span, #shorttranslatedseq1span, #shorttranslatedseq2span, #shorttranslatedseq3span{
+#codonfreq1span, #codonfreq2span, #codonfreq3span, #shorttranslatedseq1span, #shorttranslatedseq2span, #shorttranslatedseq3span, #reversespan, #complementspan, #reverse-complementspan{
   padding-left: 10px;
 }
