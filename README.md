@@ -3,6 +3,9 @@ Analyses DNA sequences
 
 #Changelog
 
+11/07/2016
+- Changed the "Options" menu to be on the same main page instead of opening a new window/tab
+
 09/07/2016
 - Added reverse, complement and reverse-complement sequences
 - Warns you if remaining localStorage space is insufficient to save results

@@ -1,3 +1,8 @@
+body{
+  font-family: "calibri";
+  font-size: 15px;
+}
+
 #input{
   display: flex;
   min-width: 600px;
@@ -17,14 +22,25 @@
 }
 
 #saveload{
-  position: relative;
-  top: 100px;
-  left:50px;
+  margin-top: 100px;
+  margin-left: 30px;
   min-width: 300px;
 }
 
 #selectsave{
   min-width : 150px;
+}
+
+#options{
+  margin-top: 20px;
+}
+
+#options input{
+  margin-top : 10px;
+}
+
+#checkBoxDiv{
+  display: none;
 }
 
 #hr{
@@ -37,7 +53,7 @@ border-width: 1px;
 }
 
 #DNA{
-  height: 300px;
+  height: 450px;
   width: 600px;
 }
 
@@ -66,12 +82,12 @@ border-width: 1px;
 
 #formattedseqspan, #nucleotidefreqspan, #cpgislandsspan, #molweightDNAspan, #codonfreq1span, #codonfreq2span, #codonfreq3span, #shorttranslatedseq1span, #shorttranslatedseq2span, #shorttranslatedseq3span, #translatedseq1span, #translatedseq2span, #translatedseq3span, #reversespan, #complementspan, #reverse-complementspan{
   font-family: monospace;
+  font-size: 13px;
   display: none;
 }
 
 #formattedseq p, #nucleotidefreq p, #cpgislands p, #molweightDNA p, #translatedseq1 p, #translatedseq2 p, #translatedseq3 p{
   font-weight: bold;
-  font-size: 15px;
 }
 
 #codonfreq1 p, #codonfreq2 p, #codonfreq3 p, #shorttranslatedseq1 p, #shorttranslatedseq2 p, #shorttranslatedseq3 p, #reverse p, #complement p, #reverse-complement p{

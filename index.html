@@ -3,8 +3,8 @@
     <head>
       <title>DNA analyser</title>
       <meta charset="utf-8"/>
-      <script type="text/javascript" src="options.js"></script>
       <script type="text/javascript" src="loadsave.js"></script>
+      <script type="text/javascript" src="options.js"></script>
       <script type="text/javascript" src="dna-analyser.js"></script>
       <script type="text/javascript" src="dna-functions.js"></script>
       <link rel="stylesheet" type="text/css" href="index.css"/>
@@ -22,11 +22,22 @@
         Name : <input type="text" id="savename"> <input type="button" id="savebutton" value="Save" onclick="saveResults()"></br></br>
         Saved entries<br/>
         <select id="selectsave"></select> <input type="button" id="loadbutton" value="Load" onclick="loadResults()"> <input type="button" id="deletebutton" value="Erase entry" onclick="deleteEntry()">
-      </br></br><b>Load example sequence </b></br><input id="loadexamplebutton" value="Load example" type="button" onclick="loadExample()"/>
-    </br><b>Load sequence from text file</b></br><input id="loadfromfilebutton" type="file" onchange="loadFromFile()"/>
+        </br></br><b>Load example sequence </b></br><input id="loadexamplebutton" value="Load example" type="button" onclick="loadExample()"/>
+        </br><b>Load sequence from text file</b></br><input id="loadfromfilebutton" type="file" onchange="loadFromFile()"/>
+        <div id="options">
+          <input type="button" id="optionsButton" value="Options" onclick="openOptions()"/>
+          <div id="checkBoxDiv">
+            Format DNA sequence <input type="checkbox" id="formatDNA"/></br>
+            Format protein sequence <input type="checkbox" id="formatProt"/><br/>
+            Nucleotide frequency <input type="checkbox" id="nuclFreq"/><br/>
+            Molecular weight <input type="checkbox" id="molWeight"/><br/>
+            CpG Islands <input type="checkbox" id="cpg"/><br/>
+            Translation prediction <input type="checkbox" id="translation"/><br/>
+            Reverse-complement <input type="checkbox" id="revComp"/><br/>
+            <input type="button" value="Save" onclick="closeOptions()"/>
+          </div>
+        </div>
       </div>
-      <div>
-      <input type="button" id="optionsButton" value="Options" onclick="openOptions()"/></div>
      </div>
       <div id="results">
         <div id="formattedseq">
