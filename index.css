@@ -16,7 +16,7 @@ body{
   height: 50px;
 }
 
-#loadexamplebutton, #loadfromfilebutton{
+#loadexamplebutton, #loadfromfilebutton, #downloadbutton, #savebutton, #loadbutton, #deletebutton, #optionsbutton, #saveoptionsbutton{
   margin-top: 5px;
   margin-bottom: 10px;
 }
@@ -24,19 +24,11 @@ body{
 #saveload{
   margin-top: 100px;
   margin-left: 30px;
-  min-width: 300px;
+  min-width: 400px;
 }
 
 #selectsave{
   min-width : 150px;
-}
-
-#options{
-  margin-top: 20px;
-}
-
-#options input{
-  margin-top : 10px;
 }
 
 #checkBoxDiv{
@@ -48,7 +40,7 @@ width: 550px;
 margin-left: 0px;
 margin-top: 5px;
 margin-bottom: 5px;
-border-style: dotted;;
+border-style: dotted;
 border-width: 1px;
 }
 

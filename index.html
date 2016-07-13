@@ -3,38 +3,41 @@
     <head>
       <title>DNA analyser</title>
       <meta charset="utf-8"/>
-      <script type="text/javascript" src="loadsave.js"></script>
-      <script type="text/javascript" src="options.js"></script>
-      <script type="text/javascript" src="dna-analyser.js"></script>
-      <script type="text/javascript" src="dna-functions.js"></script>
+      <script type="text/javascript" src="js/loadsave.js"></script>
+      <script type="text/javascript" src="js/options.js"></script>
+      <script type="text/javascript" src="js/download.js"></script>
+      <script type="text/javascript" src="js/main.js"></script>
+      <script type="text/javascript" src="js/dna-functions.js"></script>
       <link rel="stylesheet" type="text/css" href="index.css"/>
     </head>
     <body onload="loadOldSaved()">
       <div id="input">
       <form>
         <p>Introduce your DNA sequence in the following box.<br/>Only formats containing A,T,G,C, blanks, line breaks, hypens and numbers are accepted.<br/>(for example FASTA or GenBank formats)<br/>A STOP codon is represented by a * in the translated sequences</p>
-        <textarea id="DNA"></textarea></br>
+        <textarea id="DNA"></textarea><br/>
         <input id="analysebutton" value="Analyse" type="button" onclick="analyseDNA()"/>
         <div id="timer"></div>
       </form>
       <div id="saveload">
-        <b>Save results in local memory</b><br/><br/>
-        Name : <input type="text" id="savename"> <input type="button" id="savebutton" value="Save" onclick="saveResults()"></br></br>
-        Saved entries<br/>
-        <select id="selectsave"></select> <input type="button" id="loadbutton" value="Load" onclick="loadResults()"> <input type="button" id="deletebutton" value="Erase entry" onclick="deleteEntry()">
-        </br></br><b>Load example sequence </b></br><input id="loadexamplebutton" value="Load example" type="button" onclick="loadExample()"/>
-        </br><b>Load sequence from text file</b></br><input id="loadfromfilebutton" type="file" onchange="loadFromFile()"/>
+        <b>Save results to html file</b><br/>
+        <input type="button" value="Download" onclick="downloadResults()" id="downloadbutton"/><br/>
+        <b>Save results in local memory</b><br/>
+        Name : <input type="text" id="savename"> <input type="button" id="savebutton" value="Save" onclick="saveResults()"><br/>
+        Saved entries : <select id="selectsave"></select> <input type="button" id="loadbutton" value="Load" onclick="loadResults()"> <input type="button" id="deletebutton" value="Erase entry" onclick="deleteEntry()"><br/>
+        <b>Load example sequence </b><br/><input id="loadexamplebutton" value="Load example" type="button" onclick="loadExample()"/><br/>
+        <b>Load sequence from text file</b><br/><input id="loadfromfilebutton" type="file" onchange="loadFromFile()"/>
         <div id="options">
-          <input type="button" id="optionsButton" value="Options" onclick="openOptions()"/>
+          <b>Options</b><br/>
+          <input type="button" id="optionsbutton" value="Options" onclick="openOptions()"/>
           <div id="checkBoxDiv">
-            Format DNA sequence <input type="checkbox" id="formatDNA"/></br>
+            Format DNA sequence <input type="checkbox" id="formatDNA"/><br/>
             Format protein sequence <input type="checkbox" id="formatProt"/><br/>
             Nucleotide frequency <input type="checkbox" id="nuclFreq"/><br/>
             Molecular weight <input type="checkbox" id="molWeight"/><br/>
             CpG Islands <input type="checkbox" id="cpg"/><br/>
             Translation prediction <input type="checkbox" id="translation"/><br/>
             Reverse-complement <input type="checkbox" id="revComp"/><br/>
-            <input type="button" value="Save" onclick="closeOptions()"/>
+            <input type="button" value="Save" id="saveoptionsbutton" onclick="closeOptions()"/>
           </div>
         </div>
       </div>

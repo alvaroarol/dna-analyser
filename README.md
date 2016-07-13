@@ -3,6 +3,10 @@ Analyses DNA sequences
 
 #Changelog
 
+13/07/2016
+- Added possibility to save results to an html file
+- Bundled the js files in a separate folder and renamed dna-analyser.js to main.js to avoid confusions
+
 11/07/2016
 - Changed the "Options" menu to be on the same main page instead of opening a new window/tab
 
