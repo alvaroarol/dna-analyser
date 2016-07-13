@@ -42,7 +42,7 @@ var loadResults = function(){
 	var loadName = document.getElementById("selectsave").value;
 	if(loadName != ""){
 		var openWindow = window.open();
-		openWindow.document.write("<script type=\"text/javascript\" src=\"dna-analyser.js\"></script><link rel=\"stylesheet\" type=\"text/css\" href=\"index.css\"/>");
+		openWindow.document.write("<script type=\"text/javascript\" src=\"js/main.js\"></script><link rel=\"stylesheet\" type=\"text/css\" href=\"index.css\"/>");
 		openWindow.document.write("<div><h1>" + loadName + "</h1></div>");
 		openWindow.document.write(localStorage.getItem(loadName));
 	}
