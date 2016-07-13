@@ -17,7 +17,7 @@ var formatForDownload = function(){
   "</script>"
   ]
   //Add css style
-  results.push("<style>body{font-family:monospace;}p{font-family:\"calibri\";font-weight:bold;}#hr{width:550px;margin-left:0px;margin-top:5px;margin-bottom:5px;border-style:dotted;border-width:1px;}#formattedseq,#nucleotidefreq,#cpgislands,#molweightDNA,#shorttranslatedseq3,#reverse-complement{border-bottom-style:solid;border-width:1px;}</style>");
+  results.push("<style>body{font-family:monospace;}p{font-family:\"calibri\";font-weight:bold;}#hr{width:550px;margin-left:0px;margin-top:5px;margin-bottom:5px;border-style:dotted;border-width:1px;}#formattedseq,#nucleotidefreq,#cpgislands,#molweightDNA,#shorttranslatedseq3,#reverse-complement{border-bottom-style:solid;border-width:1px;}#formattedseq,#translatedseq1,#translatedseq2,#translatedseq3,#shorttranslatedseq1,#shorttranslatedseq2,#shorttranslatedseq3,#reverse,#complement,#reverse-complement{word-wrap:break-word;}</style>");
   //Add results
   results.push(document.getElementById("results").outerHTML);
   var resultsArray = [results.join("")];
