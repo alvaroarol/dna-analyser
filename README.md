@@ -4,7 +4,7 @@ Analyses DNA sequences
 #Changelog
 
 15/07/2016
-- Fixed "Download to html file" not working on Firefox because of inexistent click() function on <a> elements
+- Fixed "Download to html file" not working on Firefox because of inexistent click() function on \<a\> elements
 
 13/07/2016
 - Added possibility to save results to an html file
