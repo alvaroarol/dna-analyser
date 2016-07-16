@@ -3,6 +3,9 @@ Analyses DNA sequences
 
 #Changelog
 
+16/07/2016
+- Added graphs to the nucleotide and codon frequencies for a better visualisation
+
 15/07/2016
 - Fixed "Download to html file" not working on Firefox because of inexistent click() function on <a> elements
 
