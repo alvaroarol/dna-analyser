@@ -49,16 +49,21 @@ var showHideButton = function(divId,buttonId){
 	}
 };
 
-//Main function
+/////////////////
+//Main function//
+////////////////
 var analyseDNA = function(){
   //Gets starting time (for execution time)
   var localTime = new Date();
   var startingTime = localTime.getTime();
+
 	//Gets submitted DNA sequence and formats it to have a continuous series of letters (removes numbers, blanks, hyphens, tabs and line breaks)
 	var submittedSequence = document.getElementById("DNA").value;
 	var formattedSequence = submittedSequence.split(/[0-9]|\s|\n|\t|\/|\-/g).join("").toUpperCase();
+
 	//If sequence hasn't got any non-nucleotide characters, analyse it
 	if(isSequenceValid(formattedSequence)){
+
 		//Sequence input
     if(options["formatDNA"]){
 		  var formattedSequenceText = formatSequence(formattedSequence);
@@ -66,6 +71,7 @@ var analyseDNA = function(){
     else{
       var formattedSequenceText = formattedSequence;
     }
+
     //Nucleotide frequency
     if(options["nuclFreq"]){
       var nucleotideFrequencies = nucleotideFrequency(formattedSequence);
@@ -78,6 +84,7 @@ var analyseDNA = function(){
     else{
       nucleotideFrequenciesArray = "";
     }
+
     //Molecular weight
     if(options["molWeight"]){
       var molWeightDNA = molecularWeight(formattedSequence);
@@ -86,6 +93,7 @@ var analyseDNA = function(){
     else{
       var molWeightDNA = "";
     }
+
     //Reverse, complement and reverse-complement
     if(options["revComp"]){
       var reverseComplementText = reverseComplement(formattedSequence);
@@ -102,6 +110,7 @@ var analyseDNA = function(){
         reverse_complement : ""
       };
     }
+
     //CpG islands
     if(options["cpg"]){
       var cpgIslands = findCpGIslands(formattedSequence);
@@ -119,6 +128,7 @@ var analyseDNA = function(){
     else{
       cpgIslandsText = "";
     }
+
     // Translation prediction, codon frequencies and possible proteins
     if(options["translation"]){
       var translatedSequences = [
@@ -167,10 +177,11 @@ var analyseDNA = function(){
         codonFrequenciesText = ["","",""];
         possibleProteinText = ["","",""];
     }
+
 		//Display results on the page
     writeToHtml(formattedSequenceText, "formattedseq");
 		writeToHtml(nucleotideFrequenciesArray, "nucleotidefreq");
-    drawFrequencies(nucleotideFrequencies,"nucleotidefreq");
+    drawFrequencies(nucleotideFrequencies,"nucleotidefreq",document.getElementById("orderGraph").checked);
 		writeToHtml(molWeightDNA, "molweightDNA");
     writeToHtml(reverseComplementText.reverse, "reverse");
     writeToHtml(reverseComplementText.complement, "complement");
@@ -179,14 +190,16 @@ var analyseDNA = function(){
 		for(var i = 0; i < translatedSequencesText.length; i ++){
 			writeToHtml(translatedSequencesText[i], "translatedseq" + (i+1));
 			writeToHtml(codonFrequenciesText[i], "codonfreq" + (i+1));
-      drawFrequencies(codonFrequencies[i],"codonfreq" + (i+1));
+      drawFrequencies(codonFrequencies[i],"codonfreq" + (i+1),document.getElementById("orderGraph").checked);
 			writeToHtml(possibleProteinText[i], "shorttranslatedseq" + (i+1));
 		}
+
     //Gets ending time and computes total execution time
     var localTime = new Date();
     var endingTime = localTime.getTime();
     document.getElementById("timer").innerHTML = "Execution time : <br/>" + ((endingTime - startingTime) / 1000) + " s";
 	}
+
 	//If there are non-nucleotide characters, abort and warn user
 	else{
 		alert("The sequence contains at least one forbidden character! (See description above input box)");

@@ -5,7 +5,8 @@ var options = {
   "molWeight" : true,
   "cpg" : true,
   "translation" : true,
-  "revComp" : true
+  "revComp" : true,
+  "orderGraph" : true
 };
 
 var openOptions = function(){

@@ -43,8 +43,8 @@ var codonTable = {
 var isSequenceValid = function(sequence){
 	for(var i = 0; i < sequence.length; i ++){
 		if (!Object.keys(DNAchars).includes(sequence[i])){
-			return false;
-		}
+      return false;
+    }
 	}
 	return true;
 };
@@ -96,8 +96,8 @@ var translationShort = function (codonseq){
 		}
 		//Else, find the STOP codon of the current protein
 		else{
-			end = a.indexOf("*");
-		}
+      end = a.indexOf("*");
+    }
 		//Add the protein found from M to STOP into the protein array
 		b = a.slice(0, end);
 		codons.push(b.join(""));
