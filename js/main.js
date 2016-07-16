@@ -181,7 +181,7 @@ var analyseDNA = function(){
 		//Display results on the page
     writeToHtml(formattedSequenceText, "formattedseq");
 		writeToHtml(nucleotideFrequenciesArray, "nucleotidefreq");
-    drawFrequencies(nucleotideFrequencies,"nucleotidefreq",document.getElementById("orderGraph").checked);
+    drawFrequencies(nucleotideFrequencies,"nucleotidefreq",options["orderGraph"]);
 		writeToHtml(molWeightDNA, "molweightDNA");
     writeToHtml(reverseComplementText.reverse, "reverse");
     writeToHtml(reverseComplementText.complement, "complement");
@@ -190,7 +190,7 @@ var analyseDNA = function(){
 		for(var i = 0; i < translatedSequencesText.length; i ++){
 			writeToHtml(translatedSequencesText[i], "translatedseq" + (i+1));
 			writeToHtml(codonFrequenciesText[i], "codonfreq" + (i+1));
-      drawFrequencies(codonFrequencies[i],"codonfreq" + (i+1),document.getElementById("orderGraph").checked);
+      drawFrequencies(codonFrequencies[i],"codonfreq" + (i+1),options["orderGraph"]);
 			writeToHtml(possibleProteinText[i], "shorttranslatedseq" + (i+1));
 		}
 
