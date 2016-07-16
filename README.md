@@ -5,6 +5,7 @@ Analyses DNA sequences
 
 16/07/2016
 - Added graphs to the nucleotide and codon frequencies for a better visualisation
+- Added option to order histogram bars by decreasing value
 
 15/07/2016
 - Fixed "Download to html file" not working on Firefox because of inexistent click() function on <a> elements
