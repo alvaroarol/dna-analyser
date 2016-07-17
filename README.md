@@ -3,6 +3,11 @@ Analyses DNA sequences
 
 #Changelog
 
+17/07/2016
+- Improved page design
+- Frequencies graphs now shows highest value in red
+- Fixed a few bugs in the graphics function
+
 16/07/2016
 - Added graphs to the nucleotide and codon frequencies for a better visualisation
 - Added option to order histogram bars by decreasing value

@@ -1,38 +1,127 @@
 body{
-  font-family: "calibri";
+  font-family: Calibri;
   font-size: 15px;
+  display: block;
 }
 
-#input{
+#banner{
+  width: 100%;
+  background-color: lightblue;
   display: flex;
-  min-width: 600px;
-  border-bottom-style: solid;
-  border-bottom-width: 1px;
-  padding-bottom: 10px;
 }
 
-#analysebutton{
-  float:right;
-  height: 50px;
+#banner p{
+  font-size: 40px;
+  font-family: monospace;
+  margin: 0px;
+  position: relative;
+  left: 250px;
 }
 
-#loadexamplebutton, #loadfromfilebutton, #downloadbutton, #savebutton, #loadbutton, #deletebutton, #optionsbutton, #saveoptionsbutton{
+#main{
+  display: flex;
+}
+
+#left-col{
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-right: 20px;
+  width: 200px;
+  background-color: lightblue;
+  text-align: center;
+}
+
+.menutitle{
+  background-color : blue;
+  color: white;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+  margin-top: 0px;
+  width: 230px;
+  position: relative;
+  left: -15px;
+  text-align: center;
+}
+
+.iobutton{
   margin-top: 5px;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
+  border: none;
+  background-color: #008CBA;
+  color: white;
+  width: 200px;
+  height: 25px;
 }
 
-#saveload{
-  margin-top: 100px;
-  margin-left: 30px;
-  min-width: 400px;
+.separator{
+  height: 1px;
+  background-color: grey;
+  width: 230px;
+  position: relative;
+  left: -15px;
+}
+
+#savename{
+  width: 195px;
+  color: grey;
+  text-align: center;
+  margin-top: 5px;
 }
 
 #selectsave{
-  min-width : 150px;
+  width: 200px;
+  color: grey;
+  text-align: center;
+  margin-top: 5px;
 }
 
-#checkBoxDiv, #loading{
-  display: none;
+#loadfiletext{
+  margin-bottom: 0px;
+  margin-top: 5px;
+  padding-top: 5px;
+  background-color: #008CBA;
+  color: white;
+  width: 200px;
+  height: 25px;
+}
+
+#loadfromfilebutton{
+  margin-top: 0px;
+  padding-left: 5px;
+  padding-bottom: 5px;
+  width: 195px;
+}
+
+#input{
+  min-width: 600px;
+  padding-bottom: 10px;
+}
+
+#DNA{
+  height: 450px;
+  width: 600px;
+  color: grey;
+}
+
+#analysebutton{
+  height: 30px;
+}
+
+#timer{
+  vertical-align: middle;
+  position: relative;
+  left: 350px;
+  color: grey;
+}
+
+#results{
+  max-width: 600px;
+}
+
+#formattedseq{
+  border-top-style: solid;
+  border-top-width: 1px;
 }
 
 #hr{
@@ -44,17 +133,28 @@ border-style: dotted;
 border-width: 1px;
 }
 
-#DNA{
-  height: 450px;
-  width: 600px;
+.hide{
+  display: none;
 }
 
-#formattedseq, #translatedseq1, #translatedseq2, #translatedseq3, #shorttranslatedseq1, #shorttranslatedseq2, #shorttranslatedseq3, #reverse, #complement, #reverse-complement{
+.showbutton, .hidebutton{
+  background-color: #008CBA;
+  color: #ffffff;
+  border: none;
+  text-decoration: none;
+}
+
+.break-word{
   word-wrap: break-word;
 }
 
-#formattedseq, #nucleotidefreq, #cpgislands, #molweightDNA, #shorttranslatedseq3, #reverse-complement{
+.monospace{
+  font-family: monospace;
+  font-size: 13px;
   display: none;
+}
+
+#formattedseq, #nucleotidefreq, #cpgislands, #molweightDNA, #shorttranslatedseq3, #reverse-complement{
   border-bottom-style: solid;
   border-width: 1px;
 }
@@ -63,19 +163,8 @@ border-width: 1px;
   padding-bottom: 20px;
 }
 
-
-#translatedseq1, #translatedseq2, #translatedseq3, #codonfreq1, #codonfreq2, #codonfreq3, #shorttranslatedseq1, #shorttranslatedseq2, #reverse, #complement{
-  display: none;
-}
-
 #shorttranslatedseq3 span, #reverse-complement span{
   padding-bottom: 10px;
-}
-
-#formattedseqspan, #nucleotidefreqspan, #cpgislandsspan, #molweightDNAspan, #codonfreq1span, #codonfreq2span, #codonfreq3span, #shorttranslatedseq1span, #shorttranslatedseq2span, #shorttranslatedseq3span, #translatedseq1span, #translatedseq2span, #translatedseq3span, #reversespan, #complementspan, #reverse-complementspan{
-  font-family: monospace;
-  font-size: 13px;
-  display: none;
 }
 
 #formattedseq p, #nucleotidefreq p, #cpgislands p, #molweightDNA p, #translatedseq1 p, #translatedseq2 p, #translatedseq3 p{
