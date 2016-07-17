@@ -1,4 +1,7 @@
 var drawFrequencies = function(object,id,order){
+  if(object === undefined){
+    return
+  }
   //Create canvas
   var canvas = document.createElement("canvas");
   var context = canvas.getContext("2d");
@@ -26,8 +29,11 @@ var drawFrequencies = function(object,id,order){
   //Draw the bars
   var keyCount = 0;
   for(var x in orderedArray){
-    //Percentages higher than 1/N(codons) are shown in deep blue, lower ones are shown in light blue
-    if((object[orderedArray[x]] * 100 / totalValueSum) > 100 / orderedArray.length){
+    //Percentages higher than 1/N(codons) are shown in deep blue, lower ones are shown in light blue, highest one in red
+    if(object[orderedArray[x]] === maxValue){
+      context.fillStyle = "red";
+    }
+    else if((object[orderedArray[x]] * 100 / totalValueSum) > 100 / orderedArray.length){
       context.fillStyle = "blue";
     }
     else{
@@ -51,6 +57,6 @@ var drawFrequencies = function(object,id,order){
   var dataURL = canvas.toDataURL("image/png");
   var canvasImage = document.createElement("img");
   canvasImage.src = dataURL;
-  document.getElementById(id + "span").innerHTML += "<br/>";
+  document.getElementById(id + "span").innerHTML += "<br/><br/>";
   document.getElementById(id + "span").appendChild(canvasImage);
 };

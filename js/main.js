@@ -26,7 +26,7 @@ var writeToHtml = function(result,divId){
 		document.getElementById(divId + "span").style.display = "none";
 		//Set the button values
 		document.getElementById(divId + "button").value = "Show";
-		document.getElementById(divId + "button").className = "show";
+		document.getElementById(divId + "button").className = "showbutton";
 		//Display the div
 		document.getElementById(divId).style.display = "block";
 	}
@@ -37,15 +37,15 @@ var writeToHtml = function(result,divId){
 
 //Switches the div and button between hide and show
 var showHideButton = function(divId,buttonId){
-	if(document.getElementById(buttonId).className === "show"){
+	if(document.getElementById(buttonId).className === "showbutton"){
 		document.getElementById(divId + "span").style.display = "block";
 		document.getElementById(buttonId).value = "Hide";
-		document.getElementById(buttonId).className = "hide";
+		document.getElementById(buttonId).className = "hidebutton";
 	}
 	else{
 		document.getElementById(divId + "span").style.display = "none";
 		document.getElementById(buttonId).value = "Show";
-		document.getElementById(buttonId).className = "show";
+		document.getElementById(buttonId).className = "showbutton";
 	}
 };
 
@@ -175,6 +175,7 @@ var analyseDNA = function(){
     else{
         translatedSequencesText = ["","",""];
         codonFrequenciesText = ["","",""];
+        codonFrequencies = ["","",""];
         possibleProteinText = ["","",""];
     }
 
@@ -197,7 +198,7 @@ var analyseDNA = function(){
     //Gets ending time and computes total execution time
     var localTime = new Date();
     var endingTime = localTime.getTime();
-    document.getElementById("timer").innerHTML = "Execution time : <br/>" + ((endingTime - startingTime) / 1000) + " s";
+    document.getElementById("timer").innerHTML = "Execution time : " + ((endingTime - startingTime) / 1000) + " s";
 	}
 
 	//If there are non-nucleotide characters, abort and warn user

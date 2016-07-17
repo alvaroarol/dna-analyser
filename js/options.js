@@ -9,18 +9,13 @@ var options = {
   "orderGraph" : true
 };
 
-var openOptions = function(){
-  document.getElementById("checkBoxDiv").style.display = "block";
+//Loads options into the checkboxes and adds an event listener that saves any change to the options object
+window.onload = function(){
   for(var i in options){
     var checkBox = document.getElementById(i);
     checkBox.checked = options[i];
-  }
-};
-
-var closeOptions = function(){
-  document.getElementById("checkBoxDiv").style.display = "none";
-  for(var i in options){
-    var checkBox = document.getElementById(i);
-    options[i] = checkBox.checked;
+    document.getElementById(i).addEventListener("click", function(){
+      options[this.id] = this.checked;
+    });
   }
 };

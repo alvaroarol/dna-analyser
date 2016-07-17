@@ -43,7 +43,7 @@ var loadResults = function(){
 	if(loadName != ""){
 		var openWindow = window.open();
 		openWindow.document.write("<script type=\"text/javascript\" src=\"js/main.js\"></script><link rel=\"stylesheet\" type=\"text/css\" href=\"index.css\"/>");
-		openWindow.document.write("<div><h1>" + loadName + "</h1></div>");
+		openWindow.document.write("<body style=\"display: block;\"><h1>" + loadName + "</h1></body>");
 		openWindow.document.write(localStorage.getItem(loadName));
 	}
 };
