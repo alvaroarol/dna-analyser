@@ -93,6 +93,10 @@ body{
   width: 195px;
 }
 
+#options{
+  text-align: left;
+}
+
 #input{
   min-width: 600px;
   padding-bottom: 10px;
