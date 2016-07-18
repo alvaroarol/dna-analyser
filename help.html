@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Help</title>
+    <link rel="stylesheet" type="text/css" href="help.css"/>
+  </head>
+  <body>
+    <div id="banner">
+      <img src="logo.png" height="40px"/><span>DNA Analyser</span>
+    </div>
+    <p class="category">General information</p>
+      <p class="title">Input</p>
+        <p class="explanation">The sequence can be in all majuscule letters, all minuscule letters or a mix of both. Common sequence formats are accepted such as FASTA, GenBank (containing indexes and spacing) or any personalised format as long as it only contains the letters ATGC, numbers, spacing, line breaks or hyphens.</p>
+      <p class="title">Analysis</p>
+        <p class="explanation">To launch an analysis, after inputting the sequence in the box, press the "Analyse" button below the box. If the sequence is particularly long, it might take some time. The longest functions to run are the translation prediction and, to a lesser extent, the CpG islands finder.</p>
+      <p class="title">Results display</p>
+        <p class="explanation">To mantain readability, results are collapsed into categories. To display any of the categories, click on the "show" button next to it. You can click again on the ("hide") button to collapse those results again.</p>
+      <p class="title">DNA/translated sequences encoding</p>
+        <p class="explanation">DNA encoding uses the 4 letters ATGC:</p>
+          <div id="nucleotides">
+            A : Adenosine<br/>
+            T : Thymine<br/>
+            G : Guanine<br/>
+            C : Cytosine<br/><br/>
+          </div>
+          <p class="explanation">If "format DNA" is selected in the options, additional formatting adds line breaks every 60 nucleotides, spacing every 10 nucleotides and an index before each line.<br/><br/>
+          Translated sequences encoding uses one letter notation for each amino acid :</p>
+          <div id="codons">
+          <p>
+            A : Alanine<br/>
+            C : Cysteine<br/>
+            D : Aspartic Acid <br/>
+            E : Glutamic Acid<br/>
+            F : Phenylalanine<br/>
+            G : Glycine<br/>
+            H : Histidine<br/>
+            I : Isoleucine<br/>
+            K : Lysine<br/>
+            L : Leucine</p>
+          <p>
+            M : Methionine<br/>
+            N : Asparagine<br/>
+            P : Proline<br/>
+            Q : Glutamine<br/>
+            R : Arginine<br/>
+            S : Serine<br/>
+            T : Threonine<br/>
+            V : Valine<br/>
+            W : Tryptophan<br/>
+            Y : Tyrosine</p>
+          <p>
+            * : STOP codon</p>
+          </div>
+    <p class="category">Results</p>
+      <p class="title">Sequence input</p>
+        <p class="explanation">Shows the input sequence after formatting.</p>
+        <p class="title">Nucleotide frequencies</p>
+          <p class="explanation">Shows the frequency of each nucleotide. If the option "Order histogram bars by decreasing values" is checked, the graph will be ordered by decreasing frequencies. Highest frequency is coloured in red, higher than 25% in dark blue and lower than 25% in light blue.</p>
+        <p class="title">Molecular Weight</p>
+          <p class="explanation">Gives the total molecular weight of the DNA sequence in Daltons (Da) and kiloDaltons (kDa) between brackets. Individual weight for each nucleotide is as follows:</p>
+          <div id="molecularweight">
+          	A : 330.22 Da<br/>
+          	T : 321.21 Da<br/>
+          	G : 346.22 Da<br/>
+          	C : 306.19 Da<br/>
+          </div>
+        <p class="title">Reverse/complement sequence</p>
+          <p class="explanation">Gives the reverse, the complement and the reverse-complement of the DNA sequence.</p>
+        <p class="title">CpG islands</p>
+          <p class="explanation">Gives the regions of the DNA sequence that can be identified as CpG regions. These regions are richer than expected in CpG dimers in comparison to what is expected and the quantity of C/G nucleotides. A CpG island is exactly defined as a 200 nucleotide interval that has a G/C content higher than 50% and a ratio of observed/expected CpG dimers higher than 60%. Expected CpG dimers is calculated by multiplying the number of C by the number of G then dividing by 200.<br/>
+          Note that directly adjacent CpG islands will not be listed separately but rather put together.</p>
+        <p class="title">Translation prediction</p>
+          <p class="explanation">This category predicts the translation of the DNA sequence by comparing it to the table of codon correspondence for each amino-acid (see above for amino-acid one letter notation):<br/>
+            <div id="translation">
+            F : TTT or TTC<br/>
+          	L : TTA or TTG or CTT or CTC or CTA or CTG<br/>
+          	I : ATT or ATC or ATA<br/>
+          	M : ATG<br/>
+          	V : GTT or GTC or GTA or GTG<br/>
+          	S : TCT or TCC or TCA or TCG or AGT or AGC<br/>
+          	P : CCT or CCC or CCA or CCG<br/>
+          	T : ACT or ACC or ACA or ACG<br/>
+          	A : GCT or GCC or GCA or GCG<br/>
+          	Y : TAT or TAC<br/>
+          	* : TAA or TAG or TGA<br/>
+          	H : CAT or CAC<br/>
+          	Q : CAA or CAG<br/>
+          	N : AAT or AAC<br/>
+          	K : AAA or AAG<br/>
+          	D : GAT or GAC<br/>
+          	E : GAA or GAG<br/>
+          	C : TGT or TGC<br/>
+          	W : TGG<br/>
+          	R : CGT or CGC or CGA or CGG or AGA or AGG<br/>
+          	G : GGT or GGC or GGA or GGG
+            </div><br/>
+            <p class="explanation">Three translation predictions are made, starting at each reading frame position.</p>
+            <p class="explanation">For each translation, the frequencies of each codon are counted. If the option "Order histogram bars by decreasing values" is checked, the graph will be ordered by decreasing frequencies. Highest frequency is coloured in red, higher than average in dark blue and lower than average in light blue.</p>
+            <p class="explanation">Additionaly, a list of possible proteins, encoded between a start codon (M) and a stop codon (*), are displayed. Note that if protein formatting is checked in the options, the indexes before each line do not mean the position of the codons on the entire translation prediction but rather the position within the concerned "possible" protein.
+          </p>
+    <p class="category">Save & Load</p>
+      <p class="title">Save results to html file</p>
+        <p class="explanation">Saves the displayed results, "as is", into an html file and downloads it to the computer. Can be viewed offline later directly on the browser.</p>
+      <p class="title">Save results in local memory</p>
+        <p class="explanation">Saves the displayed results, "as is", into the HTML5 local storage of the browser. The name of the save can be set in the textbox above the button. These results can be later retrieved (see "Load from local memory" below). Local storage has a space limit of 5MB on most browsers. When full, try erasing some results (see "Erase from local memory" below).<br/>
+        <span style="color:red"><b>Warning :</b></span> This functionality is not yet supported on Internet Explorer.</p>
+      <p class="title">Load/Erase results from local memory</p>
+        <p class="explanation">These two buttons allow for management of local storage stored results. "Load results from local memory" will load the results selected in the dropdown menu, on a new tab of the browser. "Erase results from local memory" will permanently delete the results selected in the dropdown menu.</p>
+      <p class="title">Load example sequence</p>
+        <p class="explanation">Loads an example sequence in the input textarea. It can then be analysed by clicking the "Analyse" button.</p>
+      <p class="title">Load sequence from text file</p>
+        <p class="explanation">If the sequence you want to analyse is stored in a text file (.txt for example), it can be loaded into the textarea with this button. The sequence can then be analysed with the "Analyse" button. Note that the text file must exclusively contain a DNA sequence.</p>
+    <p class="category">Options</p>
+      <p class="title">Format DNA sequence</p>
+        <p class="explanation">If checked, formats the DNA sequence in "Sequence input", "Reverse sequence", "Complement sequence" and "Reverse complement sequence". This formatting adds spacing every 10 nucleotides, line breaks every 60 nucleotides and an index before each line. Otherwise, the sequences contain exclusively the four nucleotide letters (ATGC) likewise to the FASTA format.</p>
+      <p class="title">Format protein sequence</p>
+        <p class="explanation">If checked, formats the protein sequence in "Translation prediction from...", and "Possible proteins". This formatting adds spacing every 10 nucleotides, line breaks every 60 nucleotides and an index before each line. Otherwise, the sequences contain exclusively the codon representing letters (see above for a complete table).</p>
+      <p class="title">Order histogram bars by decreasing value</p>
+        <p class="explanation">If checked, the frequencies graphs bars (for nucleotides and codons) will be displayed in decreasing order, instead of order of first appearance in the sequence.</p>
+      <p class="title">Analysis functions</p>
+        <p class="explanation">
+          <b>Nucleotide frequency : </b>If checked, the frequency of nucleotides in the input sequence will be calculated.<br/><br/>
+          <b>Molecular weight : </b>If checked, the total molecular weight of the input sequence will be calculated.<br/><br/>
+          <b>CpG islands : </b>If checked, the eventual CpG islands present in the input sequence will be found.<br/><br/>
+          <b>Translation prediction : </b>If checked, the translation prediction will be computed, as well as its codons frequencies and the "possible" proteins.<br/><br/>
+          <b>Reverse-complement : </b>If checked, the reverse sequence, complement sequence and reverse complement sequence will be computed.
+        </p>
+      <p class="title">Select/Unselect all</p>
+        <p class="explanation">These buttons select or unselect the entire list of options.</p>
+  </body>
+</html>

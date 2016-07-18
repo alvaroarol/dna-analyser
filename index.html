@@ -6,13 +6,21 @@
       <script type="text/javascript" src="js/loadsave.js"></script>
       <script type="text/javascript" src="js/download.js"></script>
       <script type="text/javascript" src="js/graph.js"></script>
-      <script type="text/javascript" src="js/main.js"></script>
       <script type="text/javascript" src="js/dna-functions.js"></script>
       <link rel="stylesheet" type="text/css" href="index.css"/>
     </head>
     <body onload="loadOldSaved()">
     <div id="banner">
-      <p>DNA Analyser</p>
+      <img src="logo.png" height="40px"/><span>DNA Analyser</span>
+      <a href="help.html" target="_blank"><input type="button" value="Help" id="helpbutton"/></a>
+      <input type="button" value="About" id="aboutbutton" onclick="toggleAbout()"/>
+      <div id="about">
+        <input type="button" value="X" id="aboutclosebutton" onclick="toggleAbout()"/>
+        This program started as a way to learn javascript and general webpage creation. As time passed, I invested a bit more time into it and it turned out into an actual coding project of a collection of functions dedicated to the study of DNA sequences.<br/>
+        The use of javascript makes it easily accessible on most internet browsers and doesn't require any server work, apart from loading the page itself.<br/>
+        It doesn't use any external library so it remains lightweight and quick to load.<br/>
+        This page is hosted on <a href="http://www.github.io" target="_blank">GitHub Pages</a>.
+      </div>
     </div>
     <div id="main">
       <div id="left-col">
@@ -28,19 +36,21 @@
         <p id="loadfiletext">Load sequence from text file</p><input class="iobutton" id="loadfromfilebutton" type="file" value="Load sequence from text file" onchange="loadFromFile()"/>
         <p class="menutitle"> Options</p>
         <div id="options">
-          <input type="checkbox" id="formatDNA"/> Format DNA sequence<br/>
-          <input type="checkbox" id="formatProt"/> Format protein sequence<br/>
-          <input type="checkbox" id="nuclFreq"/> Nucleotide frequency<br/>
-          <input type="checkbox" id="molWeight"/> Molecular weight<br/>
-          <input type="checkbox" id="cpg"/> CpG Islands<br/>
-          <input type="checkbox" id="translation"/> Translation prediction<br/>
-          <input type="checkbox" id="revComp"/> Reverse-complement<br/>
-          <input type="checkbox" id="orderGraph"/> Order histogram bars by decreasing values<br/>
+          <input type="checkbox" class="checkbox" id="formatDNA"/> Format DNA sequence<br/>
+          <input type="checkbox" class="checkbox" id="formatProt"/> Format protein sequence<br/>
+          <input type="checkbox" class="checkbox" id="orderGraph"/> Order histogram bars by decreasing values<br/>
+          <input type="checkbox" class="checkbox" id="nuclFreq"/> Nucleotide frequency<br/>
+          <input type="checkbox" class="checkbox" id="molWeight"/> Molecular weight<br/>
+          <input type="checkbox" class="checkbox" id="cpg"/> CpG Islands<br/>
+          <input type="checkbox" class="checkbox" id="translation"/> Translation prediction<br/>
+          <input type="checkbox" class="checkbox" id="revComp"/> Reverse-complement<br/>
         </div>
+        <input class="iobutton" type="button" id="checkall" value="Select all" onclick="selectAll(1)"/>
+        <input class="iobutton" type="button" id="uncheckall" value="Unselect all" onclick="selectAll(0)"/>
       </div>
       <div id="right-col">
       <div id="input">
-        <p>Introduce your DNA sequence in the following box.<br/>Only formats containing A,T,G,C, blanks, line breaks, hypens and numbers are accepted. (for example FASTA or GenBank formats)<br/>A STOP codon is represented by a * in the translated sequences</p>
+        <p>Introduce your DNA sequence in the following box.</p>
         <textarea id="DNA"></textarea><br/>
         <input id="analysebutton" value="Analyse" type="button" onclick="analyseDNA()"/> <span id="timer"></span>
      </div>
@@ -113,5 +123,6 @@
     </div>
     </div>
     </body>
+    <script type="text/javascript" src="js/main.js"></script>
     <script type="text/javascript" src="js/options.js"></script>
   </html>

@@ -5,17 +5,62 @@ body{
 }
 
 #banner{
+  display: flex;
+  height: 40px;
   width: 100%;
   background-color: lightblue;
-  display: flex;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 5px;
 }
 
-#banner p{
-  font-size: 40px;
+#banner span{
   font-family: monospace;
-  margin: 0px;
+  font-size: 26px;
   position: relative;
-  left: 250px;
+  top: 5px;
+}
+
+#aboutbutton, #helpbutton{
+  background-color: #008CBA;
+  color: white;
+  padding: 10px;
+  font-family: Calibri;
+  font-size: 20px;
+  position: absolute;
+  top: 15px;
+  border: none;
+}
+
+#aboutbutton{
+  right: 25px;
+}
+
+#helpbutton{
+  right: 110px;
+}
+
+#about{
+  position: absolute;
+  right: 25px;
+  top: 75px;
+  z-index: 1;
+  background-color: lightblue;
+  border-style: solid;
+  border-color: #008CBA;
+  border-width: thin;
+  width: 400px;
+  padding: 20px;
+  text-align: justify;
+}
+
+#aboutclosebutton{
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  border: none;
+  background-color: #008CBA;
+  color: white;
 }
 
 #main{
@@ -60,6 +105,8 @@ body{
   width: 230px;
   position: relative;
   left: -15px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 #savename{
@@ -78,7 +125,7 @@ body{
 
 #loadfiletext{
   margin-bottom: 0px;
-  margin-top: 5px;
+  margin-top: 10px;
   padding-top: 5px;
   background-color: #008CBA;
   color: white;
@@ -88,6 +135,7 @@ body{
 
 #loadfromfilebutton{
   margin-top: 0px;
+  margin-bottom: 10px;
   padding-left: 5px;
   padding-bottom: 5px;
   width: 195px;

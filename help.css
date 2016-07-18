@@ -1,0 +1,65 @@
+body{
+  font-family: Calibri;
+  font-size: 15px;
+  display: block;
+}
+
+#banner{
+  display: flex;
+  height: 40px;
+  width: 100%;
+  background-color: lightblue;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 5px;
+}
+
+#banner span{
+  font-family: monospace;
+  font-size: 26px;
+  position: relative;
+  top: 5px;
+}
+
+.category{
+  padding-left: 20px;
+  font-weight: bold;
+  font-size: 20px;
+  background-color: #008CBA;
+  color: white;
+  width: 300px;
+}
+
+.title{
+  padding-left: 20px;
+  margin-left: 40px;
+  font-style: italic;
+  font-size: 18px;
+  background-color: lightblue;
+  width: 350px;
+}
+
+.explanation{
+  margin-top: 0px;
+  margin-left: 60px;
+  display: inline-block;
+  width: 800px;
+}
+
+#codons{
+  display: flex;
+  margin-left: 60px;
+}
+
+#codons p{
+  font-family: monospace;
+  font-size: 14px;
+  margin-top: 0px;
+  margin-left: 20px;
+}
+
+#nucleotides, #molecularweight, #translation{
+  margin-left: 80px;
+  font-family: monospace;
+  font-size: 14px;
+}

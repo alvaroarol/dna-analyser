@@ -3,6 +3,11 @@ Analyses DNA sequences
 
 #Changelog
 
+18/07/2016
+- Added "select all" and "unselect all" options buttons
+- Added "about" section and "help" page
+- Further design tweaks
+
 17/07/2016
 - Improved page design
 - Frequencies graphs now shows highest value in red
