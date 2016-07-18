@@ -13,7 +13,20 @@ var options = {
 for(var i in options){
   var checkBox = document.getElementById(i);
   checkBox.checked = options[i];
-  document.getElementById(i).addEventListener("click", function(){
+  checkBox.addEventListener("click", function(){
     options[this.id] = this.checked;
   });
 }
+
+var selectAll = function (x){
+  for(var i in options){
+    if(x){
+      document.getElementById(i).checked = true;
+      options[i] = true;
+    }
+    else{
+      document.getElementById(i).checked = false;
+      options[i] = false;
+    }
+  }
+};

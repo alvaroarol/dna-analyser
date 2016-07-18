@@ -122,7 +122,7 @@ var codonFreq = function(codonSequence){
   return codonCount;
 };
 
-//Finds CpG islands (200bp regions with GC content higher than 50% and a ratio of observed/expected CpG dimers higer than 60%)
+//Finds CpG islands (200bp regions with GC content higher than 50% and a ratio of observed/expected CpG dimers higher than 60%)
 var findCpGIslands = function(sequence){
 	//Checks if the sequence has at least 200 bp
 	if(sequence.length < 200){

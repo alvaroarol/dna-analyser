@@ -49,6 +49,17 @@ var showHideButton = function(divId,buttonId){
 	}
 };
 
+//Toggles the visibility of the about div when clicking the "about" button or the "x" close button
+document.getElementById("about").style.display = "none";
+var toggleAbout = function(){
+  if(document.getElementById("about").style.display === "none"){
+    document.getElementById("about").style.display = "block";
+  }
+  else{
+    document.getElementById("about").style.display = "none";
+  }
+};
+
 /////////////////
 //Main function//
 ////////////////
