@@ -7,8 +7,9 @@ body{
 #banner{
   display: flex;
   height: 40px;
-  width: 100%;
-  background-color: lightblue;
+  width: 900px;
+  background-color: #3c579d;
+  color: #ffffff;
   padding-top: 10px;
   padding-bottom: 10px;
   padding-left: 5px;
@@ -25,17 +26,19 @@ body{
   padding-left: 20px;
   font-weight: bold;
   font-size: 20px;
-  background-color: #008CBA;
-  color: white;
+  background-color: #3c579d;
+  color: #ffffff;
   width: 300px;
 }
 
 .title{
   padding-left: 20px;
+  margin-top: 25px;
+  margin-bottom: 10px;
   margin-left: 40px;
   font-style: italic;
   font-size: 18px;
-  background-color: lightblue;
+  background-color: lightgrey;
   width: 350px;
 }
 

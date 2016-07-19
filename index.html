@@ -10,8 +10,6 @@
       <link rel="stylesheet" type="text/css" href="index.css"/>
     </head>
     <body onload="loadOldSaved()">
-    <div id="banner">
-      <img src="logo.png" height="40px"/><span>DNA Analyser</span>
       <a href="help.html" target="_blank"><input type="button" value="Help" id="helpbutton"/></a>
       <input type="button" value="About" id="aboutbutton" onclick="toggleAbout()"/>
       <div id="about">
@@ -21,36 +19,40 @@
         It doesn't use any external library so it remains lightweight and quick to load.<br/>
         This page is hosted on <a href="http://www.github.io" target="_blank">GitHub Pages</a>.
       </div>
-    </div>
-    <div id="main">
       <div id="left-col">
+        <div id="logo"><img src="logo.png" height="40px"/> DNA Analyser</div>
         <p class="menutitle"> Save & Load</p>
+        <div id="saveload">
         <input type="button" value="Save results to html file" onclick="downloadResults()" class="iobutton" id="downloadbutton"/>
         <div class="separator"></div>
-        <input type="text" id="savename" value="Name"> <input type="button" class="iobutton" id="savebutton" value="Save results in local memory" onclick="saveResults()">
+        <input type="text" id="savename" value="Name">
+        <input type="button" class="iobutton" id="savebutton" value="Save results in local memory" onclick="saveResults()">
         <div class="separator"></div>
-        <select id="selectsave"></select> <input type="button" class="iobutton" id="loadbutton" value="Load from local memory" onclick="loadResults()"> <input type="button" class="iobutton" id="deletebutton" value="Erase from local memory" onclick="deleteEntry()">
+        <select id="selectsave"></select>
+        <input type="button" class="iobutton" id="loadbutton" value="Load from local memory" onclick="loadResults()">
+        <input type="button" class="iobutton" id="deletebutton" value="Erase from local memory" onclick="deleteEntry()">
         <div class="separator"></div>
         <input class="iobutton" id="loadexamplebutton" value="Load example sequence" type="button" onclick="loadExample()"/>
         <div class="separator"></div>
         <p id="loadfiletext">Load sequence from text file</p><input class="iobutton" id="loadfromfilebutton" type="file" value="Load sequence from text file" onchange="loadFromFile()"/>
+        </div>
         <p class="menutitle"> Options</p>
         <div id="options">
           <input type="checkbox" class="checkbox" id="formatDNA"/> Format DNA sequence<br/>
           <input type="checkbox" class="checkbox" id="formatProt"/> Format protein sequence<br/>
-          <input type="checkbox" class="checkbox" id="orderGraph"/> Order histogram bars by decreasing values<br/>
+          <input type="checkbox" class="checkbox" id="orderGraph"/> Order histogram bars<br/>
           <input type="checkbox" class="checkbox" id="nuclFreq"/> Nucleotide frequency<br/>
           <input type="checkbox" class="checkbox" id="molWeight"/> Molecular weight<br/>
           <input type="checkbox" class="checkbox" id="cpg"/> CpG Islands<br/>
           <input type="checkbox" class="checkbox" id="translation"/> Translation prediction<br/>
           <input type="checkbox" class="checkbox" id="revComp"/> Reverse-complement<br/>
+          <input class="iobutton" type="button" id="checkall" value="Select all" onclick="selectAll(1)"/>
+          <input class="iobutton" type="button" id="uncheckall" value="Unselect all" onclick="selectAll(0)"/>
         </div>
-        <input class="iobutton" type="button" id="checkall" value="Select all" onclick="selectAll(1)"/>
-        <input class="iobutton" type="button" id="uncheckall" value="Unselect all" onclick="selectAll(0)"/>
       </div>
       <div id="right-col">
       <div id="input">
-        <p>Introduce your DNA sequence in the following box.</p>
+        <p>Introduce your DNA sequence in the following box :</p>
         <textarea id="DNA"></textarea><br/>
         <input id="analysebutton" value="Analyse" type="button" onclick="analyseDNA()"/> <span id="timer"></span>
      </div>
@@ -120,7 +122,6 @@
           <span id="shorttranslatedseq3span" class="monospace"></span>
         </div>
       </div>
-    </div>
     </div>
     </body>
     <script type="text/javascript" src="js/main.js"></script>

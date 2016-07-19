@@ -3,6 +3,10 @@ Analyses DNA sequences
 
 #Changelog
 
+19/07/2016
+- More appealing design
+- Graphs longer than the div itself are now displayed un-zoomed to fit the div. Click on the image to zoom.
+
 18/07/2016
 - Added "select all" and "unselect all" options buttons
 - Added "about" section and "help" page
