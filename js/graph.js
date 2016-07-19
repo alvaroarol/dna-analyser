@@ -57,6 +57,17 @@ var drawFrequencies = function(object,id,order){
   var dataURL = canvas.toDataURL("image/png");
   var canvasImage = document.createElement("img");
   canvasImage.src = dataURL;
+  //Set max width and make an eventlistener on click that zooms in the image
+  canvasImage.style.maxWidth = "590px";
+  canvasImage.addEventListener("click", function(){
+    if(this.style.maxWidth === "590px"){
+      this.style.maxWidth = "2000px";
+    }
+    else{
+      this.style.maxWidth = "590px";
+    }
+    console.log(this.style.maxWidth);
+  });
   document.getElementById(id + "span").innerHTML += "<br/><br/>";
   document.getElementById(id + "span").appendChild(canvasImage);
 };

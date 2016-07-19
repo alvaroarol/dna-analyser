@@ -45,6 +45,7 @@ var loadResults = function(){
 		openWindow.document.write("<script type=\"text/javascript\" src=\"js/main.js\"></script><link rel=\"stylesheet\" type=\"text/css\" href=\"index.css\"/>");
 		openWindow.document.write("<body style=\"display: block;\"><h1>" + loadName + "</h1></body>");
 		openWindow.document.write(localStorage.getItem(loadName));
+		openWindow.document.write("<script>for(var i=0;0<document.images.length;i++){document.images[i].style.maxWidth=\"2000px\"};</script>");
 	}
 };
 
