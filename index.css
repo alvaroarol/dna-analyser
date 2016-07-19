@@ -217,6 +217,7 @@ body,html{
 
 #results{
   max-width: 600px;
+  margin-left: 10px;
 }
 
 #results img:hover{
