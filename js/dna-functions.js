@@ -1,11 +1,3 @@
-//Fixes "includes" method incompatibility for IE
-if (!Array.prototype.includes) {
-  Array.prototype.includes = function() {
-      'use strict';
-     return Array.prototype.indexOf.apply(this, arguments) !== -1;
- };
-}
-
 //Molecular weight of each nucleotide (in Da)
 var DNAchars = {
 	"A" : 330.22,
@@ -42,7 +34,7 @@ var codonTable = {
 //Checks if the sequence contains unexpected characters
 var isSequenceValid = function(sequence){
 	for(var i = 0; i < sequence.length; i ++){
-		if (!Object.keys(DNAchars).includes(sequence[i])){
+		if (Object.keys(DNAchars).indexOf(sequence[i]) === -1){
       return false;
     }
 	}
@@ -68,7 +60,7 @@ var translation = function(sequence){
 	for(var i = 0; i < trioSequence.length; i ++){
 		//Loops through the codon table to find the correspondent amino-acid
 		for(var aminoacid in codonTable){
-			if (codonTable[aminoacid].includes(trioSequence[i])){
+			if (codonTable[aminoacid].indexOf(trioSequence[i]) != -1){
 				translation.push(aminoacid);
 				break;
 			}
