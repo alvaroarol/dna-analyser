@@ -58,13 +58,13 @@ var drawFrequencies = function(object,id,order){
   var canvasImage = document.createElement("img");
   canvasImage.src = dataURL;
   //Set max width and make an eventlistener on click that zooms in the image
-  canvasImage.style.maxWidth = "590px";
+  canvasImage.style.maxWidth = "500px";
   canvasImage.addEventListener("click", function(){
-    if(this.style.maxWidth === "590px"){
+    if(this.style.maxWidth === "500px"){
       this.style.maxWidth = "2000px";
     }
     else{
-      this.style.maxWidth = "590px";
+      this.style.maxWidth = "500px";
     }
     console.log(this.style.maxWidth);
   });
