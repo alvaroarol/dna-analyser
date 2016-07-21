@@ -7,11 +7,15 @@
       <script type="text/javascript" src="js/download.js"></script>
       <script type="text/javascript" src="js/graph.js"></script>
       <script type="text/javascript" src="js/dna-functions.js"></script>
+      <script type="text/javascript" src="js/tools.js"></script>
       <link rel="stylesheet" type="text/css" href="index.css"/>
     </head>
     <body onload="loadOldSaved()">
-      <a href="help.html" target="_blank"><input type="button" value="Help" id="helpbutton"/></a>
-      <input type="button" value="About" id="aboutbutton" onclick="toggleAbout()"/>
+      <div id="banner"><img src="logo.png" height="40px"/><span>DNA Analyser</span>
+        <a href="help.html" target="_blank"><input type="button" value="Help" id="helpbutton"/></a>
+        <input type="button" value="About" id="aboutbutton" onclick="toggleAbout()"/>
+        <input type="button" value="Toggle tools" id="showtools" onclick="showTools()"/>
+      </div>
       <div id="about">
         <input type="button" value="X" id="aboutclosebutton" onclick="toggleAbout()"/>
         This program started as a way to learn javascript and general webpage creation. As time passed, I invested a bit more time into it and it turned out into an actual coding project of a collection of functions dedicated to the study of DNA sequences.<br/>
@@ -19,9 +23,9 @@
         It doesn't use any external library so it remains lightweight and quick to load.<br/>
         This page is hosted on <a href="http://www.github.io" target="_blank">GitHub Pages</a>.
       </div>
+      <div id="main">
       <div id="left-col">
-        <div id="logo"><img src="logo.png" height="40px"/> DNA Analyser</div>
-        <p class="menutitle"> Save & Load</p>
+        <p class="menutitle">Save & Load</p>
         <div id="saveload">
         <input type="button" value="Save results to html file" onclick="downloadResults()" class="iobutton" id="downloadbutton"/>
         <div class="separator"></div>
@@ -36,7 +40,7 @@
         <div class="separator"></div>
         <p id="loadfiletext">Load sequence from text file</p><input class="iobutton" id="loadfromfilebutton" type="file" value="Load sequence from text file" onchange="loadFromFile()"/>
         </div>
-        <p class="menutitle"> Options</p>
+        <p class="menutitle">Analysis Options</p>
         <div id="options">
           <input type="checkbox" class="checkbox" id="formatDNA"/> Format DNA sequence<br/>
           <input type="checkbox" class="checkbox" id="formatProt"/> Format protein sequence<br/>
@@ -50,7 +54,7 @@
           <input class="iobutton" type="button" id="uncheckall" value="Unselect all" onclick="selectAll(0)"/>
         </div>
       </div>
-      <div id="right-col">
+      <div id="center-col">
       <div id="input">
         <p>Introduce your DNA sequence in the following box :</p>
         <textarea id="DNA"></textarea><br/>
@@ -58,70 +62,92 @@
      </div>
       <div id="results">
         <div id="formattedseq" class="break-word hide">
-          <p>Sequence input <input id="formattedseqbutton" type="button" value="Show" class="showbutton" onclick="showHideButton(&quot;formattedseq&quot;,&quot;formattedseqbutton&quot;)"/></p>
+          <input id="formattedseqbutton" type="button" value="Show" class="showbutton" onclick="showHideButton(&quot;formattedseq&quot;,&quot;formattedseqbutton&quot;)"/> <span class="resulttitle">Sequence input</span>
           <span id="formattedseqspan" class="monospace"></span>
         </div>
         <div id="nucleotidefreq" class="hide">
-          <p>Nucleotide frequencies <input id="nucleotidefreqbutton" type="button" value="Show" class="showbutton" onclick="showHideButton(&quot;nucleotidefreq&quot;,&quot;nucleotidefreqbutton&quot;)"/></p>
+          <input id="nucleotidefreqbutton" type="button" value="Show" class="showbutton" onclick="showHideButton(&quot;nucleotidefreq&quot;,&quot;nucleotidefreqbutton&quot;)"/> <span class="resulttitle">Nucleotide frequencies</span>
           <span id="nucleotidefreqspan" class="monospace"></span>
         </div>
         <div id="molweightDNA" class="hide">
-          <p>Molecular weight <input id="molweightDNAbutton" type="button" value="Show" class="showbutton" onclick="showHideButton(&quot;molweightDNA&quot;,&quot;molweightDNAbutton&quot;)"/></p>
+          <input id="molweightDNAbutton" type="button" value="Show" class="showbutton" onclick="showHideButton(&quot;molweightDNA&quot;,&quot;molweightDNAbutton&quot;)"/> <span class="resulttitle">Molecular weight</span>
           <span id="molweightDNAspan" class="monospace"></span>
         </div>
         <div id="reverse" class="break-word hide">
-          <p>Reverse sequence <input id="reversebutton" type="button" value="Show" class="showbutton" onclick="showHideButton(&quot;reverse&quot;,&quot;reversebutton&quot;)"/></p>
+          <input id="reversebutton" type="button" value="Show" class="showbutton" onclick="showHideButton(&quot;reverse&quot;,&quot;reversebutton&quot;)"/> <span class="resulttitle">Reverse sequence</span>
           <span id="reversespan" class="monospace"></span>
         </div>
         <div id="complement" class="break-word hide">
-          <p>Complement sequence <input id="complementbutton" type="button" value="Show" class="showbutton" onclick="showHideButton(&quot;complement&quot;,&quot;complementbutton&quot;)"/></p>
+          <input id="complementbutton" type="button" value="Show" class="showbutton" onclick="showHideButton(&quot;complement&quot;,&quot;complementbutton&quot;)"/> <span class="resulttitle">Complement sequence</span>
           <span id="complementspan" class="monospace"></span>
         </div>
         <div id="reverse-complement" class="break-word hide">
-          <p>Reverse complement sequence <input id="reverse-complementbutton" type="button" value="Show" class="showbutton" onclick="showHideButton(&quot;reverse-complement&quot;,&quot;reverse-complementbutton&quot;)"/></p>
+          <input id="reverse-complementbutton" type="button" value="Show" class="showbutton" onclick="showHideButton(&quot;reverse-complement&quot;,&quot;reverse-complementbutton&quot;)"/> <span class="resulttitle">Reverse complement sequence</span>
           <span id="reverse-complementspan" class="monospace"></span>
         </div>
         <div id="cpgislands" class="hide">
-          <p>CpG islands <input id="cpgislandsbutton" type="button" value="Show" class="showbutton" onclick="showHideButton(&quot;cpgislands&quot;,&quot;cpgislandsbutton&quot;)"/></p>
+          <input id="cpgislandsbutton" type="button" value="Show" class="showbutton" onclick="showHideButton(&quot;cpgislands&quot;,&quot;cpgislandsbutton&quot;)"/> <span class="resulttitle">CpG islands</span>
           <span id="cpgislandsspan" class="monospace"></span>
         </div>
         <div id="translatedseq1" class="break-word hide">
-          <p>Translation prediction from first reading frame <input id="translatedseq1button" type="button" value="Show" class="showbutton" onclick="showHideButton(&quot;translatedseq1&quot;,&quot;translatedseq1button&quot;)"/></p>
+          <input id="translatedseq1button" type="button" value="Show" class="showbutton" onclick="showHideButton(&quot;translatedseq1&quot;,&quot;translatedseq1button&quot;)"/> <span class="resulttitle">Translation prediction from first reading frame</span>
           <span id="translatedseq1span" class="monospace"></span>
         </div>
         <div id="codonfreq1" class="hide">
-          <p>Codon frequencies <input id="codonfreq1button" type="button" value="Show" class="showbutton" onclick="showHideButton(&quot;codonfreq1&quot;,&quot;codonfreq1button&quot;)"/></p>
+          <input id="codonfreq1button" type="button" value="Show" class="showbutton" onclick="showHideButton(&quot;codonfreq1&quot;,&quot;codonfreq1button&quot;)"/> <span class="resulttitle">Codon frequencies</span>
           <span id="codonfreq1span" class="monospace"></span>
         </div>
         <div id="shorttranslatedseq1" class="break-word hide">
-          <p>Possible proteins <input id="shorttranslatedseq1button" type="button" value="Show" class="showbutton" onclick="showHideButton(&quot;shorttranslatedseq1&quot;,&quot;shorttranslatedseq1button&quot;)"/></p>
+          <input id="shorttranslatedseq1button" type="button" value="Show" class="showbutton" onclick="showHideButton(&quot;shorttranslatedseq1&quot;,&quot;shorttranslatedseq1button&quot;)"/> <span class="resulttitle">Possible proteins</span>
           <span id="shorttranslatedseq1span" class="monospace"></span>
         </div>
         <div id="translatedseq2" class="break-word hide">
-          <p>Translation prediction from second reading frame <input id="translatedseq2button" type="button" value="Show" class="showbutton" onclick="showHideButton(&quot;translatedseq2&quot;,&quot;translatedseq2button&quot;)"/></p>
+          <input id="translatedseq2button" type="button" value="Show" class="showbutton" onclick="showHideButton(&quot;translatedseq2&quot;,&quot;translatedseq2button&quot;)"/> <span class="resulttitle">Translation prediction from second reading frame</span>
           <span id="translatedseq2span" class="monospace"></span>
         </div>
         <div id="codonfreq2" class="hide">
-          <p>Codon frequencies <input id="codonfreq2button" type="button" value="Show" class="showbutton" onclick="showHideButton(&quot;codonfreq2&quot;,&quot;codonfreq2button&quot;)"/></p>
+          <input id="codonfreq2button" type="button" value="Show" class="showbutton" onclick="showHideButton(&quot;codonfreq2&quot;,&quot;codonfreq2button&quot;)"/> <span class="resulttitle">Codon frequencies</span>
           <span id="codonfreq2span" class="monospace"></span>
         </div>
         <div id="shorttranslatedseq2" class="break-word hide">
-          <p>Possible proteins <input id="shorttranslatedseq2button" type="button" value="Show" class="showbutton" onclick="showHideButton(&quot;shorttranslatedseq2&quot;,&quot;shorttranslatedseq2button&quot;)"/></p>
+          <input id="shorttranslatedseq2button" type="button" value="Show" class="showbutton" onclick="showHideButton(&quot;shorttranslatedseq2&quot;,&quot;shorttranslatedseq2button&quot;)"/> <span class="resulttitle">Possible proteins</span>
           <span id="shorttranslatedseq2span" class="monospace"></span>
         </div>
         <div id="translatedseq3" class="break-word hide">
-          <p>Translation prediction from third reading frame <input id="translatedseq3button" type="button" value="Show" class="showbutton" onclick="showHideButton(&quot;translatedseq3&quot;,&quot;translatedseq3button&quot;)"/></p>
+          <input id="translatedseq3button" type="button" value="Show" class="showbutton" onclick="showHideButton(&quot;translatedseq3&quot;,&quot;translatedseq3button&quot;)"/> <span class="resulttitle">Translation prediction from third reading frame</span>
           <span id="translatedseq3span" class="monospace"></span>
         </div>
         <div id="codonfreq3" class="hide">
-          <p>Codon frequencies <input id="codonfreq3button" type="button" value="Show" class="showbutton" onclick="showHideButton(&quot;codonfreq3&quot;,&quot;codonfreq3button&quot;)"/></p>
+          <input id="codonfreq3button" type="button" value="Show" class="showbutton" onclick="showHideButton(&quot;codonfreq3&quot;,&quot;codonfreq3button&quot;)"/> <span class="resulttitle">Codon frequencies</span>
           <span id="codonfreq3span" class="monospace"></span>
         </div>
         <div id="shorttranslatedseq3" class="break-word hide">
-          <p>Possible proteins <input id="shorttranslatedseq3button" type="button" value="Show" class="showbutton" onclick="showHideButton(&quot;shorttranslatedseq3&quot;,&quot;shorttranslatedseq3button&quot;)"/></p>
+          <input id="shorttranslatedseq3button" type="button" value="Show" class="showbutton" onclick="showHideButton(&quot;shorttranslatedseq3&quot;,&quot;shorttranslatedseq3button&quot;)"/> <span class="resulttitle">Possible proteins</span>
           <span id="shorttranslatedseq3span" class="monospace"></span>
         </div>
       </div>
+    </div>
+    <div id="right-col">
+      <p class="menutitle">Formatting tools</p>
+      <div id="formatting">
+        <textarea id="formattingbox"></textarea>
+        <input type="button" value="Format to FASTA" onclick="formatFasta()" class="iobutton" id="fastabutton"/>
+        <input type="button" value="Format to indexed" onclick="formatIndexed()" class="iobutton" id="indexedbutton"/>
+        <input type="button" value="Format protein to 1 letter" onclick="formatOneLetter()" class="iobutton" id="indexedbutton"/>
+        <input type="button" value="Format protein to 3 letter" onclick="formatThreeLetter()" class="iobutton" id="indexedbutton"/>
+      </div>
+      <p class="menutitle">Isolate interval from sequence</p>
+      <div id="pcr">
+        <textarea id="cutbox"></textarea>
+        Start : <input type="number" id="startcut"/>
+        End : <input type="number" id="endcut"/>
+        <input type="button" value="Isolate" onclick="isolateInterval()" class="iobutton" id="cutbutton"/>
+      </div>
+    </div>
+    <div id="toolsresults">
+      <input type="button" value="X" id="toolsresultsclose" onclick="closeToolsResults()"/>
+      <div id="toolsresultsbox"></div>
+    </div>
     </div>
     </body>
     <script type="text/javascript" src="js/main.js"></script>

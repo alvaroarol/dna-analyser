@@ -4,45 +4,71 @@ body{
   display: block;
   background-color: #edf0f5;
   margin: 0px;
-  margin-right: 10px;
 }
 
-body,html{
-  height: 100%;
+textarea{
+  resize: none;
 }
 
-#aboutbutton, #helpbutton{
+#banner{
   background-color: #3c579d;
   color: white;
+  padding: 5px;
+  border-color: #29487d;
+  border-style: solid;
+  border-width: 2px;
+  height: 50px;
+}
+
+#banner img{
+  position: absolute;
+  top : 8px;
+}
+
+#banner span{
+  margin-left: 50px;
+  font-size: 30px;
+  padding: 0px;
+  margin-right: 30px;
+}
+
+#aboutbutton, #helpbutton, #showtools{
+  background-color: #3c579d;
+  color: #ffffff;
   padding: 10px;
   font-family: Calibri;
   font-size: 20px;
-  position: absolute;
-  top: 15px;
   border-color: #29487d;
   border-style: solid;
   border-width: 1px;
 }
 
-#aboutbutton{
-  left: 755px;
+#showtools{
+  position: absolute;
+  left: 895px;
 }
 
 #helpbutton{
-  left: 845px;
+  position: absolute;
+  left: 1035px;
+}
+
+#aboutbutton{
+  position: absolute;
+  left: 1115px;
 }
 
 #about{
   position: absolute;
-  left: 383px;
-  top: 75px;
+  left: 690px;
+  top: 65px;
   z-index: 1;
   width: 400px;
   padding: 20px;
   background-color: #ffffff;
   color: #000000;
   text-align: justify;
-  border-color: #d3d6db;
+  border-color: #3c579d;
   border-style: solid;
   border-width: 2px;
 }
@@ -56,35 +82,15 @@ body,html{
   color: white;
 }
 
+#main{
+  display: flex;
+  margin-top: 10px;
+}
+
 #left-col{
-  position: absolute;
-  left: 0px;
-  top: 0px;
   padding-left: 10px;
   padding-right: 10px;
-  margin-right: 20px;
-  width: 200px;
   text-align: center;
-}
-
-#logo{
-  background-color: #3c579d;
-  color: white;
-  font-family: monospace;
-  font-size: 23px;
-  line-height: 50px;
-  width: 240px;
-  position: relative;
-  left: -10px;
-  margin-bottom: 10px;
-  border-color: #29487d;
-  border-style: solid;
-  border-width: 2px;
-}
-
-#logo img{
-  position: relative;
-  top: 10px;
 }
 
 .menutitle{
@@ -179,20 +185,22 @@ body,html{
   margin-bottom: 5px;
 }
 
-#right-col{
-  position: absolute;
-  left: 300px;
-  top: 50px;
+
+#center-col{
+  width: 650px;
+  min-width: 650px;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 #input{
-  min-width: 600px;
+  margin-top: 5px;
   padding-bottom: 10px;
 }
 
 #DNA{
   height: 450px;
-  width: 600px;
+  width: 100%;
   color: grey;
 }
 
@@ -210,28 +218,42 @@ body,html{
 }
 
 #timer{
-  position: absolute;
-  left: 440px;
+  margin-left: 30px;
   color: grey;
 }
 
 #results{
-  max-width: 600px;
-  margin-left: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: #ffffff;
+  border-color: #d3d6db;
+  border-style: solid;
+  border-width: 2px;
 }
 
-#results img:hover{
+#codonfreq1 img:hover, #codonfreq2 img:hover, #codonfreq3 img:hover{
   cursor: zoom-in;
 }
 
-#formattedseq{
-  border-top-style: solid;
-  border-top-width: 1px;
+#nucleotidefreq img{
+  background-color: #ffffff;
+  border-color: #d3d6db;
+  border-style: solid;
+  border-width: 2px;
+}
+
+#codonfreq1 img, #codonfreq2 img, #codonfreq3 img{
+  position: relative;
+  left: -10px;
+  background-color: #ffffff;
+  border-color: #d3d6db;
+  border-style: solid;
+  border-width: 2px;
 }
 
 #hr{
-width: 550px;
-margin-left: 0px;
 margin-top: 5px;
 margin-bottom: 5px;
 border-style: solid;
@@ -248,19 +270,25 @@ border-color: #d3d6db;
   color: #ffffff;
   width: 50px;
   border: none;
-  text-decoration: none;
-  position: absolute;
-  left: 545px;
+  margin-bottom: 10px;
+  margin-top: 10px;
 }
 
 .break-word{
   word-wrap: break-word;
 }
 
+.resulttitle{
+  font-weight: bold;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
 .monospace{
   font-family: monospace;
   font-size: 13px;
   display: none;
+  padding-left: 60px;
 }
 
 #formattedseq, #nucleotidefreq, #cpgislands, #molweightDNA, #shorttranslatedseq1, #shorttranslatedseq2, #shorttranslatedseq3, #reverse-complement{
@@ -268,25 +296,66 @@ border-color: #d3d6db;
   border-width: 1px;
 }
 
-#formattedseqspan, #nucleotidefreqspan, #cpgislandsspan, #molweightDNAspan{
+#formattedseqspan, #nucleotidefreqspan, #cpgislandsspan, #molweightDNAspan, #shorttranslatedseq1span, #shorttranslatedseq2span, #shorttranslatedseq3span, #reverse-complementspan{
   padding-bottom: 20px;
 }
 
-#shorttranslatedseq3 span, #reverse-complement span{
-  padding-bottom: 10px;
-}
-
-#formattedseq p, #nucleotidefreq p, #cpgislands p, #molweightDNA p, #translatedseq1 p, #translatedseq2 p, #translatedseq3 p{
-  font-weight: bold;
-}
-
-#codonfreq1 p, #codonfreq2 p, #codonfreq3 p, #shorttranslatedseq1 p, #shorttranslatedseq2 p, #shorttranslatedseq3 p, #reverse p, #complement p, #reverse-complement p{
-  font-weight: bold;
+#right-col{
   padding-left: 10px;
-  border-left-style: solid;
-  border-left-width: 1px;
+  padding-right: 10px;
+  background-color: #edf0f5;
+  text-align: center;
 }
 
-#codonfreq1span, #codonfreq2span, #codonfreq3span, #shorttranslatedseq1span, #shorttranslatedseq2span, #shorttranslatedseq3span, #reversespan, #complementspan, #reverse-complementspan{
-  padding-left: 10px;
+#formatting, #pcr{
+  background-color: #ffffff;
+  width: 230px;
+  border-color: #d3d6db;
+  border-style: solid;
+  border-top-style: none;
+  border-width: 2px;
+  margin-bottom: 10px;
+}
+
+#formattingbox, #cutbox{
+  width: 200px;
+  max-width: 200px;
+  height: 100px;
+  margin-bottom: 0px;
+  margin-top: 10px;
+}
+
+#startcut, #endcut{
+  width: 50px;
+}
+
+#toolsresults{
+  display: none;
+  position: absolute;
+  left: 350px;
+  top: 150px;
+  text-align: right;
+}
+
+#toolsresultsbox{
+  width: 700px;
+  height: 500px;
+  border-color: #3c579d;
+  background-color: #ffffff;
+  border-style: solid;
+  border-width: 2px;
+  padding: 20px;
+  word-wrap: break-word;
+  text-align: left;
+  font-family: monospace;
+  overflow-y: scroll;
+}
+
+#toolsresultsclose{
+  background-color: #3c579d;
+  color: #ffffff;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  border: none;
 }

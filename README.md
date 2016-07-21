@@ -3,6 +3,11 @@ Analyses DNA sequences
 
 #Changelog
 
+21/07/2016
+- Added quick tools in a right-side column
+- Added a toggle button to hide the left and right columns
+- Slight design tweaks
+
 19/07/2016
 - More appealing design
 - Graphs longer than the div itself are now displayed un-zoomed to fit the div. Click on the image to zoom
