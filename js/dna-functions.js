@@ -45,10 +45,24 @@ var isSequenceValid = function(sequence){
 var nucleotideFrequency = function(sequence){
 	DNAcharFreq = {};
 	for (var nucleotide in DNAchars){
-		//(Number of each nucleotide in sequence / length of sequence * 100).toFixed(2);
+		//Number of each nucleotide in the sequence
 		DNAcharFreq[nucleotide] = sequence.split(nucleotide).length - 1;
 	}
 	return DNAcharFreq;
+};
+
+//Gives the count of each nucleotide pair
+var nucleotidePairFrequency = function(sequence){
+	nucleotidePairFreq = {};
+	for(var i = 0; i < sequence.length - 1; i ++){
+		//Add the nucleotide pair to the counting object if it isn't already in it
+    if(!nucleotidePairFreq[sequence[i] + sequence[i + 1]]){
+      nucleotidePairFreq[sequence[i] + sequence[i + 1]] = 0;
+    }
+    //Add a count to the correspondent codon in the counting object
+    nucleotidePairFreq[sequence[i] + sequence[i + 1]] ++;
+  }
+	return nucleotidePairFreq;
 };
 
 //Predicts translation of gene to protein

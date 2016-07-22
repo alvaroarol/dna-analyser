@@ -18,6 +18,7 @@ for(var i in options){
   });
 }
 
+//Selects or unselects all options
 var selectAll = function (x){
   for(var i in options){
     if(x){

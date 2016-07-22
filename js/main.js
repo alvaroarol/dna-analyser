@@ -60,6 +60,16 @@ var toggleAbout = function(){
   }
 };
 
+var startAnalyse = function(){
+  //Changes cursor to waiting cursor
+  document.getElementById("mask").style.display = "block";
+  //Launches main function
+  setTimeout("analyseDNA()", 10);
+  //Reverts waiting cursor back to normal
+  setTimeout("document.getElementById(\"mask\").style.display = \"none\";",10);
+};
+
+
 /////////////////
 //Main function//
 ////////////////
@@ -91,9 +101,17 @@ var analyseDNA = function(){
   			nucleotideFrequenciesArray.push(nucleotide + " : " + ((nucleotideFrequencies[nucleotide] / formattedSequence.length) * 100).toFixed(2) + "% (" + nucleotideFrequencies[nucleotide] + ")");
   		}
       nucleotideFrequenciesArray = nucleotideFrequenciesArray.join("<br/>");
+
+      var nucleotidePairFrequencies = nucleotidePairFrequency(formattedSequence);
+      var nucleotidePairFrequenciesArray = [];
+      for(var nucleotidePair in nucleotidePairFrequencies){
+        nucleotidePairFrequenciesArray.push(nucleotidePair + " : " + ((nucleotidePairFrequencies[nucleotidePair] / formattedSequence.length) * 100).toFixed(2) + "% (" + nucleotidePairFrequencies[nucleotidePair] + ")");
+      }
+      nucleotidePairFrequenciesArray = nucleotidePairFrequenciesArray.join("<br/>");
     }
     else{
       nucleotideFrequenciesArray = "";
+      nucleotidePairFrequenciesArray = "";
     }
 
     //Molecular weight
@@ -194,6 +212,8 @@ var analyseDNA = function(){
     writeToHtml(formattedSequenceText, "formattedseq");
 		writeToHtml(nucleotideFrequenciesArray, "nucleotidefreq");
     drawFrequencies(nucleotideFrequencies,"nucleotidefreq",options["orderGraph"]);
+    writeToHtml(nucleotidePairFrequenciesArray, "nucleotidepairfreq");
+    drawFrequencies(nucleotidePairFrequencies,"nucleotidepairfreq",options["orderGraph"]);
 		writeToHtml(molWeightDNA, "molweightDNA");
     writeToHtml(reverseComplementText.reverse, "reverse");
     writeToHtml(reverseComplementText.complement, "complement");
