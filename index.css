@@ -10,6 +10,17 @@ textarea{
   resize: none;
 }
 
+#mask{
+  display:none;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  cursor: wait;
+}
+
 #banner{
   background-color: #3c579d;
   color: white;
@@ -20,19 +31,32 @@ textarea{
   height: 50px;
 }
 
-#banner img{
-  position: absolute;
-  top : 8px;
+#title{
+  background-color: #ffffff;
+  width: 230px;
+  margin-left: 3px;
+  border-style: solid;
+  border-color: #29487d;
+  border-width: 2px;
+  color: #3c579d;
 }
 
-#banner span{
-  margin-left: 50px;
-  font-size: 30px;
-  padding: 0px;
-  margin-right: 30px;
+#title span{
+  font-family: impact;
+  font-size: 28px;
+  position: relative;
+  bottom: 5px;
+  left: 10px;
+}
+
+#title img{
+  position: relative;
+  top: 3px;
 }
 
 #aboutbutton, #helpbutton, #showtools{
+  position: absolute;
+  top: 10px;
   background-color: #3c579d;
   color: #ffffff;
   padding: 10px;
@@ -41,20 +65,18 @@ textarea{
   border-color: #29487d;
   border-style: solid;
   border-width: 1px;
+  cursor: pointer;
 }
 
 #showtools{
-  position: absolute;
   left: 895px;
 }
 
 #helpbutton{
-  position: absolute;
   left: 1035px;
 }
 
 #aboutbutton{
-  position: absolute;
   left: 1115px;
 }
 
@@ -80,6 +102,7 @@ textarea{
   border: none;
   background-color: #3c579d;
   color: white;
+  cursor: pointer;
 }
 
 #main{
@@ -117,6 +140,7 @@ textarea{
   color: #ffffff;
   width: 180px;
   height: 25px;
+  cursor: pointer;
 }
 
 .separator{
@@ -167,6 +191,7 @@ textarea{
   padding-left: 5px;
   padding: 5px;
   width: 180px;
+  cursor: pointer;
 }
 
 #options{
@@ -176,6 +201,7 @@ textarea{
 
 .checkbox{
   margin-left: 20px;
+  cursor: pointer;
 }
 
 #checkall, #uncheckall{
@@ -215,6 +241,7 @@ textarea{
   color: #ffffff;
   width: 80px;
   height: 40px;
+  cursor: pointer;
 }
 
 #timer{
@@ -233,7 +260,7 @@ textarea{
   border-width: 2px;
 }
 
-#codonfreq1 img:hover, #codonfreq2 img:hover, #codonfreq3 img:hover{
+#nucleotidepairfreq img:hover, #codonfreq1 img:hover, #codonfreq2 img:hover, #codonfreq3 img:hover{
   cursor: zoom-in;
 }
 
@@ -244,7 +271,7 @@ textarea{
   border-width: 2px;
 }
 
-#codonfreq1 img, #codonfreq2 img, #codonfreq3 img{
+#nucleotidepairfreq img, #codonfreq1 img, #codonfreq2 img, #codonfreq3 img{
   position: relative;
   left: -10px;
   background-color: #ffffff;
@@ -272,6 +299,7 @@ border-color: #d3d6db;
   border: none;
   margin-bottom: 10px;
   margin-top: 10px;
+  cursor: pointer;
 }
 
 .break-word{
@@ -291,7 +319,7 @@ border-color: #d3d6db;
   padding-left: 60px;
 }
 
-#formattedseq, #nucleotidefreq, #cpgislands, #molweightDNA, #shorttranslatedseq1, #shorttranslatedseq2, #shorttranslatedseq3, #reverse-complement{
+#formattedseq, #nucleotidepairfreq, #cpgislands, #molweightDNA, #shorttranslatedseq1, #shorttranslatedseq2, #shorttranslatedseq3, #reverse-complement{
   border-bottom-style: solid;
   border-width: 1px;
 }
@@ -323,6 +351,7 @@ border-color: #d3d6db;
   height: 100px;
   margin-bottom: 0px;
   margin-top: 10px;
+  color: grey;
 }
 
 #startcut, #endcut{
@@ -358,4 +387,5 @@ border-color: #d3d6db;
   right: 0px;
   top: 0px;
   border: none;
+  cursor: pointer;
 }

@@ -7,7 +7,7 @@
   </head>
   <body>
     <div id="banner">
-      <img src="logo.png" height="40px"/><span>DNA Analyser</span>
+      <div id="title"><img src="logo.png" height="40px"/><span>DNA Analyser</span></div>
     </div>
     <p class="category">General information</p>
       <p class="title">Input</p>
@@ -97,14 +97,13 @@
             </div><br/>
             <p class="explanation">Three translation predictions are made, starting at each reading frame position.</p>
             <p class="explanation">For each translation, the frequencies of each codon are counted. If the option "Order histogram bars" is checked, the graph will be ordered by decreasing frequencies. Highest frequency is coloured in red, higher than average in dark blue and lower than average in light blue. Click on the graph to make it bigger.</p>
-            <p class="explanation">Additionaly, a list of possible proteins, encoded between a start codon (M) and a stop codon (*), are displayed. Note that if protein formatting is checked in the options, the indexes before each line do not mean the position of the codons on the entire translation prediction but rather the position within the concerned "possible" protein.
+            <p class="explanation">Additionaly, a list of possible proteins or peptides, encoded between a start codon (M) and a stop codon (*), are displayed. Note that if protein formatting is checked in the options, the indexes before each line do not mean the position of the codons on the entire translation prediction but rather the position within the concerned "possible" protein.
           </p>
     <p class="category">Save & Load</p>
       <p class="title">Save results to html file</p>
         <p class="explanation">Saves the displayed results, "as is", into an html file and downloads it to the computer. Can be viewed offline later directly on the browser.</p>
       <p class="title">Save results in local memory</p>
         <p class="explanation">Saves the displayed results, "as is", into the HTML5 local storage of the browser. The name of the save can be set in the textbox above the button. These results can be later retrieved (see "Load from local memory" below). Local storage has a space limit of 5MB on most browsers. When full, try erasing some results (see "Erase from local memory" below).<br/>
-        <span style="color:red"><b>Warning :</b></span> This functionality is not yet supported on Internet Explorer.</p>
       <p class="title">Load/Erase results from local memory</p>
         <p class="explanation">These two buttons allow for management of local storage stored results. "Load results from local memory" will load the results selected in the dropdown menu, on a new tab of the browser. "Erase results from local memory" will permanently delete the results selected in the dropdown menu.</p>
       <p class="title">Load example sequence</p>
@@ -115,7 +114,7 @@
       <p class="title">Format DNA sequence</p>
         <p class="explanation">If checked, formats the DNA sequence in "Sequence input", "Reverse sequence", "Complement sequence" and "Reverse complement sequence". This formatting adds spacing every 10 nucleotides, line breaks every 60 nucleotides and an index before each line. Otherwise, the sequences contain exclusively the four nucleotide letters (ATGC) likewise to the FASTA format.</p>
       <p class="title">Format protein sequence</p>
-        <p class="explanation">If checked, formats the protein sequence in "Translation prediction from...", and "Possible proteins". This formatting adds spacing every 10 nucleotides, line breaks every 60 nucleotides and an index before each line. Otherwise, the sequences contain exclusively the codon representing letters (see above for a complete table).</p>
+        <p class="explanation">If checked, formats the amino-acid sequence in "Translation prediction from...", and "Possible proteins/peptides". This formatting adds spacing every 10 nucleotides, line breaks every 60 nucleotides and an index before each line. Otherwise, the sequences contain exclusively the codon representing letters (see above for a complete table).</p>
       <p class="title">Order histogram bars</p>
         <p class="explanation">If checked, the frequencies graphs bars (for nucleotides and codons) will be displayed in decreasing order, instead of order of first appearance in the sequence.</p>
       <p class="title">Analysis functions</p>
@@ -123,10 +122,47 @@
           <b>Nucleotide frequency : </b>If checked, the frequency of nucleotides in the input sequence will be calculated.<br/><br/>
           <b>Molecular weight : </b>If checked, the total molecular weight of the input sequence will be calculated.<br/><br/>
           <b>CpG islands : </b>If checked, the eventual CpG islands present in the input sequence will be found.<br/><br/>
-          <b>Translation prediction : </b>If checked, the translation prediction will be computed, as well as its codons frequencies and the "possible" proteins.<br/><br/>
+          <b>Translation prediction : </b>If checked, the translation prediction will be computed, as well as its codons frequencies and the "possible" proteins or peptides.<br/><br/>
           <b>Reverse-complement : </b>If checked, the reverse sequence, complement sequence and reverse complement sequence will be computed.
         </p>
       <p class="title">Select/Unselect all</p>
         <p class="explanation">These buttons select or unselect the entire list of options.</p>
+    <p class="category">Formatting tools</p>
+      <p class="title">Format to FASTA</p>
+        <p class="explanation">Formats any DNA or protein sequence (in 1 letter notation) to FASTA format. FASTA is comprised of only the characters representing the nucleotides or amino-acids, without any spacing, hyphens, etc...</p>
+      <p class="title">Format to indexed</p>
+        <p class="explanation">Formats any DNA or protein sequence (in 1 letter notation) to an indexed format. This format breaks the sequence in groups of 10, adds line breaks every 60 characters and adds an index before each line.</p>
+      <p class="title">Format protein to 1 letter</p>
+        <p class="explanation">Formats any 3 letter notation protein sequence into 1 letter notation sequence. The corresponding code for each amino-acid is the following :</p>
+        <div id="codons">
+        <p>
+          A : Ala (Alanine)<br/>
+          C : Cys (Cysteine)<br/>
+          D : Asp (Aspartic Acid)<br/>
+          E : Glu (Glutamic Acid)<br/>
+          F : Phe (Phenylalanine)<br/>
+          G : Gly(Glycine)<br/>
+          H : His (Histidine)<br/>
+          I : Ile (Isoleucine)<br/>
+          K : Lys (Lysine)<br/>
+          L : Leu (Leucine)</p>
+        <p>
+          M : Met (Methionine)<br/>
+          N : Asn (Asparagine)<br/>
+          P : Pro (Proline)<br/>
+          Q : Gln (Glutamine)<br/>
+          R : Arg (Arginine)<br/>
+          S : Ser (Serine)<br/>
+          T : Thr (Threonine)<br/>
+          V : Val (Valine)<br/>
+          W : Trp (Tryptophan)<br/>
+          Y : Tyr (Tyrosine)</p>
+        <p>
+          * : *** (STOP codon)</p>
+        </div>
+      <p class="title">Format protein to 3 letter</p>
+        <p class="explanation">Formats any 1 letter notation protein sequence into 3 letter notation sequence. The corresponding code for each amino-acid is the same as above.</p>
+    <p class="category">Isolate interval from sequence</p>
+        <p class="explanation">Cuts any 1 letter sequence inserted in the box between the "start" element in that sequence to the "end" element. The same formats than for the main analysis are accepted.</p>
   </body>
 </html>

@@ -5,21 +5,37 @@ body{
 }
 
 #banner{
-  display: flex;
-  height: 40px;
-  width: 900px;
   background-color: #3c579d;
-  color: #ffffff;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  padding-left: 5px;
+  color: white;
+  padding: 5px;
+  border-color: #29487d;
+  border-style: solid;
+  border-width: 2px;
+  height: 50px;
+  width: 900px;
 }
 
-#banner span{
-  font-family: monospace;
-  font-size: 26px;
+#title{
+  background-color: #ffffff;
+  width: 230px;
+  margin-left: 3px;
+  border-style: solid;
+  border-color: #29487d;
+  border-width: 2px;
+  color: #3c579d;
+}
+
+#title span{
+  font-family: impact;
+  font-size: 28px;
   position: relative;
-  top: 5px;
+  bottom: 5px;
+  left: 10px;
+}
+
+#title img{
+  position: relative;
+  top: 3px;
 }
 
 .category{
@@ -58,7 +74,7 @@ body{
   font-family: monospace;
   font-size: 14px;
   margin-top: 0px;
-  margin-left: 20px;
+  margin-right: 40px;
 }
 
 #nucleotides, #molecularweight, #translation{

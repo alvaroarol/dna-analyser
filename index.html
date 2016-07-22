@@ -11,7 +11,9 @@
       <link rel="stylesheet" type="text/css" href="index.css"/>
     </head>
     <body onload="loadOldSaved()">
-      <div id="banner"><img src="logo.png" height="40px"/><span>DNA Analyser</span>
+      <div id="mask"></div>
+      <div id="banner">
+        <div id="title"><img src="logo.png" height="40px"/><span>DNA Analyser</span></div>
         <a href="help.html" target="_blank"><input type="button" value="Help" id="helpbutton"/></a>
         <input type="button" value="About" id="aboutbutton" onclick="toggleAbout()"/>
         <input type="button" value="Toggle tools" id="showtools" onclick="showTools()"/>
@@ -58,7 +60,7 @@
       <div id="input">
         <p>Introduce your DNA sequence in the following box :</p>
         <textarea id="DNA"></textarea><br/>
-        <input id="analysebutton" value="Analyse" type="button" onclick="analyseDNA()"/> <span id="timer"></span>
+        <input id="analysebutton" value="Analyse" type="button" onclick="startAnalyse()"/><span id="timer"></span>
      </div>
       <div id="results">
         <div id="formattedseq" class="break-word hide">
@@ -68,6 +70,10 @@
         <div id="nucleotidefreq" class="hide">
           <input id="nucleotidefreqbutton" type="button" value="Show" class="showbutton" onclick="showHideButton(&quot;nucleotidefreq&quot;,&quot;nucleotidefreqbutton&quot;)"/> <span class="resulttitle">Nucleotide frequencies</span>
           <span id="nucleotidefreqspan" class="monospace"></span>
+        </div>
+        <div id="nucleotidepairfreq" class="hide">
+          <input id="nucleotidepairfreqbutton" type="button" value="Show" class="showbutton" onclick="showHideButton(&quot;nucleotidepairfreq&quot;,&quot;nucleotidepairfreqbutton&quot;)"/> <span class="resulttitle">Nucleotide pair frequencies</span>
+          <span id="nucleotidepairfreqspan" class="monospace"></span>
         </div>
         <div id="molweightDNA" class="hide">
           <input id="molweightDNAbutton" type="button" value="Show" class="showbutton" onclick="showHideButton(&quot;molweightDNA&quot;,&quot;molweightDNAbutton&quot;)"/> <span class="resulttitle">Molecular weight</span>
@@ -98,7 +104,7 @@
           <span id="codonfreq1span" class="monospace"></span>
         </div>
         <div id="shorttranslatedseq1" class="break-word hide">
-          <input id="shorttranslatedseq1button" type="button" value="Show" class="showbutton" onclick="showHideButton(&quot;shorttranslatedseq1&quot;,&quot;shorttranslatedseq1button&quot;)"/> <span class="resulttitle">Possible proteins</span>
+          <input id="shorttranslatedseq1button" type="button" value="Show" class="showbutton" onclick="showHideButton(&quot;shorttranslatedseq1&quot;,&quot;shorttranslatedseq1button&quot;)"/> <span class="resulttitle">Possible proteins/peptides</span>
           <span id="shorttranslatedseq1span" class="monospace"></span>
         </div>
         <div id="translatedseq2" class="break-word hide">
@@ -110,7 +116,7 @@
           <span id="codonfreq2span" class="monospace"></span>
         </div>
         <div id="shorttranslatedseq2" class="break-word hide">
-          <input id="shorttranslatedseq2button" type="button" value="Show" class="showbutton" onclick="showHideButton(&quot;shorttranslatedseq2&quot;,&quot;shorttranslatedseq2button&quot;)"/> <span class="resulttitle">Possible proteins</span>
+          <input id="shorttranslatedseq2button" type="button" value="Show" class="showbutton" onclick="showHideButton(&quot;shorttranslatedseq2&quot;,&quot;shorttranslatedseq2button&quot;)"/> <span class="resulttitle">Possible proteins/peptides</span>
           <span id="shorttranslatedseq2span" class="monospace"></span>
         </div>
         <div id="translatedseq3" class="break-word hide">
@@ -122,7 +128,7 @@
           <span id="codonfreq3span" class="monospace"></span>
         </div>
         <div id="shorttranslatedseq3" class="break-word hide">
-          <input id="shorttranslatedseq3button" type="button" value="Show" class="showbutton" onclick="showHideButton(&quot;shorttranslatedseq3&quot;,&quot;shorttranslatedseq3button&quot;)"/> <span class="resulttitle">Possible proteins</span>
+          <input id="shorttranslatedseq3button" type="button" value="Show" class="showbutton" onclick="showHideButton(&quot;shorttranslatedseq3&quot;,&quot;shorttranslatedseq3button&quot;)"/> <span class="resulttitle">Possible proteins/peptides</span>
           <span id="shorttranslatedseq3span" class="monospace"></span>
         </div>
       </div>

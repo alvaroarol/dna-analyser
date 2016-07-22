@@ -3,6 +3,12 @@ Analyses DNA sequences
 
 #Changelog
 
+22/07/2016
+- Added nucleotide pairs frequencies in the main analysis
+- New section in "Help" page for the new contents from the tools on the right columns
+- Added a "working" cursor while the main analyse is running, as well as the pointer cursor when hovering buttons
+- Minor design tweaks
+
 21/07/2016
 - Added quick tools in a right-side column
 - Added a toggle button to hide the left and right columns
