@@ -3,6 +3,10 @@ Analyses DNA sequences
 
 #Changelog
 
+24/07/2016
+- Fixed wrong nucleotide molecular weight values
+- Added a PCR primer analysis tool
+
 22/07/2016
 - Added nucleotide pairs frequencies in the main analysis
 - New section in "Help" page for the new contents from the tools on the right columns

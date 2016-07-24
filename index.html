@@ -143,11 +143,16 @@
         <input type="button" value="Format protein to 3 letter" onclick="formatThreeLetter()" class="iobutton" id="indexedbutton"/>
       </div>
       <p class="menutitle">Isolate interval from sequence</p>
-      <div id="pcr">
+      <div id="isolate">
         <textarea id="cutbox"></textarea>
         Start : <input type="number" id="startcut"/>
         End : <input type="number" id="endcut"/>
         <input type="button" value="Isolate" onclick="isolateInterval()" class="iobutton" id="cutbutton"/>
+      </div>
+      <p class="menutitle">PCR primer analysis</p>
+      <div id="pcr">
+        <textarea id="pcrbox"></textarea>
+        <input type="button" value="Primer properties" onclick="pcrAnalyse()" class="iobutton" id="pcrbutton"/>
       </div>
     </div>
     <div id="toolsresults">
