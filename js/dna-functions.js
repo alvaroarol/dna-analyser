@@ -1,9 +1,9 @@
 //Molecular weight of each nucleotide (in Da)
 var DNAchars = {
-	"A" : 330.22,
-	"T" : 321.21,
-	"G" : 346.22,
-	"C" : 306.19
+	"A" : 313.21,
+	"T" : 304.2,
+	"G" : 329.21,
+	"C" : 289.18
 };
 
 //Table of correspondence between codons and translated amino-acids (or STOP)
@@ -192,6 +192,7 @@ var molecularWeight = function(sequence){
 	for(var i = 0; i < sequence.length; i++){
 		totalWeight += DNAchars[sequence[i]];
 	}
+	totalWeight += 79;
 	return (totalWeight.toFixed(2));
 };
 

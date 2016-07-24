@@ -24,15 +24,13 @@ var proteinNotation = {
 
 //Show the tools bar
 var showTools = function(){
-  if(document.getElementById("right-col").style.display === "none"){
-    document.getElementById("right-col").style.display = "block";
-    document.getElementById("left-col").style.display = "block";
-    document.getElementById("center-col").style.width = "650px";
+  if(document.getElementById("right-col").style.display === "block"){
+    document.getElementById("right-col").style.display = "none";
+    document.getElementById("center-col").style.width = "900px";
   }
   else{
-    document.getElementById("right-col").style.display = "none";
-    document.getElementById("left-col").style.display = "none";
-    document.getElementById("center-col").style.width = "1125px";
+    document.getElementById("right-col").style.display = "block";
+    document.getElementById("center-col").style.width = "650px";
   }
 };
 
@@ -111,5 +109,123 @@ var isolateInterval = function(){
   }
   else{
     fillToolsResultsBox(sequence.slice(startcut - 1,endcut));
+  }
+};
+
+/////////////////////////
+//PCR primer functions//
+////////////////////////
+//Count the percentage of GC content (for GC content AND GC clamp conditions)
+var getGCContent = function (sequence){
+  var gContent = sequence.split("G").length - 1;
+  var cContent = sequence.split("C").length - 1;
+  return (gContent + cContent) * 100 / sequence.length;
+};
+
+//Calculates Tm (melting temperature)
+//Based on the standard approximation for sequences longer than 13 nucleotides. This approximation assumes pH is 7.0, concentration of Na+ is 50mM and concentration of primer is 50nM
+var calculateTm = function(sequence){
+  var gContent = sequence.split("G").length - 1;
+  var cContent = sequence.split("C").length - 1;
+  var tContent = sequence.split("T").length - 1;
+  var aContent = sequence.split("A").length - 1;
+  if(sequence.length < 14){
+    return (aContent + tContent) * 2 + (gContent + cContent) * 4;
+  }
+  else{
+    return 64.9 + 41 * (gContent + cContent - 16.4) / (aContent + tContent + gContent + cContent);
+  }
+};
+
+//Find repeats higher than 4 (nucleotides that repeat more than 4 times in a row)
+var findRepeats = function(sequence){
+  for(var i = 0; i < sequence.length - 4; i ++){
+    var repeatArray = [];
+    repeatArray[0] = sequence[i];
+    repeatArray[1] = sequence[i + 1];
+    repeatArray[2] = sequence[i + 2];
+    repeatArray[3] = sequence[i + 3];
+    repeatArray[4] = sequence[i + 4];
+    if(repeatArray.join("").split(repeatArray[0]).length - 1 === 5){
+      return 1;
+    }
+  }
+  return 0;
+};
+
+//Find pair repeats higher than 4(nucleotide pairs that repeat more than 4 times in a row)
+var findPairRepeats = function(sequence){
+  for(var i = 0; i <= sequence.length - 10; i ++){
+    var repeatArray = [];
+    repeatArray[0] = sequence.slice(i, i + 2);
+    repeatArray[1] = sequence.slice(i + 2, i + 4);
+    repeatArray[2] = sequence.slice(i + 4, i + 6);
+    repeatArray[3] = sequence.slice(i + 6, i + 8);
+    repeatArray[4] = sequence.slice(i + 8, i + 10);
+    if(repeatArray.join("").split(repeatArray[0]).length - 1 === 5){
+      return 1;
+    }
+  }
+  return 0;
+};
+
+//Main PCR primer function
+var pcrAnalyse = function(){
+  var primer = document.getElementById("pcrbox").value.split(/[0-9]|\s|\n|\t|\/|\-/g).join("").toUpperCase();
+  if(isSequenceValid(primer)){
+    var pcrResults = [];
+    pcrResults.push("<b>Primer sequence :</b> " + primer + "<br/><br/>");
+
+    if((primer.length >= 18) && (primer.length <= 30)){
+      pcrResults.push("<b>Length :</b> " + primer.length + " nucleotides<br/><br/>");
+    }
+    else{
+      pcrResults.push("<b>Length :</b> <span>" + primer.length + " nucleotides</span><br/><br/>");
+    }
+
+    var gcContent = getGCContent(primer);
+    if((gcContent >= 40) && (gcContent <= 60)){
+      pcrResults.push("<b>GC content :</b> " + gcContent.toFixed(2) + "%<br/><br/>");
+    }
+    else{
+      pcrResults.push("<b>GC content :</b><span> " + gcContent.toFixed(2) + "%</span><br/><br/>");
+    }
+
+    gcContent = getGCContent(primer.slice(primer.length - 5, primer.length)) * 5 / 100;
+    if(gcContent <= 3){
+      pcrResults.push("<b>GC content in last 5 nucleotides :</b> " + gcContent + " nucleotides<br/><br/>");
+    }
+    else{
+      pcrResults.push("<b>GC content in last 5 nucleotides :</b><span> " + gcContent + " nucleotides</span><br/><br/>");
+    }
+
+    pcrResults.push("<b>Molecular weight :</b> " + molecularWeight(primer) + " Da<br/><br/>");
+
+    var primerTm = calculateTm(primer).toFixed(2);
+    if((primerTm > 52) && (primerTm < 60)){
+        pcrResults.push("<b>Melting temperature (basic) :</b> " + primerTm + "°C<br/><br/>");
+    }
+    else{
+      pcrResults.push("<b>Melting temperature (basic) :</b><span> " + primerTm + "°C</span><br/><br/>");
+    }
+
+    if(findRepeats(primer)){
+      pcrResults.push("<b>Higher than 4 times in a row single repeats :</b> <span>Yes</span>" + "<br/><br/>");
+    }
+    else{
+      pcrResults.push("<b>Higher than 4 times in a row single repeats :</b> " + "No" + "<br/><br/>");
+    }
+
+    if(findPairRepeats(primer)){
+      pcrResults.push("<b>Higher than 4 times in a row pair repeats :</b> <span style=\"color:red\">Yes</span>" + "<br/><br/>");
+    }
+    else{
+      pcrResults.push("<b>Higher than 4 times in a row pair repeats :</b> " + "No" + "<br/><br/>");
+    }
+
+    fillToolsResultsBox(pcrResults.join(""));
+  }
+  else{
+    fillToolsResultsBox("The primer is not a valid DNA sequence.");
   }
 };
