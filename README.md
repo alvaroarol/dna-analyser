@@ -3,6 +3,12 @@ Analyses DNA sequences
 
 #Changelog
 
+26/07/2016 - hugocartwright ( https://github.com/hugocartwright )
+
+- Rename and combine functions nucleotidePairFrequency, nucleotideFrequency, codonFreq to countOccurences(sequence, reference)
+- Simplify reverseComplement function into "reverseSequence" and "complementSequence" functions and use DNAchars object
+- Change main.js accordingly
+
 24/07/2016
 - Fixed wrong nucleotide molecular weight values
 - Added a PCR primer analysis tool
