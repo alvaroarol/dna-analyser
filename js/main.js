@@ -95,14 +95,14 @@ var analyseDNA = function(){
 
     //Nucleotide frequency
     if(options["nuclFreq"]){
-      var nucleotideFrequencies = nucleotideFrequency(formattedSequence);
+      var nucleotideFrequencies = countOccurences(formattedSequence, DNAchars);
       var nucleotideFrequenciesArray = [];
   		for(var nucleotide in nucleotideFrequencies){
   			nucleotideFrequenciesArray.push(nucleotide + " : " + ((nucleotideFrequencies[nucleotide] / formattedSequence.length) * 100).toFixed(2) + "% (" + nucleotideFrequencies[nucleotide] + ")");
   		}
       nucleotideFrequenciesArray = nucleotideFrequenciesArray.join("<br/>");
 
-      var nucleotidePairFrequencies = nucleotidePairFrequency(formattedSequence);
+      var nucleotidePairFrequencies = countOccurences(formattedSequence, nucleotidePairs);
       var nucleotidePairFrequenciesArray = [];
       for(var nucleotidePair in nucleotidePairFrequencies){
         nucleotidePairFrequenciesArray.push(nucleotidePair + " : " + ((nucleotidePairFrequencies[nucleotidePair] / formattedSequence.length) * 100).toFixed(2) + "% (" + nucleotidePairFrequencies[nucleotidePair] + ")");
@@ -121,23 +121,6 @@ var analyseDNA = function(){
     }
     else{
       var molWeightDNA = "";
-    }
-
-    //Reverse, complement and reverse-complement
-    if(options["revComp"]){
-      var reverseComplementText = reverseComplement(formattedSequence);
-      if(options["formatDNA"]){
-        for(var elements in reverseComplementText){
-          reverseComplementText[elements] = formatSequence(reverseComplementText[elements]);
-        }
-      }
-    }
-    else{
-      var reverseComplementText = {
-        reverse : "",
-        complement : "",
-        reverse_complement : ""
-      };
     }
 
     //CpG islands
@@ -177,7 +160,7 @@ var analyseDNA = function(){
           translatedSequencesText[i] = translatedSequences[i].join("");
         }
       }
-  		var codonFrequencies = [codonFreq(translatedSequences[0]),codonFreq(translatedSequences[1]),codonFreq(translatedSequences[2])];
+  		var codonFrequencies = [countOccurences(translatedSequences[0].join(""), codonTable), countOccurences(translatedSequences[1].join(""), codonTable), countOccurences(translatedSequences[2].join(""), codonTable)];
   		var codonFrequenciesText = [[],[],[]];
   		for(var i = 0; i < codonFrequencies.length; i ++){
   			for(var freq in codonFrequencies[i]){
@@ -210,21 +193,31 @@ var analyseDNA = function(){
 
 		//Display results on the page
     writeToHtml(formattedSequenceText, "formattedseq");
-		writeToHtml(nucleotideFrequenciesArray, "nucleotidefreq");
+	writeToHtml(nucleotideFrequenciesArray, "nucleotidefreq");
     drawFrequencies(nucleotideFrequencies,"nucleotidefreq",options["orderGraph"]);
     writeToHtml(nucleotidePairFrequenciesArray, "nucleotidepairfreq");
     drawFrequencies(nucleotidePairFrequencies,"nucleotidepairfreq",options["orderGraph"]);
-		writeToHtml(molWeightDNA, "molweightDNA");
-    writeToHtml(reverseComplementText.reverse, "reverse");
-    writeToHtml(reverseComplementText.complement, "complement");
-    writeToHtml(reverseComplementText.reverse_complement, "reverse-complement");
-		writeToHtml(cpgIslandsText, "cpgislands");
-		for(var i = 0; i < translatedSequencesText.length; i ++){
-			writeToHtml(translatedSequencesText[i], "translatedseq" + (i+1));
-			writeToHtml(codonFrequenciesText[i], "codonfreq" + (i+1));
-      drawFrequencies(codonFrequencies[i],"codonfreq" + (i+1),options["orderGraph"]);
-			writeToHtml(possibleProteinText[i], "shorttranslatedseq" + (i+1));
-		}
+	writeToHtml(molWeightDNA, "molweightDNA");
+	
+	var complement = complementSequence(formattedSequence);
+	
+	if(options["formatDNA"]){
+		writeToHtml(formatSequence(reverseSequence(formattedSequence)), "reverse");
+		writeToHtml(formatSequence(complement), "complement");
+		writeToHtml(formatSequence(reverseSequence(complement)), "reverse-complement");
+	}else{
+		writeToHtml(reverseSequence(formattedSequence), "reverse");
+		writeToHtml(complement, "complement");
+		writeToHtml(reverseSequence(complement), "reverse-complement");
+	}
+	
+	writeToHtml(cpgIslandsText, "cpgislands");
+	for(var i = 0; i < translatedSequencesText.length; i++){
+		writeToHtml(translatedSequencesText[i], "translatedseq" + (i+1));
+		writeToHtml(codonFrequenciesText[i], "codonfreq" + (i+1));
+		drawFrequencies(codonFrequencies[i], "codonfreq" + (i+1), options["orderGraph"]);
+		writeToHtml(possibleProteinText[i], "shorttranslatedseq" + (i+1));
+	}
 
     //Gets ending time and computes total execution time
     var localTime = new Date();
