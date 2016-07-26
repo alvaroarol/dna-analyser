@@ -5,7 +5,7 @@ Analyses DNA sequences
 
 26/07/2016 - hugocartwright ( https://github.com/hugocartwright )
 
-- Rename and combine functions nucleotidePairFrequency, nucleotideFrequency, codonFreq to countOccurences(sequence, reference)
+- Rename and combine functions (nucleotidePairFrequency), nucleotideFrequency, codonFreq to countOccurences(sequence, reference)
 - Simplify reverseComplement function into "reverseSequence" and "complementSequence" functions and use DNAchars object
 - Change main.js accordingly
 
