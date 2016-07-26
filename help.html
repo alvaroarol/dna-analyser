@@ -57,6 +57,8 @@
         <p class="explanation">Shows the input sequence after formatting.</p>
         <p class="title">Nucleotide frequencies</p>
           <p class="explanation">Shows the frequency of each nucleotide. If the option "Order histogram bars" is checked, the graph will be ordered by decreasing frequencies. Highest frequency is coloured in red, higher than 25% in dark blue and lower than 25% in light blue.</p>
+        <p class="title">Nucleotide pair frequencies</p>
+          <p class="explanation">Shows the frequency of each nucleotide pair. If the option "Order histogram bars" is checked, the graph will be ordered by decreasing frequencies. Highest frequency is coloured in red, higher than 6.25% in dark blue and lower than 6.25% in light blue.</p>
         <p class="title">Molecular Weight</p>
           <p class="explanation">Gives the total molecular weight of the DNA sequence in Daltons (Da) and kiloDaltons (kDa) between brackets. Individual weight for each nucleotide is as follows:</p>
           <div id="molecularweight">
@@ -96,7 +98,7 @@
           	G : GGT or GGC or GGA or GGG
             </div><br/>
             <p class="explanation">Three translation predictions are made, starting at each reading frame position.</p>
-            <p class="explanation">For each translation, the frequencies of each codon are counted. If the option "Order histogram bars" is checked, the graph will be ordered by decreasing frequencies. Highest frequency is coloured in red, higher than average in dark blue and lower than average in light blue. Click on the graph to make it bigger.</p>
+            <p class="explanation">For each translation, the frequencies of each codon are counted. If the option "Order histogram bars" is checked, the graph will be ordered by decreasing frequencies. Highest frequency is coloured in red, higher than 4.76% in dark blue and lower than 4.76% in light blue. Click on the graph to make it bigger.</p>
             <p class="explanation">Additionaly, a list of possible proteins or peptides, encoded between a start codon (M) and a stop codon (*), are displayed. Note that if protein formatting is checked in the options, the indexes before each line do not mean the position of the codons on the entire translation prediction but rather the position within the concerned "possible" protein.
           </p>
     <p class="category">Save & Load</p>
@@ -133,7 +135,7 @@
       <p class="title">Format to indexed</p>
         <p class="explanation">Formats any DNA or protein sequence (in 1 letter notation) to an indexed format. This format breaks the sequence in groups of 10, adds line breaks every 60 characters and adds an index before each line.</p>
       <p class="title">Format protein to 1 letter</p>
-        <p class="explanation">Formats any 3 letter notation protein sequence into 1 letter notation sequence. The corresponding code for each amino-acid is the following :</p>
+        <p class="explanation">Formats any 3-letter notation protein sequence into 1-letter notation sequence. The corresponding code for each amino-acid is the following :</p>
         <div id="codons">
         <p>
           A : Ala (Alanine)<br/>
@@ -161,8 +163,27 @@
           * : *** (STOP codon)</p>
         </div>
       <p class="title">Format protein to 3 letter</p>
-        <p class="explanation">Formats any 1 letter notation protein sequence into 3 letter notation sequence. The corresponding code for each amino-acid is the same as above.</p>
+        <p class="explanation">Formats any 1-letter notation protein sequence into 3-letter notation sequence. The corresponding code for each amino-acid is the same as above.</p>
     <p class="category">Isolate interval from sequence</p>
-        <p class="explanation">Cuts any 1 letter sequence inserted in the box between the "start" element in that sequence to the "end" element. The same formats than for the main analysis are accepted.</p>
+        <p class="explanation">Cuts any 1-letter sequence inserted in the box between the "start" element in that sequence to the "end" element. The same formats than for the main analysis are accepted.</p>
+    <p class="category">PCR primer analysis</p>
+      <p class="title">General information</p>
+        <p class="explanation">This section lets you input a PCR primer (short DNA sequence used in PCR) and it will output its main properties.</p>
+      <p class="title">Primer sequence</p>
+        <p class="explanation">This is the sequence of the PCR primer, formatted to FASTA.</p>
+      <p class="title">Length</p>
+        <p class="explanation">The length of the PCR primer. The optimal length of a PCR primer is between 18 and 30 nucleotides. If the input primer is not within optimal length range, it will be displayed in red.</p>
+      <p class="title">GC content</p>
+        <p class="explanation">The content in G and C nucleotides of the PCR primer. The optimal GC content of a PCR primer is between 40 and 60% of G and C nucleotides. If the input primer is not within optimal GC content range, it will be displayed in red.</p>
+      <p class="title">GC content in last 5 nucleotides</p>
+        <p class="explanation">The GC content in the last 5 nucleotides of the PCR primer (3' end). It is recommended to have some G or C nucleotides at the end of a PCR primer. However, it is not recommended to have more than 3 G or C nucleotides. If the input primer has more than 3 G or C nucleotides in the last 5, it will be displayed in red.</p>
+      <p class="title">Molecular weight</p>
+        <p class="explanation">The molecular weight of the PCR primer, in Da.</p>
+      <p class="title">Melting temperature (basic)</p>
+        <p class="explanation">The melting temperature (T<sub>m</sub>) of a PCR primer is the temperature at which it is expected that 50% of the primers will be dissociated from the complementary sequence. The melting temperature is calculated here using the basic approximation. The optimal melting temperature in PCR is between 52°C and 60°C. If the input primer is not within optimal T<sub>m</sub> range, it will be displayed in red.</p>
+      <p class="title">Higher than 4 times in a row single repeats</p>
+        <p class="explanation">Informs if the sequence has a repetition of more than 4 same nucleotides in a row. It is not recommended to have longer repetitions. If the primer contains such repetitions, it will be displayed in red.</p>
+      <p class="title">Higher than 4 times in a row pair repeats</p>
+        <p class="explanation">Informs if the sequence has a repetition of more than 4 pairs of nucleotides in a row. It is not recommended to have longer repetitions. If the primer contains such repetitions, it will be displayed in red.</p>
   </body>
 </html>
