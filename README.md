@@ -3,8 +3,10 @@ Analyses DNA sequences
 
 #Changelog
 
-26/07/2016 - hugocartwright ( https://github.com/hugocartwright )
+26/07/2016
+- Completed missing portions of the help page ("nucleotide par frequencies" and "PCR primer analysis" sections)
 
+26/07/2016 - hugocartwright ( https://github.com/hugocartwright )
 - Rename and combine functions nucleotideFrequency, codonFreq to countOccurences(sequence, reference).
 - Simplify reverseComplement function into "reverseSequence" and "complementSequence" functions and use DNAchars object
 - Change main.js accordingly
