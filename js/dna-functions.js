@@ -49,7 +49,7 @@ var isSequenceValid = function(sequence){
 	return true;
 };
 
-//Gives the count of each nucleotide pair
+//Counts each key in "reference" object within the "s" parameter
 var countOccurences = function(sequence, reference){
 	var occurenceTable = {};
 	for(var character in reference){
