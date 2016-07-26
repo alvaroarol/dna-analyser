@@ -1,17 +1,9 @@
 //Molecular weight of each nucleotide (in Da)
 var DNAchars = {
-	"A" : {molWeight: 313.21, 	complement: "T"},
-	"T" : {molWeight: 304.2,	complement: "A"},
+	"A" : {molWeight: 313.21,	complement: "T"},
+	"T" : {molWeight: 304.2, complement: "A"},
 	"G" : {molWeight: 329.21,	complement: "C"},
 	"C" : {molWeight: 289.18,	complement: "G"}
-};
-
-//Object quick fix, countOccurences doesn't work with a simple array yet
-var nucleotidePairs = {
-	"AA" : "", "AT" : "", "AG" : "", "AC" : "", 
-	"TA" : "", "TT" : "", "TG" : "", "TC" : "", 
-	"GA" : "", "GT" : "", "GG" : "", "GC" : "",
-	"CA" : "", "CT" : "", "CG" : "", "CC" : ""
 };
 
 //Table of correspondence between codons and translated amino-acids (or STOP)
@@ -51,11 +43,26 @@ var isSequenceValid = function(sequence){
 
 //Counts each key in "reference" object within the "s" parameter
 var countOccurences = function(sequence, reference){
-	occurenceTable = {};
+	var occurenceTable = {};
 	for(var character in reference){
 		occurenceTable[character] = sequence.split(character).length - 1;
 	}
 	return occurenceTable;
+};
+
+//Gives the count of each nucleotide pair
+var nucleotidePairFrequency = function(sequence){
+	var nucleotidePairFreq = {
+		"AA" : 0, "AT" : 0, "AG" : 0, "AC" : 0,
+		"TA" : 0, "TT" : 0, "TG" : 0, "TC" : 0,
+		"GA" : 0, "GT" : 0, "GG" : 0, "GC" : 0,
+		"CA" : 0, "CT" : 0, "CG" : 0, "CC" : 0
+	};
+	for(var i = 0; i < sequence.length - 1; i ++){
+    //Add a count to the correspondent codon in the counting object
+    nucleotidePairFreq[sequence[i] + sequence[i + 1]] ++;
+  }
+	return nucleotidePairFreq;
 };
 
 //Predicts translation of gene to protein
