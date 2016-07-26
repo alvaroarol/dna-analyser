@@ -1,9 +1,17 @@
 //Molecular weight of each nucleotide (in Da)
 var DNAchars = {
-	"A" : 313.21,
-	"T" : 304.2,
-	"G" : 329.21,
-	"C" : 289.18
+	"A" : {molWeight: 313.21, 	complement: "T"},
+	"T" : {molWeight: 304.2,	complement: "A"},
+	"G" : {molWeight: 329.21,	complement: "C"},
+	"C" : {molWeight: 289.18,	complement: "G"}
+};
+
+//Object quick fix, countOccurences doesn't work with a simple array yet
+var nucleotidePairs = {
+	"AA" : "", "AT" : "", "AG" : "", "AC" : "", 
+	"TA" : "", "TT" : "", "TG" : "", "TC" : "", 
+	"GA" : "", "GT" : "", "GG" : "", "GC" : "",
+	"CA" : "", "CT" : "", "CG" : "", "CC" : ""
 };
 
 //Table of correspondence between codons and translated amino-acids (or STOP)
@@ -41,28 +49,13 @@ var isSequenceValid = function(sequence){
 	return true;
 };
 
-//Gives the count of each nucleotide
-var nucleotideFrequency = function(sequence){
-	DNAcharFreq = {};
-	for (var nucleotide in DNAchars){
-		//Number of each nucleotide in the sequence
-		DNAcharFreq[nucleotide] = sequence.split(nucleotide).length - 1;
+//Counts each key in "reference" object within the "s" parameter
+var countOccurences = function(sequence, reference){
+	occurenceTable = {};
+	for(var character in reference){
+		occurenceTable[character] = sequence.split(character).length - 1;
 	}
-	return DNAcharFreq;
-};
-
-//Gives the count of each nucleotide pair
-var nucleotidePairFrequency = function(sequence){
-	nucleotidePairFreq = {};
-	for(var i = 0; i < sequence.length - 1; i ++){
-		//Add the nucleotide pair to the counting object if it isn't already in it
-    if(!nucleotidePairFreq[sequence[i] + sequence[i + 1]]){
-      nucleotidePairFreq[sequence[i] + sequence[i + 1]] = 0;
-    }
-    //Add a count to the correspondent codon in the counting object
-    nucleotidePairFreq[sequence[i] + sequence[i + 1]] ++;
-  }
-	return nucleotidePairFreq;
+	return occurenceTable;
 };
 
 //Predicts translation of gene to protein
@@ -114,20 +107,6 @@ var translationShort = function (codonseq){
 	return codons;
 };
 
-//Counts the quantity of each codon
-var codonFreq = function(codonSequence){
-  var codonCount = {};
-  for(var i = 0; i < codonSequence.length; i++){
-    //Add the codon to the counting object if it isn't already in it
-    if(!codonCount[codonSequence[i]]){
-      codonCount[codonSequence[i]] = 0;
-    }
-    //Add a count to the correspondent codon in the counting object
-    codonCount[codonSequence[i]] ++;
-  }
-  return codonCount;
-};
-
 //Finds CpG islands (200bp regions with GC content higher than 50% and a ratio of observed/expected CpG dimers higher than 60%)
 var findCpGIslands = function(sequence){
 	//Checks if the sequence has at least 200 bp
@@ -140,7 +119,7 @@ var findCpGIslands = function(sequence){
 		//first 200 bp sequence
 		var intervalSeq = sequence.slice(0, 200);
 		//nucleotide count for a
-		var intervalFreq = nucleotideFrequency(intervalSeq);
+		var intervalFreq = countOccurences(intervalSeq, DNAchars);
 		//Counts "CG" pairs in a;
 		var cpgPairs = (intervalSeq.match(/CG/g) || []).length;
 		//update a, b and cpgPairs for each new nucleotide
@@ -190,34 +169,22 @@ var molecularWeight = function(sequence){
 	var totalWeight = 0;
 	//Looks at the molecular weight of the nucleotide in the DNAchars array and adds it to the total
 	for(var i = 0; i < sequence.length; i++){
-		totalWeight += DNAchars[sequence[i]];
+		totalWeight += DNAchars[sequence[i]].molWeight;
 	}
 	totalWeight += 79;
 	return (totalWeight.toFixed(2));
 };
 
-//Returns reverse, complement and reverse-complement sequence
-var reverseComplement = function(sequence){
-  var reverse_complement = {
-    reverse : "",
-    complement : "",
-    reverse_complement : ""
-  };
-  var complement_nucleotides = {
-    "A" : "T",
-    "G" : "C",
-    "T" : "A",
-    "C" : "G"
-  };
-  //Reverse
-  reverse_complement.reverse = sequence.split("").reverse().join("");
-  //Complement
-  var complementArray = [];
-  for(var i = 0; i < sequence.length; i ++){
-    complementArray.push(complement_nucleotides[sequence[i]]);
-  }
-  reverse_complement.complement = complementArray.join("");
-  //Reverse complement
-  reverse_complement.reverse_complement = reverse_complement.complement.split("").reverse().join("");
-  return reverse_complement;
+//reverses a sequence or string: "ABCD" => "DCBA"
+var reverseSequence = function(sequence){
+	return sequence.split("").reverse().join("");
+};
+
+//Returns complement sequence
+var complementSequence = function(sequence){
+	var complementArray = [];
+	for(var i = 0; i < sequence.length; i++){
+		complementArray.push(DNAchars[sequence[i]].complement);
+	}
+	return complementArray.join("");
 };
