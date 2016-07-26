@@ -66,7 +66,6 @@ var drawFrequencies = function(object,id,order){
     else{
       this.style.maxWidth = "500px";
     }
-    console.log(this.style.maxWidth);
   });
   document.getElementById(id + "span").innerHTML += "<br/><br/>";
   document.getElementById(id + "span").appendChild(canvasImage);

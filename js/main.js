@@ -102,7 +102,7 @@ var analyseDNA = function(){
   		}
       nucleotideFrequenciesArray = nucleotideFrequenciesArray.join("<br/>");
 
-      var nucleotidePairFrequencies = nucleotidePairFrequency(formattedSequence);
+      var nucleotidePairFrequencies = countOccurences(formattedSequence, nucleotidePairFreq);
       var nucleotidePairFrequenciesArray = [];
       for(var nucleotidePair in nucleotidePairFrequencies){
         nucleotidePairFrequenciesArray.push(nucleotidePair + " : " + ((nucleotidePairFrequencies[nucleotidePair] / formattedSequence.length) * 100).toFixed(2) + "% (" + nucleotidePairFrequencies[nucleotidePair] + ")");
