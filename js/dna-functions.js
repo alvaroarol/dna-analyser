@@ -49,7 +49,7 @@ var isSequenceValid = function(sequence){
 	return true;
 };
 
-//Counts each key in "reference" object within the "s" parameter
+//Counts each key in "reference" object within the "sequence" parameter
 var countOccurences = function(sequence, reference){
 	var occurenceTable = {};
 	for(var character in reference){
