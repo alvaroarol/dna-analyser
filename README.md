@@ -3,6 +3,10 @@ Analyses DNA sequences
 
 #Changelog
 
+27/07/2016
+- Fixed "Load from file" ugly button appearance
+- Added "BLAST" button on main sequence analysis and PCR primer analysis, that opens a new window at NCBI's BLAST (blastn suite) with the correspondent sequence
+
 26/07/2016
 - Completed missing portions of the help page ("nucleotide par frequencies" and "PCR primer analysis" sections)
 

@@ -174,25 +174,25 @@ textarea{
   margin-top: 5px;
 }
 
-#loadfiletext{
-  margin-bottom: 0px;
+#loadfromfile{
+  cursor: pointer;
+  display: inline-block;
   margin-top: 10px;
-  padding-top: 5px;
-  background-color: #ffffff;
-  position: relative;
-  left: 15px;
-  color: black;
-  width: 200px;
-  height: 25px;
+  margin-bottom: 10px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #29487d;
+  background-color: #3c579d;
+  color: #ffffff;
+  width: 180px;
+  height: 20px;
+  font-size: 14px;
+  padding-top: 2px;
+  padding-bottom: 0px;
 }
 
 #loadfromfilebutton{
-  margin-top: 0px;
-  margin-bottom: 10px;
-  padding-left: 5px;
-  padding: 5px;
-  width: 180px;
-  cursor: pointer;
+  display: none;
 }
 
 #options{
@@ -231,10 +231,11 @@ textarea{
   color: grey;
 }
 
-#analysebutton{
+#analysebutton, #blastbutton{
   height: 30px;
   margin-top: 10px;
   margin-bottom: 10px;
+  margin-right: 20px;
   border-style: solid;
   border-width: 1px;
   border-color: #29487d;
@@ -246,7 +247,6 @@ textarea{
 }
 
 #timer{
-  margin-left: 30px;
   color: grey;
 }
 

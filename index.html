@@ -40,7 +40,10 @@
         <div class="separator"></div>
         <input class="iobutton" id="loadexamplebutton" value="Load example sequence" type="button" onclick="loadExample()"/>
         <div class="separator"></div>
-        <p id="loadfiletext">Load sequence from text file</p><input class="iobutton" id="loadfromfilebutton" type="file" value="Load sequence from text file" onchange="loadFromFile()"/>
+        <label id="loadfromfile">
+        Load from file
+        <input class="iobutton" id="loadfromfilebutton" type="file" value="" onchange="loadFromFile()"/>
+      </label>
         </div>
         <p class="menutitle">Analysis Options</p>
         <div id="options">
@@ -60,7 +63,9 @@
       <div id="input">
         <p>Introduce your DNA sequence in the following box :</p>
         <textarea id="DNA"></textarea><br/>
-        <input id="analysebutton" value="Analyse" type="button" onclick="startAnalyse()"/><span id="timer"></span>
+        <input id="analysebutton" value="Analyse" type="button" onclick="startAnalyse()"/>
+        <input id="blastbutton" value="BLAST" type="button" onclick="submitBLAST(&quot;DNA&quot;)"/>
+        <span id="timer"></span>
      </div>
       <div id="results">
         <div id="formattedseq" class="break-word hide">

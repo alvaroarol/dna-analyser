@@ -14,6 +14,8 @@
         <p class="explanation">The sequence can be in all majuscule letters, all minuscule letters or a mix of both. Common sequence formats are accepted such as FASTA, GenBank (containing indexes and spacing) or any personalised format as long as it only contains the letters ATGC, numbers, spacing, line breaks or hyphens.</p>
       <p class="title">Analysis</p>
         <p class="explanation">To launch an analysis, after inputting the sequence in the box, press the "Analyse" button below the box. If the sequence is particularly long, it might take some time. The longest functions to run are the translation prediction and, to a lesser extent, the CpG islands finder.</p>
+      <p class="title">BLAST</p>
+        <p class="explanation">Pressing the "BLAST" button will open a new window at NCBI's BLAST (blastn suite) with the correspondent sequence. For more information on the usage of BLAST, please refer to the BLAST help section.</p>
       <p class="title">Results display</p>
         <p class="explanation">To mantain readability, results are collapsed into categories. To display any of the categories, click on the "show" button next to it. You can click again on the ("hide") button to collapse those results again.</p>
       <p class="title">DNA/translated sequences encoding</p>
@@ -60,7 +62,7 @@
         <p class="title">Nucleotide pair frequencies</p>
           <p class="explanation">Shows the frequency of each nucleotide pair. If the option "Order histogram bars" is checked, the graph will be ordered by decreasing frequencies. Highest frequency is coloured in red, higher than 6.25% in dark blue and lower than 6.25% in light blue.</p>
         <p class="title">Molecular Weight</p>
-          <p class="explanation">Gives the total molecular weight of the DNA sequence in Daltons (Da) and kiloDaltons (kDa) between brackets. Individual weight for each nucleotide is as follows:</p>
+          <p class="explanation">Gives the total molecular weight of the DNA sequence in Daltons (Da) and kiloDaltons (kDa) between brackets. This calculation assumes there is a 5' monophosphate left by most restriction enzymes, thus adding 79 Da to the total. Individual weight for each nucleotide is as follows:</p>
           <div id="molecularweight">
           	A : 330.22 Da<br/>
           	T : 321.21 Da<br/>
@@ -185,5 +187,7 @@
         <p class="explanation">Informs if the sequence has a repetition of more than 4 same nucleotides in a row. It is not recommended to have longer repetitions. If the primer contains such repetitions, it will be displayed in red.</p>
       <p class="title">Higher than 4 times in a row pair repeats</p>
         <p class="explanation">Informs if the sequence has a repetition of more than 4 pairs of nucleotides in a row. It is not recommended to have longer repetitions. If the primer contains such repetitions, it will be displayed in red.</p>
+      <p class="title">BLAST</p>
+        <p class="explanation">Pressing the "BLAST" button will open a new window at NCBI's BLAST (blastn suite) with the correspondent primer sequence. For more information on the usage of BLAST, please refer to the BLAST help section.</p>
   </body>
 </html>
