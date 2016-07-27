@@ -223,6 +223,8 @@ var pcrAnalyse = function(){
       pcrResults.push("<b>Higher than 4 times in a row pair repeats :</b> " + "No" + "<br/><br/>");
     }
 
+    pcrResults.push("<input type=\"button\" id=\"pcrblastbutton\" value=\"BLAST\" onclick=\"submitBLAST(&quot;pcrbox&quot;)\"/>");
+
     fillToolsResultsBox(pcrResults.join(""));
   }
   else{

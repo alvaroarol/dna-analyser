@@ -69,6 +69,11 @@ var startAnalyse = function(){
   setTimeout("document.getElementById(\"mask\").style.display = \"none\";",10);
 };
 
+//Opens a new page/tab at NCBI's BLAST (blastn suite) with the sequence in the textarea
+var submitBLAST = function (id){
+  var sequence = document.getElementById(id).value;
+  var blastWindow = window.open("http://blast.ncbi.nlm.nih.gov/Blast.cgi?PAGE=Nucleotides&PROGRAM=blastn&PAGE_TYPE=BlastSearch&BLAST_SPEC=&QUERY=" + sequence);
+};
 
 /////////////////
 //Main function//
