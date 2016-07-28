@@ -2,11 +2,11 @@ var options = {
   "formatDNA": true,
   "formatProt" : true,
   "nuclFreq" : true,
+  "iCodonFreq": true,
   "molWeight" : true,
+  "revComp" : true,
   "cpg" : true,
   "translation" : true,
-  "revComp" : true,
-  "orderGraph" : true
 };
 
 //Loads options into the checkboxes and adds an event listener that saves any change to the options object
