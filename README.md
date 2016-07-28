@@ -3,6 +3,11 @@ Analyses DNA sequences
 
 #Changelog
 
+28/07/2016
+- Added individual codon frequencies
+- Frequencies are now always displayed by decreasing value order, including the graphs, instead of it being an option
+- Fixed "Reverse-complement" option uncheck not having any effect
+
 27/07/2016
 - Fixed "Load from file" ugly button appearance
 - Added "BLAST" button on main sequence analysis and PCR primer analysis, that opens a new window at NCBI's BLAST (blastn suite) with the correspondent sequence

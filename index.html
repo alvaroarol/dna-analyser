@@ -49,12 +49,12 @@
         <div id="options">
           <input type="checkbox" class="checkbox" id="formatDNA"/> Format DNA sequence<br/>
           <input type="checkbox" class="checkbox" id="formatProt"/> Format protein sequence<br/>
-          <input type="checkbox" class="checkbox" id="orderGraph"/> Order histogram bars<br/>
           <input type="checkbox" class="checkbox" id="nuclFreq"/> Nucleotide frequency<br/>
+          <input type="checkbox" class="checkbox" id="iCodonFreq"/> Individual codon frequencies<br/>
           <input type="checkbox" class="checkbox" id="molWeight"/> Molecular weight<br/>
+          <input type="checkbox" class="checkbox" id="revComp"/> Reverse-complement<br/>
           <input type="checkbox" class="checkbox" id="cpg"/> CpG Islands<br/>
           <input type="checkbox" class="checkbox" id="translation"/> Translation prediction<br/>
-          <input type="checkbox" class="checkbox" id="revComp"/> Reverse-complement<br/>
           <input class="iobutton" type="button" id="checkall" value="Select all" onclick="selectAll(1)"/>
           <input class="iobutton" type="button" id="uncheckall" value="Unselect all" onclick="selectAll(0)"/>
         </div>
@@ -79,6 +79,10 @@
         <div id="nucleotidepairfreq" class="hide">
           <input id="nucleotidepairfreqbutton" type="button" value="Show" class="showbutton" onclick="showHideButton(&quot;nucleotidepairfreq&quot;,&quot;nucleotidepairfreqbutton&quot;)"/> <span class="resulttitle">Nucleotide pair frequencies</span>
           <span id="nucleotidepairfreqspan" class="monospace"></span>
+        </div>
+        <div id="individualcodonfreq" class="hide">
+          <input id="individualcodonfreqbutton" type="button" value="Show" class="showbutton" onclick="showHideButton(&quot;individualcodonfreq&quot;,&quot;individualcodonfreqbutton&quot;)"/> <span class="resulttitle">Individual codon frequencies</span>
+          <div id="individualcodonfreqspan" class="monospace"></div>
         </div>
         <div id="molweightDNA" class="hide">
           <input id="molweightDNAbutton" type="button" value="Show" class="showbutton" onclick="showHideButton(&quot;molweightDNA&quot;,&quot;molweightDNAbutton&quot;)"/> <span class="resulttitle">Molecular weight</span>

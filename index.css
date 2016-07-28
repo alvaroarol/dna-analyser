@@ -320,7 +320,16 @@ border-color: #d3d6db;
   padding-left: 60px;
 }
 
-#nucleotidefreq, #molweightDNA, #reverse, #cpgislands, #translatedseq1, #translatedseq2, #translatedseq3{
+#individualcodonfreqspan{
+  height: 350px;
+}
+
+.icodondiv{
+  float: left;
+  margin-right: 60px;
+}
+
+#nucleotidefreq, #molweightDNA, #individualcodonfreq, #reverse, #cpgislands, #translatedseq1, #translatedseq2, #translatedseq3{
   border-top-style: solid;
   border-width: 1px;
 }
