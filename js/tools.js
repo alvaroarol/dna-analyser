@@ -22,15 +22,21 @@ var proteinNotation = {
   "***": "*"
 };
 
-//Show the tools bar
+//Show the tools bar. Emptying the DNA textarea before resizing lets the resize animation be smooth (otherwise particularly laggy on chrome)
 var showTools = function(){
   if(document.getElementById("right-col").style.display === "block"){
+    var DNAtext = document.getElementById("DNA").value;
+    document.getElementById("DNA").value = "";
     document.getElementById("right-col").style.display = "none";
     document.getElementById("center-col").style.width = "900px";
+    setTimeout(function(){document.getElementById("DNA").value = DNAtext;}, 300);
   }
   else{
+    var DNAtext = document.getElementById("DNA").value;
+    document.getElementById("DNA").value = "";
     document.getElementById("right-col").style.display = "block";
     document.getElementById("center-col").style.width = "650px";
+    setTimeout(function(){document.getElementById("DNA").value = DNAtext;}, 300);
   }
 };
 

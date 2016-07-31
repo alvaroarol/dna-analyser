@@ -43,16 +43,16 @@ var loadResults = function(){
 	if(loadName != ""){
 		var openWindow = window.open();
 		openWindow.document.write("<script type=\"text/javascript\" src=\"js/main.js\"></script><link rel=\"stylesheet\" type=\"text/css\" href=\"index.css\"/>");
-		openWindow.document.write("<body style=\"display: block;\"><h1>" + loadName + "</h1></body>");
+		openWindow.document.write("<body style=\"display:block;width:900px;padding-left:10px;\"><h1>" + loadName + "</h1></body>");
 		openWindow.document.write(localStorage.getItem(loadName));
-		openWindow.document.write("<script>for(var i=0;0<document.images.length;i++){document.images[i].style.maxWidth=\"2000px\"};</script>");
+		openWindow.document.write("<script>for(var i=0;0<document.images.length;i++){document.images[i].style.maxWidth=\"2000px\";document.images[i].style.cursor=\"auto\"};</script>");
 	}
 };
 
 //Deletes entry in saved results
 var deleteEntry = function(){
 	var deleteName = document.getElementById("selectsave").value;
-	if((deleteName != "") && (confirm("Are you sure you want to delete " + deleteName))){
+	if((deleteName != "") && (confirm("Are you sure you want to delete \"" + deleteName + "\""))){
 		localStorage.removeItem(deleteName);
 		document.getElementById("selectsave").remove(document.getElementById("selectsave").selectedIndex);
 	}
@@ -71,6 +71,7 @@ var loadFromFile = function(){
 	else{
 		alert(fileInput.name + " is not a valid text file!")
 	}
+	document.getElementById("loadfromfilebutton").value = "";
 };
 
 //Loads example sequence

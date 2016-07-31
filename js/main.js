@@ -61,12 +61,15 @@ var toggleAbout = function(){
 };
 
 var startAnalyse = function(){
-  //Changes cursor to waiting cursor
-  document.getElementById("mask").style.display = "block";
-  //Launches main function
-  setTimeout("analyseDNA()", 10);
-  //Reverts waiting cursor back to normal
-  setTimeout("document.getElementById(\"mask\").style.display = \"none\";",10);
+  if(document.getElementById("DNA").value.length > 3){
+    //Changes cursor to waiting cursor and shows "working" in timer div
+    document.getElementById("mask").style.display = "block";
+    document.getElementById("timer").innerHTML = "Working...";
+    //Launches main function
+    setTimeout("analyseDNA()", 10);
+    //Reverts waiting cursor back to normal
+    setTimeout("document.getElementById(\"mask\").style.display = \"none\";", 10);
+  }
 };
 
 //Opens a new page/tab at NCBI's BLAST (blastn suite) with the sequence in the textarea
@@ -277,8 +280,7 @@ var analyseDNA = function(){
     //Gets ending time and computes total execution time
     var localTime = new Date();
     var endingTime = localTime.getTime();
-    document.getElementById("timer").innerHTML = "Execution time : " + ((endingTime - startingTime) / 1000) + " s";
-
+    document.getElementById("timer").innerHTML = "Done... Execution time : " + ((endingTime - startingTime) / 1000) + " s";
   }
 
 	//If there are non-nucleotide characters, abort and warn user
