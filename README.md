@@ -3,6 +3,11 @@ Analyses DNA sequences
 
 #Changelog
 
+01/08/2016
+- Added a "Working..." message while program is running, which is replaced by the "execution time" message once it is finished
+- Minor fixes and visual tweaks
+
+
 28/07/2016
 - Added individual codon frequencies
 - Frequencies are now always displayed by decreasing value order, including the graphs, instead of it being an option

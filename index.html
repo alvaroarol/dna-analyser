@@ -3,18 +3,13 @@
     <head>
       <title>DNA analyser</title>
       <meta charset="utf-8"/>
-      <script type="text/javascript" src="js/loadsave.js"></script>
-      <script type="text/javascript" src="js/download.js"></script>
-      <script type="text/javascript" src="js/graph.js"></script>
-      <script type="text/javascript" src="js/dna-functions.js"></script>
-      <script type="text/javascript" src="js/tools.js"></script>
       <link rel="stylesheet" type="text/css" href="index.css"/>
     </head>
     <body onload="loadOldSaved()">
       <div id="mask"></div>
       <div id="banner">
-        <div id="title"><img src="logo.png" height="40px"/><span>DNA Analyser</span></div>
-        <a href="help.html" target="_blank"><input type="button" value="Help" id="helpbutton"/></a>
+        <div id="title"><img src="logo.png" alt="logo"/><span>DNA Analyser</span></div>
+        <a href="help.html" id="helpbutton" target="_blank">Help</a>
         <input type="button" value="About" id="aboutbutton" onclick="toggleAbout()"/>
         <input type="button" value="Toggle tools" id="showtools" onclick="showTools()"/>
       </div>
@@ -31,7 +26,7 @@
         <div id="saveload">
         <input type="button" value="Save results to html file" onclick="downloadResults()" class="iobutton" id="downloadbutton"/>
         <div class="separator"></div>
-        <input type="text" id="savename" value="Name">
+        <input type="text" id="savename" placeholder="Name">
         <input type="button" class="iobutton" id="savebutton" value="Save results in local memory" onclick="saveResults()">
         <div class="separator"></div>
         <select id="selectsave"></select>
@@ -42,7 +37,7 @@
         <div class="separator"></div>
         <label id="loadfromfile">
         Load from file
-        <input class="iobutton" id="loadfromfilebutton" type="file" value="" onchange="loadFromFile()"/>
+        <input class="iobutton" id="loadfromfilebutton" type="file" onchange="loadFromFile()"/>
       </label>
         </div>
         <p class="menutitle">Analysis Options</p>
@@ -62,7 +57,7 @@
       <div id="center-col">
       <div id="input">
         <p>Introduce your DNA sequence in the following box :</p>
-        <textarea id="DNA"></textarea><br/>
+        <textarea id="DNA" spellcheck="false"></textarea><br/>
         <input id="analysebutton" value="Analyse" type="button" onclick="startAnalyse()"/>
         <input id="blastbutton" value="BLAST" type="button" onclick="submitBLAST(&quot;DNA&quot;)"/>
         <span id="timer"></span>
@@ -145,22 +140,22 @@
     <div id="right-col">
       <p class="menutitle">Formatting tools</p>
       <div id="formatting">
-        <textarea id="formattingbox"></textarea>
+        <textarea id="formattingbox" spellcheck="false"></textarea>
         <input type="button" value="Format to FASTA" onclick="formatFasta()" class="iobutton" id="fastabutton"/>
         <input type="button" value="Format to indexed" onclick="formatIndexed()" class="iobutton" id="indexedbutton"/>
-        <input type="button" value="Format protein to 1 letter" onclick="formatOneLetter()" class="iobutton" id="indexedbutton"/>
-        <input type="button" value="Format protein to 3 letter" onclick="formatThreeLetter()" class="iobutton" id="indexedbutton"/>
+        <input type="button" value="Format protein to 1 letter" onclick="formatOneLetter()" class="iobutton" id="protein1button"/>
+        <input type="button" value="Format protein to 3 letter" onclick="formatThreeLetter()" class="iobutton" id="protein3button"/>
       </div>
       <p class="menutitle">Isolate interval from sequence</p>
       <div id="isolate">
-        <textarea id="cutbox"></textarea>
+        <textarea id="cutbox" spellcheck="false"></textarea>
         Start : <input type="number" id="startcut"/>
         End : <input type="number" id="endcut"/>
         <input type="button" value="Isolate" onclick="isolateInterval()" class="iobutton" id="cutbutton"/>
       </div>
       <p class="menutitle">PCR primer analysis</p>
       <div id="pcr">
-        <textarea id="pcrbox"></textarea>
+        <textarea id="pcrbox" spellcheck="false"></textarea>
         <input type="button" value="Analyse PCR primer" onclick="pcrAnalyse()" class="iobutton" id="pcrbutton"/>
       </div>
     </div>
@@ -169,7 +164,12 @@
       <div id="toolsresultsbox"></div>
     </div>
     </div>
-    </body>
-    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="js/loadsave.js"></script>
+    <script type="text/javascript" src="js/download.js"></script>
+    <script type="text/javascript" src="js/tools.js"></script>
     <script type="text/javascript" src="js/options.js"></script>
+    <script type="text/javascript" src="js/graph.js"></script>
+    <script type="text/javascript" src="js/dna-functions.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    </body>
   </html>

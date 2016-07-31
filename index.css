@@ -30,6 +30,7 @@ textarea{
   border-style: solid;
   border-width: 2px;
   height: 50px;
+  box-shadow: 0px 3px 5px 0px #9e9e9e;
 }
 
 #title{
@@ -67,6 +68,7 @@ textarea{
   border-style: solid;
   border-width: 1px;
   cursor: pointer;
+  text-decoration: none;
 }
 
 #showtools{
@@ -83,8 +85,8 @@ textarea{
 
 #about{
   position: absolute;
-  left: 690px;
-  top: 65px;
+  left: 740px;
+  top: 70px;
   z-index: 1;
   width: 400px;
   padding: 20px;
@@ -94,6 +96,7 @@ textarea{
   border-color: #3c579d;
   border-style: solid;
   border-width: 2px;
+  box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.3);
 }
 
 #aboutclosebutton{
@@ -216,8 +219,10 @@ textarea{
 #center-col{
   width: 900px;
   min-width: 650px;
+  max-width: 900px;
   margin-left: 20px;
   margin-right: 20px;
+  transition: width 0.3s ease 0s;
 }
 
 #input{
@@ -248,6 +253,8 @@ textarea{
 
 #timer{
   color: grey;
+  position: relative;
+  top: 5px;
 }
 
 #results{
@@ -317,7 +324,7 @@ border-color: #d3d6db;
   font-family: monospace;
   font-size: 13px;
   display: none;
-  padding-left: 60px;
+  padding-left: 20px;
 }
 
 #individualcodonfreqspan{
@@ -326,7 +333,7 @@ border-color: #d3d6db;
 
 .icodondiv{
   float: left;
-  margin-right: 60px;
+  margin-right: 40px;
 }
 
 #nucleotidefreq, #molweightDNA, #individualcodonfreq, #reverse, #cpgislands, #translatedseq1, #translatedseq2, #translatedseq3{
@@ -341,7 +348,6 @@ border-color: #d3d6db;
 #right-col{
   padding-left: 10px;
   padding-right: 10px;
-  background-color: #edf0f5;
   text-align: center;
   display: none;
 }
@@ -367,6 +373,7 @@ border-color: #d3d6db;
 
 #startcut, #endcut{
   width: 50px;
+  margin-top: 5px;
 }
 
 #pcrbox{
@@ -379,6 +386,7 @@ border-color: #d3d6db;
   left: 350px;
   top: 150px;
   text-align: right;
+  box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.3);
 }
 
 #toolsresultsbox{
