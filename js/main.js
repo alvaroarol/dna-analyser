@@ -21,7 +21,7 @@ var formatSequence = function(sequence){
 var writeToHtml = function(result, divId, formattable){
 	//optional argument
 	formattable = formattable || 0;
-	if(formattable && (options["formatDNA"] || options["formatProt"])){
+	if(formattable && ((options["formatDNA"] && isSequenceValid(result)) || (options["formatProt"] && isSequenceValid(result) === false))){
 		result = formatSequence(result);
 	}
 	
@@ -106,6 +106,8 @@ var analyseDNA = function(){
 		//Sequence input
 		writeToHtml(formattedSequence, "formattedseq", true);
 		
+		var formattedSequenceLength = formattedSequence.length;
+		
 		//Nucleotide frequency
 		if(options["nuclFreq"]){
 			var nucleotideFrequencies = countOccurences(formattedSequence, DNAchars);
@@ -114,7 +116,7 @@ var analyseDNA = function(){
 			for(var x in orderNuclFreq){
 				var nucleotideCount = orderNuclFreq[x];
 				var nucleotideF = nucleotideFrequencies[nucleotideCount];
-				nucleotideFrequenciesArray.push(nucleotideCount + " : " + ((nucleotideF / formattedSequence.length) * 100).toFixed(2) + "% (" + nucleotideF + ")");
+				nucleotideFrequenciesArray.push(nucleotideCount + " : " + ((nucleotideF / formattedSequenceLength) * 100).toFixed(2) + "% (" + nucleotideF + ")");
 			}
 			nucleotideFrequenciesArray = nucleotideFrequenciesArray.join("<br/>");
 
@@ -124,7 +126,7 @@ var analyseDNA = function(){
 			for(var x in orderNuclPairFreq){
 				var nucleotideCount = orderNuclPairFreq[x];
 				var nucleotideF = nucleotidePairFrequencies[orderNuclPairFreq[x]];
-				nucleotidePairFrequenciesArray.push(nucleotideCount + " : " + ((nucleotideF / (formattedSequence.length - 1)) * 100).toFixed(2) + "% (" + nucleotideF + ")");
+				nucleotidePairFrequenciesArray.push(nucleotideCount + " : " + ((nucleotideF / (formattedSequenceLength - 1)) * 100).toFixed(2) + "% (" + nucleotideF + ")");
 			}
 			nucleotidePairFrequenciesArray = nucleotidePairFrequenciesArray.join("<br/>");
 		  
@@ -143,7 +145,7 @@ var analyseDNA = function(){
 			for(var x = 0; x < orderICodonFreq.length; x ++){
 				var codon = orderICodonFreq[x];
 				var codonCount = individualCodonFreq[codon];
-				var text = codon + " : " + (codonCount * 100 / (formattedSequence.length - 2)).toFixed(2) + "% (" + codonCount + ")";
+				var text = codon + " : " + (codonCount * 100 / (formattedSequenceLength - 2)).toFixed(2) + "% (" + codonCount + ")";
 				if((x === 0) || (x === 22) || (x === 44)){
 					text = "<div class=\"icodondiv\">" + text + "<br/>";
 				}
@@ -169,8 +171,9 @@ var analyseDNA = function(){
 		if(options["cpg"]){
 			var cpgIslands = findCpGIslands(formattedSequence);
 			var cpgIslandsText = [];
-			if((cpgIslands[0] != undefined) && (cpgIslands[0].length != 0) && (cpgIslands[0][0] != undefined)){
-				for(var i = 0; i < cpgIslands[0].length - 1; i ++){
+			var cpgIslandsBasicLength = cpgIslands[0].length;
+			if((cpgIslands[0] != undefined) && (cpgIslandsBasicLength != 0) && (cpgIslands[0][0] != undefined)){
+				for(var i = 0; i < cpgIslandsBasicLength - 1; i ++){
 					cpgIslandsText.push("Start : " + cpgIslands[0][i] + " / End : " + cpgIslands[1][i]);
 				}
 				cpgIslandsText = cpgIslandsText.join("<br/>");
@@ -185,8 +188,8 @@ var analyseDNA = function(){
 		if(options["translation"]){
 			var translatedSequences = [
 				translation(formattedSequence).join(""), 
-				translation(formattedSequence.slice(1, formattedSequence.length + 1)).join(""),
-				translation(formattedSequence.slice(2, formattedSequence.length + 1)).join("")
+				translation(formattedSequence.slice(1, formattedSequenceLength + 1)).join(""),
+				translation(formattedSequence.slice(2, formattedSequenceLength + 1)).join("")
 			];
 			
 			var codonFrequencies = [
@@ -203,18 +206,33 @@ var analyseDNA = function(){
 				}
 				codonFrequenciesText[i] = codonFrequenciesText[i].join("<br/>");
 			}
-			
+		
 			var possibleProtein = [
-				translationShort(translatedSequences[0].split("")).join("<div id=\"hr\"></div>"), 
-				translationShort(translatedSequences[1].split("")).join("<div id=\"hr\"></div>"),
-				translationShort(translatedSequences[2].split("")).join("<div id=\"hr\"></div>")
+				translationShort(translatedSequences[0].split("")),
+				translationShort(translatedSequences[1].split("")),
+				translationShort(translatedSequences[2].split(""))
 			];
+			
+			var possibleProteinText = [[], [], []];
+			if(options["formatProt"]){
+				for(var i = 0; i < possibleProtein.length; i ++){
+					for(var j = 0; j < possibleProtein[i].length; j ++){
+						possibleProteinText[i][j] = formatSequence(possibleProtein[i][j]);
+					}
+					possibleProteinText[i] = possibleProteinText[i].join("<div id=\"hr\"></div>");
+				}
+			}
+			else{
+				for(var i = 0; i < possibleProtein.length; i ++){
+					possibleProteinText[i] = possibleProtein[i].join("<div id=\"hr\"></div>");
+				}
+			}
 
 			for(var i = 0; i < translatedSequences.length; i++){
 				writeToHtml(translatedSequences[i], "translatedseq" + (i + 1), true);
 				writeToHtml(codonFrequenciesText[i], "codonfreq" + (i + 1));
 				drawFrequencies(codonFrequencies[i], "codonfreq" + (i + 1));
-				writeToHtml(possibleProtein[i], "shorttranslatedseq" + (i + 1), true);
+				writeToHtml(possibleProteinText[i], "shorttranslatedseq" + (i + 1));
 			}
 		}
 
