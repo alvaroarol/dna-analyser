@@ -6,12 +6,25 @@ var DNAchars = {
 	"C" : {molWeight: 289.18,	complement: "G"}
 };
 
+//Possible ngram generator needed for these 2 references
 //Nucleotide pairs array for reference for countOccurences
-var nucleotidePairFreq = [
+var nucleotidePairs = [
 	"AA", "AT", "AG", "AC",
 	"TA", "TT", "TG", "TC",
 	"GA", "GT", "GG", "GC",
 	"CA", "CT", "CG", "CC"
+];
+
+//Nucleotide triplets array for reference for countOccurences
+var nucleotideTriplets = [
+	"TTT", "TTA", "ATT", "TTC", "TAT", "TAA", "TCT", "CTT",
+	"ATA", "TAC", "CCC", "ACT", "TCC", "AAC", "CAT", "CTC",
+	"AAT", "CTA", "ACC", "GTT", "AAA", "ATC", "CCT", "TCA",
+	"ACA", "CGA", "CAC", "GAT", "CCA", "CGT", "TGT", "ACG",
+	"CCG", "TCG", "CAA", "CGC", "GCT", "GAC", "CTG", "TTG",
+	"GTA", "ATG", "TGC", "TGA", "GCA", "AGA", "TAG", "AGT",
+	"CAG", "GCG", "GTC", "GAA", "AAG", "GGC", "CGG", "AGC",
+	"GGT", "GCC", "AGG", "TGG", "GAG", "GTG", "GGG", "GGA"
 ];
 
 //Table of correspondence between codons and translated amino-acids (or STOP)
@@ -54,12 +67,11 @@ var countOccurences = function(sequence, reference){
 	var occurenceTable = {};
 	
 	//convert object to array
-	
-	if(typeof reference === 'object'){
-		var keys = Object.keys(reference);
-	}
-	else if(Array.isArray(reference)){
+	if(Array.isArray(reference)){
 		var keys = reference;
+	}
+	else if(typeof reference === 'object'){
+		var keys = Object.keys(reference);
 	}
 	
 	for(var i = 0; i < keys.length; i++){
