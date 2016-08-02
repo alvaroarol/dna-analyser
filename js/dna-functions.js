@@ -54,9 +54,11 @@ var countOccurences = function(sequence, reference){
 	var occurenceTable = {};
 	
 	//convert object to array
+	
 	if(typeof reference === 'object'){
 		var keys = Object.keys(reference);
-	}else if(isArray(reference)){
+	}
+	else if(Array.isArray(reference)){
 		var keys = reference;
 	}
 	
