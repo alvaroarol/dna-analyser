@@ -1,7 +1,23 @@
 # dna-analyser
 Analyses DNA sequences
 
+#Contributors
+- alvaroarol (https://github.com/alvaroarol)
+- hugocartwright (https://github.com/hugocartwright)
+
 #Changelog
+
+02/08/2016 - hugocartwright (see Contributors section)
+- Modify countOccurences(sequence, reference) in dna-functions.js to accept reference argument as either array or object, therefore:
+	* var nucleotidePairs a simple array
+	* Create var nucleotideTriplets array to remove one-time array generation in main
+
+- Optimise main.js
+    * Modify writeToHtml(result, divId) to writeToHtml(result, divId, formattable) with formattable being an optional boolean argument indicating whether result can be formatted
+	* Simplify/abstractify code executed in if(option["argument"]) blocks
+
+- Minor tweaks in above and other files
+	* Several .length tweaks
 
 01/08/2016
 - Added a "Working..." message while program is running, which is replaced by the "execution time" message once it is finished
@@ -20,7 +36,7 @@ Analyses DNA sequences
 26/07/2016
 - Completed missing portions of the help page ("nucleotide par frequencies" and "PCR primer analysis" sections)
 
-26/07/2016 - hugocartwright ( https://github.com/hugocartwright )
+26/07/2016 - hugocartwright (see Contributors section)
 - Rename and combine functions nucleotidePairFrequency, nucleotideFrequency, codonFreq to countOccurences(sequence, reference).
 - Simplify reverseComplement function into "reverseSequence" and "complementSequence" functions and use DNAchars object
 - Change main.js accordingly
@@ -80,7 +96,7 @@ Analyses DNA sequences
 - Added the possibility to load an example sequence or to load a sequence from a local text file
 - Added a timer for execution time
 
-05/07/2016 - hugocartwright ( https://github.com/hugocartwright )
+05/07/2016 - hugocartwright (see Contributors section)
 - Optimised various functions in dna-functions.js
 - Moved save and load localstorage functions to loadsave.js
 - Moved formatSequence function to dna-alayser.js where most display formatting is going on
