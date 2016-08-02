@@ -104,10 +104,11 @@ var isolateInterval = function(){
   var startcut = Number(document.getElementById("startcut").value);
   var endcut = Number(document.getElementById("endcut").value);
   var sequence = document.getElementById("cutbox").value.split(/[0-9]|\s|\n|\t|\/|\-/g).join("").toUpperCase();
+  var sequenceLength = sequence.length;
   if((endcut <= 0) || (startcut <= 0)){
     fillToolsResultsBox("Start and End must be positive integers");
   }
-  else if((endcut > sequence.length) || (startcut > sequence.length)){
+  else if((endcut > sequenceLength) || (startcut > sequenceLength)){
     fillToolsResultsBox("Start and End must be within the sequence length");
   }
   else if(startcut > endcut){
@@ -178,15 +179,16 @@ var findPairRepeats = function(sequence){
 //Main PCR primer function
 var pcrAnalyse = function(){
   var primer = document.getElementById("pcrbox").value.split(/[0-9]|\s|\n|\t|\/|\-/g).join("").toUpperCase();
+  var primerLength = primer.length;
   if(isSequenceValid(primer)){
     var pcrResults = [];
     pcrResults.push("<b>Primer sequence :</b> " + primer + "<br/><br/>");
 
-    if((primer.length >= 18) && (primer.length <= 30)){
-      pcrResults.push("<b>Length :</b> " + primer.length + " nucleotides<br/><br/>");
+    if((primerLength >= 18) && (primerLength <= 30)){
+      pcrResults.push("<b>Length :</b> " + primerLength + " nucleotides<br/><br/>");
     }
     else{
-      pcrResults.push("<b>Length :</b> <span>" + primer.length + " nucleotides</span><br/><br/>");
+      pcrResults.push("<b>Length :</b> <span>" + primerLength + " nucleotides</span><br/><br/>");
     }
 
     var gcContent = getGCContent(primer);
@@ -197,7 +199,7 @@ var pcrAnalyse = function(){
       pcrResults.push("<b>GC content :</b><span> " + gcContent.toFixed(2) + "%</span><br/><br/>");
     }
 
-    gcContent = getGCContent(primer.slice(primer.length - 5, primer.length)) * 5 / 100;
+    gcContent = getGCContent(primer.slice(primerLength - 5, primerLength)) * 5 / 100;
     if(gcContent <= 3){
       pcrResults.push("<b>GC content in last 5 nucleotides :</b> " + gcContent + " nucleotides<br/><br/>");
     }
