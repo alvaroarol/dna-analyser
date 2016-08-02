@@ -125,19 +125,20 @@ var translationShort = function(codonseq){
 		start = b.indexOf("M");
 		//Remove the translated sequence before first M
 		a = b.slice(start, b.length + 1);
+		var aLength = a.length;
 		//If there isn't a STOP codon after the previously found M, the protein ends at the end of the sequence
 		if(a.indexOf("*") === -1){
-			end = a.length + 1;
+			end = aLength + 1;
 		}
 		//Else, find the STOP codon of the current protein
 		else{
-      end = a.indexOf("*");
-    }
+			end = a.indexOf("*");
+		}
 		//Add the protein found from M to STOP into the protein array
 		b = a.slice(0, end);
 		codons.push(b.join(""));
 		//Remove everything before the last used STOP codon (including the STOP itself), for next loop iteration
-		b = a.slice(end + 1, a.length + 1);
+		b = a.slice(end + 1, aLength + 1);
 		a = b;
 	};
 	return codons;
@@ -146,7 +147,9 @@ var translationShort = function(codonseq){
 //Finds CpG islands (200bp regions with GC content higher than 50% and a ratio of observed/expected CpG dimers higher than 60%)
 var findCpGIslands = function(sequence){
 	//Checks if the sequence has at least 200 bp
-	if(sequence.length < 200){
+	var sequenceLength = sequence.length;
+	
+	if(sequenceLength < 200){
 		return [];
 	}
 	else{
@@ -159,7 +162,7 @@ var findCpGIslands = function(sequence){
 		//Counts "CG" pairs in a;
 		var cpgPairs = (intervalSeq.match(/CG/g) || []).length;
 		//update a, b and cpgPairs for each new nucleotide
-		for(var i = 0; i < sequence.length - 200; i ++){
+		for(var i = 0; i < sequenceLength - 200; i ++){
 			if(i > 0){
 				//remove left most nucleotide from current count array
 				intervalFreq[sequence[i - 1]]--;
