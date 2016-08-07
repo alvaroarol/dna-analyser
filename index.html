@@ -22,7 +22,7 @@
       </div>
       <div id="main">
       <div id="left-col">
-        
+
 		<p class="menutitle">Start / Load</p>
         <div id="saveload">
         <input class="iobutton" id="loadexamplebutton" value="Load example sequence" type="button" onclick="loadExample()"/>
@@ -34,23 +34,22 @@
 		<div class="separator"></div>
         <select id="selectsave"></select>
         <input type="button" class="iobutton" id="loadbutton" value="Load from local memory" onclick="loadResults()">
+        <input type="button" class="iobutton" id="deletebutton" value="Erase from local memory" onclick="deleteEntry()">
         </div>
-		
+
 		<p class="menutitle">Save</p>
 		<div id="saveload">
         <input type="button" value="Save results to html file" onclick="downloadResults()" class="iobutton" id="downloadbutton"/>
         <div class="separator"></div>
         <input type="text" id="savename" placeholder="Name">
         <input type="button" class="iobutton" id="savebutton" value="Save results in local memory" onclick="saveResults()">
-        
-        <input type="button" class="iobutton" id="deletebutton" value="Erase from local memory" onclick="deleteEntry()">
         </div>
-		
+
         <p class="menutitle">Analysis Options</p>
         <div id="options">
           <input type="checkbox" class="checkbox" id="formatDNA"/> Format DNA sequence<br/>
           <input type="checkbox" class="checkbox" id="formatProt"/> Format protein sequence<br/>
-          <input type="checkbox" class="checkbox" id="nuclFreq"/> Nucleotide frequency<br/>
+          <input type="checkbox" class="checkbox" id="nuclFreq"/> Nucleotide frequencies<br/>
           <input type="checkbox" class="checkbox" id="iCodonFreq"/> Individual codon frequencies<br/>
           <input type="checkbox" class="checkbox" id="molWeight"/> Molecular weight<br/>
           <input type="checkbox" class="checkbox" id="revComp"/> Reverse-complement<br/>
