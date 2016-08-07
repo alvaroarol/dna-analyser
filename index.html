@@ -22,24 +22,30 @@
       </div>
       <div id="main">
       <div id="left-col">
-        <p class="menutitle">Save & Load</p>
+        
+		<p class="menutitle">Start / Load</p>
         <div id="saveload">
-        <input type="button" value="Save results to html file" onclick="downloadResults()" class="iobutton" id="downloadbutton"/>
-        <div class="separator"></div>
-        <input type="text" id="savename" placeholder="Name">
-        <input type="button" class="iobutton" id="savebutton" value="Save results in local memory" onclick="saveResults()">
-        <div class="separator"></div>
-        <select id="selectsave"></select>
-        <input type="button" class="iobutton" id="loadbutton" value="Load from local memory" onclick="loadResults()">
-        <input type="button" class="iobutton" id="deletebutton" value="Erase from local memory" onclick="deleteEntry()">
-        <div class="separator"></div>
         <input class="iobutton" id="loadexamplebutton" value="Load example sequence" type="button" onclick="loadExample()"/>
         <div class="separator"></div>
         <label id="loadfromfile">
         Load from file
         <input class="iobutton" id="loadfromfilebutton" type="file" onchange="loadFromFile()"/>
-      </label>
+		</label>
+		<div class="separator"></div>
+        <select id="selectsave"></select>
+        <input type="button" class="iobutton" id="loadbutton" value="Load from local memory" onclick="loadResults()">
         </div>
+		
+		<p class="menutitle">Save</p>
+		<div id="saveload">
+        <input type="button" value="Save results to html file" onclick="downloadResults()" class="iobutton" id="downloadbutton"/>
+        <div class="separator"></div>
+        <input type="text" id="savename" placeholder="Name">
+        <input type="button" class="iobutton" id="savebutton" value="Save results in local memory" onclick="saveResults()">
+        
+        <input type="button" class="iobutton" id="deletebutton" value="Erase from local memory" onclick="deleteEntry()">
+        </div>
+		
         <p class="menutitle">Analysis Options</p>
         <div id="options">
           <input type="checkbox" class="checkbox" id="formatDNA"/> Format DNA sequence<br/>
@@ -172,4 +178,4 @@
     <script type="text/javascript" src="js/dna-functions.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
     </body>
-  </html>
+</html>
