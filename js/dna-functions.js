@@ -65,7 +65,7 @@ var isSequenceValid = function(sequence){
 //Counts each key in "reference" object within the "sequence" parameter
 var countOccurences = function(sequence, reference){
 	var occurenceTable = {};
-	
+
 	//convert object to array
 	if(Array.isArray(reference)){
 		var keys = reference;
@@ -73,10 +73,10 @@ var countOccurences = function(sequence, reference){
 	else if(typeof reference === 'object'){
 		var keys = Object.keys(reference);
 	}
-	
+
 	for(var i = 0; i < keys.length; i++){
 		character = keys[i];
-		if(character === "*"){ 
+		if(character === "*"){
 			var characterRegExp = new RegExp("\\*", "g");
 		}
 		else{
@@ -90,7 +90,7 @@ var countOccurences = function(sequence, reference){
 		}
 		occurenceTable[character] = results.length;
 	}
-	
+
 	return occurenceTable;
 };
 
@@ -148,7 +148,7 @@ var translationShort = function(codonseq){
 var findCpGIslands = function(sequence){
 	//Checks if the sequence has at least 200 bp
 	var sequenceLength = sequence.length;
-	
+
 	if(sequenceLength < 200){
 		return [];
 	}
