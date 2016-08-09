@@ -10,11 +10,11 @@
       <div id="banner">
         <div id="title"><img src="logo.png" alt="logo"/><span>DNA Analyser</span></div>
         <a href="help.html" id="helpbutton" target="_blank">Help</a>
-        <input type="button" value="About" id="aboutbutton" onclick="toggleAbout()"/>
+        <input type="button" value="About" id="aboutbutton" onclick="showHideButton(&quot;about&quot;,&quot;aboutbutton&quot;,&quot;false&quot;)"/>
         <input type="button" value="Toggle tools" id="showtools" onclick="showTools()"/>
       </div>
-      <div id="about">
-        <input type="button" value="X" id="aboutclosebutton" onclick="toggleAbout()"/>
+      <div id="aboutspan">
+        <input type="button" value="X" id="aboutclosebutton" onclick="showHideButton(&quot;about&quot;,&quot;aboutbutton&quot;,&quot;false&quot;)"/>
         This program started as a way to learn javascript and general webpage creation. As time passed, I invested a bit more time into it and it turned out into an actual coding project of a collection of functions dedicated to the study of DNA sequences.<br/>
         The use of javascript makes it easily accessible on most internet browsers and doesn't require any server work, apart from loading the page itself.<br/>
         It doesn't use any external library so it remains lightweight and quick to load.<br/>
