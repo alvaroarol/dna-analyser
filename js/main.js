@@ -96,6 +96,32 @@ var analyseDNA = function(){
 	//Gets starting time (for execution time)
 	var localTime = new Date();
 	var startingTime = localTime.getTime();
+	
+	//Empty page contents
+	var divsList = [
+		"nucleotidefreq", 
+		"nucleotidepairfreq", 
+		"individualcodonfreq", 
+		"molweightDNA", 
+		"complement", 
+		"reverse", 
+		"reverse-complement", 
+		"translatedseq1", 
+		"translatedseq2", 
+		"translatedseq3", 
+		"codonfreq1", 
+		"codonfreq2", 
+		"codonfreq3", 
+		"shorttranslatedseq1", 
+		"shorttranslatedseq2", 
+		"shorttranslatedseq3", 
+		"cpgislands"
+	];
+	
+	for(var i = 0; i < divsList.length; i++){
+		document.getElementById(divsList[i] + "span").innerHTML = "";
+		document.getElementById(divsList[i]).style.display = "none";
+	}
 
 	//Gets submitted DNA sequence and formats it to have a continuous series of letters (removes numbers, blanks, hyphens, tabs and line breaks)
 	var submittedSequence = document.getElementById("DNA").value;
@@ -135,10 +161,6 @@ var analyseDNA = function(){
 			writeToHtml(nucleotidePairFrequenciesArray, "nucleotidepairfreq");
 			drawFrequencies(nucleotidePairFrequencies, "nucleotidepairfreq");
 		}
-    else{
-      writeToHtml("", "nucleotidefreq");
-      writeToHtml("", "nucleotidepairfreq");
-    }
 
 		//Individual codon frequencies
 		if(options["iCodonFreq"]){
@@ -163,20 +185,14 @@ var analyseDNA = function(){
 			}
 			writeToHtml(individualCodonFrequenciesText.join(""), "individualcodonfreq");
 		}
-    else{
-      writeToHtml("", "individualcodonfreq");
-    }
-
+		
 		//Molecular weight
 		if(options["molWeight"]){
 			var molWeightDNA = molecularWeight(formattedSequence);
 			molWeightDNA = molWeightDNA + " Da (" + DaTokDa(molWeightDNA) + " kDa)";
 			writeToHtml(molWeightDNA, "molweightDNA");
 		}
-    else{
-      writeToHtml("", "molweightDNA");
-    }
-
+		
 		//CpG islands
 		if(options["cpg"]){
 			var cpgIslands = findCpGIslands(formattedSequence);
@@ -193,9 +209,6 @@ var analyseDNA = function(){
 			}
 			writeToHtml(cpgIslandsText, "cpgislands");
 		}
-    else{
-      writeToHtml("", "cpgislands");
-    }
 
 		// Translation prediction, codon frequencies and possible proteins
 		if(options["translation"]){
@@ -248,13 +261,6 @@ var analyseDNA = function(){
 				writeToHtml(possibleProteinText[i], "shorttranslatedseq" + (i + 1));
 			}
 		}
-    else{
-      for(var i = 0; i < 3; i++){
-				writeToHtml("", "translatedseq" + (i + 1));
-				writeToHtml("", "codonfreq" + (i + 1));
-				writeToHtml("", "shorttranslatedseq" + (i + 1));
-			}
-    }
 
 		//Reverse, complement and reverse complement sequences
 		if(options["revComp"]){
@@ -265,11 +271,6 @@ var analyseDNA = function(){
 			writeToHtml(reverseText, "reverse", true);
 			writeToHtml(reverseComplementText, "reverse-complement", true);
 		}
-    else{
-      writeToHtml("", "complement");
-			writeToHtml("", "reverse");
-			writeToHtml("", "reverse-complement");
-    }
 
 		//Gets ending time and computes total execution time
 		var localTime = new Date();
