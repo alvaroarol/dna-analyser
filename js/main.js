@@ -1,28 +1,42 @@
 //Formats the sequence for a better display with blocks of 10, line-breaks every 60 nucleotides and an index before each line
 var formatSequence = function(sequence){
-  var spacedSequence = [];
-  spacedSequence.push(Array(7).join("&nbsp") + 1 + " ");
-  for(var i = 0; i < sequence.length; i++){
-    var spaces = 7 - i.toString().length;
-    if((i + 1) % 60 === 0){
-      spacedSequence.push(sequence[i] + "<br/>" + Array(spaces + 1).join("&nbsp;") + (i + 2) + " ");
-    }
-    else if((i + 1) % 10 === 0){
-      spacedSequence.push(sequence[i] + " ");
-    }
-    else{
-      spacedSequence.push(sequence[i]);
-    }
-  }
-  return spacedSequence.join("")
+	var spacedSequence = [];
+	spacedSequence.push(Array(7).join("&nbsp") + 1 + " ");
+	for(var i = 0; i < sequence.length; i++){
+		var spaces = 7 - i.toString().length;
+		if((i + 1) % 60 === 0){
+			spacedSequence.push(sequence[i] + "<br/>" + Array(spaces + 1).join("&nbsp;") + (i + 2) + " ");
+		}
+		else if((i + 1) % 10 === 0){
+			spacedSequence.push(sequence[i] + " ");
+		}
+		else{
+			spacedSequence.push(sequence[i]);
+		}
+	}
+	return spacedSequence.join("");
 };
 
 //Writes the result of the function to HTML
 var writeToHtml = function(result, divId, formattable){
 	//optional argument
 	formattable = formattable || 0;
+
+	//check if we want to format the result
 	if(formattable && ((options["formatDNA"] && isSequenceValid(result)) || (options["formatProt"] && isSequenceValid(result) === false))){
-		result = formatSequence(result);
+		//if result is an object format each of it's elements
+		if (typeof result === 'object'){
+			for(var i = 0; i < result.length; i++){
+				result[i] = formatSequence(result[i]);
+			}
+		}
+		else{
+			result = formatSequence(result);
+		}
+	}
+	
+	if(typeof result === 'object'){
+		result = result.join("<div id=\"hr\"></div>");
 	}
 
 	document.getElementById(divId + "span").innerHTML = "";
@@ -239,26 +253,11 @@ var analyseDNA = function(){
 				translationShort(translatedSequences[2].split(""))
 			];
 
-			var possibleProteinText = [[], [], []];
-			if(options["formatProt"]){
-				for(var i = 0; i < possibleProtein.length; i ++){
-					for(var j = 0; j < possibleProtein[i].length; j ++){
-						possibleProteinText[i][j] = formatSequence(possibleProtein[i][j]);
-					}
-					possibleProteinText[i] = possibleProteinText[i].join("<div id=\"hr\"></div>");
-				}
-			}
-			else{
-				for(var i = 0; i < possibleProtein.length; i ++){
-					possibleProteinText[i] = possibleProtein[i].join("<div id=\"hr\"></div>");
-				}
-			}
-
 			for(var i = 0; i < translatedSequences.length; i++){
 				writeToHtml(translatedSequences[i], "translatedseq" + (i + 1), true);
 				writeToHtml(codonFrequenciesText[i], "codonfreq" + (i + 1));
 				drawFrequencies(codonFrequencies[i], "codonfreq" + (i + 1));
-				writeToHtml(possibleProteinText[i], "shorttranslatedseq" + (i + 1));
+				writeToHtml(possibleProtein[i], "shorttranslatedseq" + (i + 1), true);
 			}
 		}
 
