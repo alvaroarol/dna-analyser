@@ -8,12 +8,12 @@ Analyses DNA sequences
 #Changelog
 
 09/08/2016 - hugocartwright (see Contributors section)
-
-Remove empty writeToHtml else clauses
-Optimise formatProt option
-Remove toggleAbout and use showHideButton
-Replace inline onclicks with click event listeners
-Remove inline onload and onchange in index.html
+- Remove empty writeToHtml else clauses
+- Optimise formatProt option
+- Remove toggleAbout and use showHideButton
+- Index.html / main.js
+	* Replace inline onclicks with click event listeners
+	* Remove inline onload and onchange
 
 02/08/2016 - hugocartwright
 - Modify countOccurences(sequence, reference) in dna-functions.js to accept reference argument as either array or object, therefore:
