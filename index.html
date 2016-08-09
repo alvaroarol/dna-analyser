@@ -25,7 +25,7 @@
 
 		<p class="menutitle">Start / Load</p>
         <div id="saveload">
-        <input class="iobutton" id="loadexamplebutton" value="Load example sequence" type="button" />
+        <input class="iobutton otherbutton" id="loadexamplebutton" value="Load example sequence" type="button" />
         <div class="separator"></div>
         <label id="loadfromfile">
         Load from file
@@ -33,16 +33,16 @@
 		</label>
 		<div class="separator"></div>
         <select id="selectsave"></select>
-        <input type="button" class="iobutton" id="loadbutton" value="Load from local memory" >
-        <input type="button" class="iobutton" id="deletebutton" value="Erase from local memory" >
+        <input type="button" class="iobutton otherbutton" id="loadbutton" value="Load from local memory" >
+        <input type="button" class="iobutton otherbutton" id="deletebutton" value="Erase from local memory" >
         </div>
 
 		<p class="menutitle">Save</p>
 		<div id="saveload">
-        <input type="button" value="Save results to html file" class="iobutton" id="downloadbutton" />
+        <input type="button" value="Save results to html file" class="iobutton otherbutton" id="downloadbutton" />
         <div class="separator"></div>
         <input type="text" id="savename" placeholder="Name" >
-        <input type="button" class="iobutton" id="savebutton" value="Save results in local memory" >
+        <input type="button" class="iobutton otherbutton" id="savebutton" value="Save results in local memory" >
         </div>
 
         <p class="menutitle">Analysis Options</p>
@@ -55,16 +55,16 @@
           <input type="checkbox" class="checkbox" id="revComp"/> Reverse-complement<br/>
           <input type="checkbox" class="checkbox" id="cpg"/> CpG Islands<br/>
           <input type="checkbox" class="checkbox" id="translation"/> Translation prediction<br/>
-          <input class="iobutton" type="button" id="checkall" value="Select all" />
-          <input class="iobutton" type="button" id="uncheckall" value="Unselect all" />
+          <input class="iobutton otherbutton" type="button" id="checkall" value="Select all" />
+          <input class="iobutton otherbutton" type="button" id="uncheckall" value="Unselect all" />
         </div>
       </div>
       <div id="center-col">
       <div id="input">
         <p>Introduce your DNA sequence in the following box :</p>
         <textarea id="DNA" spellcheck="false"></textarea><br/>
-        <input id="analysebutton" value="Analyse" type="button"  />
-        <input id="blastbutton" value="BLAST" type="button" />
+        <input class="otherbutton" id="analysebutton" value="Analyse" type="button"  />
+        <input class="otherbutton" id="blastbutton" value="BLAST" type="button" />
         <span id="timer"></span>
      </div>
       <div id="results">
@@ -73,71 +73,71 @@
           <span id="formattedseqspan" class="monospace"></span>
         </div>
         <div id="nucleotidefreq" class="hide">
-          <input id="nucleotidefreqbutton" type="button" value="Show" class="showbutton showbuttonlisten" /> <span class="resulttitle">Nucleotide frequencies</span>
+          <input id="nucleotidefreqbutton" type="button" value="Show" class="showbutton showbuttonlisten refreshresult" /> <span class="resulttitle">Nucleotide frequencies</span>
           <span id="nucleotidefreqspan" class="monospace"></span>
         </div>
         <div id="nucleotidepairfreq" class="hide">
-          <input id="nucleotidepairfreqbutton" type="button" value="Show" class="showbutton showbuttonlisten" /> <span class="resulttitle">Nucleotide pair frequencies</span>
+          <input id="nucleotidepairfreqbutton" type="button" value="Show" class="showbutton showbuttonlisten refreshresult" /> <span class="resulttitle">Nucleotide pair frequencies</span>
           <span id="nucleotidepairfreqspan" class="monospace"></span>
         </div>
         <div id="individualcodonfreq" class="hide">
-          <input id="individualcodonfreqbutton" type="button" value="Show" class="showbutton showbuttonlisten" /> <span class="resulttitle">Individual codon frequencies</span>
+          <input id="individualcodonfreqbutton" type="button" value="Show" class="showbutton showbuttonlisten refreshresult" /> <span class="resulttitle">Individual codon frequencies</span>
           <div id="individualcodonfreqspan" class="monospace"></div>
         </div>
         <div id="molweightDNA" class="hide">
-          <input id="molweightDNAbutton" type="button" value="Show" class="showbutton showbuttonlisten" /> <span class="resulttitle">Molecular weight</span>
+          <input id="molweightDNAbutton" type="button" value="Show" class="showbutton showbuttonlisten refreshresult" /> <span class="resulttitle">Molecular weight</span>
           <span id="molweightDNAspan" class="monospace"></span>
         </div>
         <div id="reverse" class="break-word hide">
-          <input id="reversebutton" type="button" value="Show" class="showbutton showbuttonlisten" /> <span class="resulttitle">Reverse sequence</span>
+          <input id="reversebutton" type="button" value="Show" class="showbutton showbuttonlisten refreshresult" /> <span class="resulttitle">Reverse sequence</span>
           <span id="reversespan" class="monospace"></span>
         </div>
         <div id="complement" class="break-word hide">
-          <input id="complementbutton" type="button" value="Show" class="showbutton showbuttonlisten" /> <span class="resulttitle">Complement sequence</span>
+          <input id="complementbutton" type="button" value="Show" class="showbutton showbuttonlisten refreshresult" /> <span class="resulttitle">Complement sequence</span>
           <span id="complementspan" class="monospace"></span>
         </div>
         <div id="reverse-complement" class="break-word hide">
-          <input id="reverse-complementbutton" type="button" value="Show" class="showbutton showbuttonlisten" /> <span class="resulttitle">Reverse complement sequence</span>
+          <input id="reverse-complementbutton" type="button" value="Show" class="showbutton showbuttonlisten refreshresult" /> <span class="resulttitle">Reverse complement sequence</span>
           <span id="reverse-complementspan" class="monospace"></span>
         </div>
         <div id="cpgislands" class="hide">
-          <input id="cpgislandsbutton" type="button" value="Show" class="showbutton showbuttonlisten" /> <span class="resulttitle">CpG islands</span>
+          <input id="cpgislandsbutton" type="button" value="Show" class="showbutton showbuttonlisten refreshresult" /> <span class="resulttitle">CpG islands</span>
           <span id="cpgislandsspan" class="monospace"></span>
         </div>
         <div id="translatedseq1" class="break-word hide">
-          <input id="translatedseq1button" type="button" value="Show" class="showbutton showbuttonlisten" /> <span class="resulttitle">Translation prediction from first reading frame</span>
+          <input id="translatedseq1button" type="button" value="Show" class="showbutton showbuttonlisten refreshresult" /> <span class="resulttitle">Translation prediction from first reading frame</span>
           <span id="translatedseq1span" class="monospace"></span>
         </div>
         <div id="codonfreq1" class="hide">
-          <input id="codonfreq1button" type="button" value="Show" class="showbutton showbuttonlisten" /> <span class="resulttitle">Codon frequencies</span>
+          <input id="codonfreq1button" type="button" value="Show" class="showbutton showbuttonlisten refreshresult" /> <span class="resulttitle">Codon frequencies</span>
           <span id="codonfreq1span" class="monospace"></span>
         </div>
         <div id="shorttranslatedseq1" class="break-word hide">
-          <input id="shorttranslatedseq1button" type="button" value="Show" class="showbutton showbuttonlisten" /> <span class="resulttitle">Possible proteins/peptides</span>
+          <input id="shorttranslatedseq1button" type="button" value="Show" class="showbutton showbuttonlisten refreshresult" /> <span class="resulttitle">Possible proteins/peptides</span>
           <span id="shorttranslatedseq1span" class="monospace"></span>
         </div>
         <div id="translatedseq2" class="break-word hide">
-          <input id="translatedseq2button" type="button" value="Show" class="showbutton showbuttonlisten" /> <span class="resulttitle">Translation prediction from second reading frame</span>
+          <input id="translatedseq2button" type="button" value="Show" class="showbutton showbuttonlisten refreshresult" /> <span class="resulttitle">Translation prediction from second reading frame</span>
           <span id="translatedseq2span" class="monospace"></span>
         </div>
         <div id="codonfreq2" class="hide">
-          <input id="codonfreq2button" type="button" value="Show" class="showbutton showbuttonlisten" /> <span class="resulttitle">Codon frequencies</span>
+          <input id="codonfreq2button" type="button" value="Show" class="showbutton showbuttonlisten refreshresult" /> <span class="resulttitle">Codon frequencies</span>
           <span id="codonfreq2span" class="monospace"></span>
         </div>
         <div id="shorttranslatedseq2" class="break-word hide">
-          <input id="shorttranslatedseq2button" type="button" value="Show" class="showbutton showbuttonlisten" /> <span class="resulttitle">Possible proteins/peptides</span>
+          <input id="shorttranslatedseq2button" type="button" value="Show" class="showbutton showbuttonlisten refreshresult" /> <span class="resulttitle">Possible proteins/peptides</span>
           <span id="shorttranslatedseq2span" class="monospace"></span>
         </div>
         <div id="translatedseq3" class="break-word hide">
-          <input id="translatedseq3button" type="button" value="Show" class="showbutton showbuttonlisten" /> <span class="resulttitle">Translation prediction from third reading frame</span>
+          <input id="translatedseq3button" type="button" value="Show" class="showbutton showbuttonlisten refreshresult" /> <span class="resulttitle">Translation prediction from third reading frame</span>
           <span id="translatedseq3span" class="monospace"></span>
         </div>
         <div id="codonfreq3" class="hide">
-          <input id="codonfreq3button" type="button" value="Show" class="showbutton showbuttonlisten" /> <span class="resulttitle">Codon frequencies</span>
+          <input id="codonfreq3button" type="button" value="Show" class="showbutton showbuttonlisten refreshresult" /> <span class="resulttitle">Codon frequencies</span>
           <span id="codonfreq3span" class="monospace"></span>
         </div>
         <div id="shorttranslatedseq3" class="break-word hide">
-          <input id="shorttranslatedseq3button" type="button" value="Show" class="showbutton showbuttonlisten" /> <span class="resulttitle">Possible proteins/peptides</span>
+          <input id="shorttranslatedseq3button" type="button" value="Show" class="showbutton showbuttonlisten refreshresult" /> <span class="resulttitle">Possible proteins/peptides</span>
           <span id="shorttranslatedseq3span" class="monospace"></span>
         </div>
       </div>
@@ -146,26 +146,26 @@
       <p class="menutitle">Formatting tools</p>
       <div id="formatting">
         <textarea id="formattingbox" spellcheck="false"></textarea>
-        <input type="button" value="Format to FASTA" class="iobutton" id="fastabutton" />
-        <input type="button" value="Format to indexed" class="iobutton" id="indexedbutton" />
-        <input type="button" value="Format protein to 1 letter" class="iobutton" id="protein1button" />
-        <input type="button" value="Format protein to 3 letter" class="iobutton" id="protein3button" />
+        <input type="button" value="Format to FASTA" class="iobutton otherbutton" id="fastabutton" />
+        <input type="button" value="Format to indexed" class="iobutton otherbutton" id="indexedbutton" />
+        <input type="button" value="Format protein to 1 letter" class="iobutton otherbutton" id="protein1button" />
+        <input type="button" value="Format protein to 3 letter" class="iobutton otherbutton" id="protein3button" />
       </div>
       <p class="menutitle">Isolate interval from sequence</p>
       <div id="isolate">
         <textarea id="cutbox" spellcheck="false"></textarea>
         Start : <input type="number" id="startcut"/>
         End : <input type="number" id="endcut"/>
-        <input type="button" value="Isolate" class="iobutton" id="cutbutton" />
+        <input type="button" value="Isolate" class="iobutton otherbutton" id="cutbutton" />
       </div>
       <p class="menutitle">PCR primer analysis</p>
       <div id="pcr">
         <textarea id="pcrbox" spellcheck="false"></textarea>
-        <input type="button" value="Analyse PCR primer"  class="iobutton" id="pcrbutton" />
+        <input type="button" value="Analyse PCR primer"  class="iobutton otherbutton" id="pcrbutton" />
       </div>
     </div>
     <div id="toolsresults">
-      <input type="button" value="X" id="toolsresultsclose" />
+      <input class="otherbutton" type="button" value="X" id="toolsresultsclose" />
       <div id="toolsresultsbox"></div>
     </div>
     </div>
