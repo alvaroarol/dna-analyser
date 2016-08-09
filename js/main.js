@@ -55,28 +55,23 @@ var writeToHtml = function(result, divId, formattable){
 	}
 };
 
+document.getElementById("aboutspan").style.display = "none";
+
 //Switches the div and button between hide and show
-var showHideButton = function(divId, buttonId){
-	if(document.getElementById(buttonId).className === "showbutton"){
+var showHideButton = function(divId, buttonId, noTextChange){
+	noTextChange = noTextChange || false;
+		
+	if(document.getElementById(divId + "span").style.display === "none"){
 		document.getElementById(divId + "span").style.display = "block";
-		document.getElementById(buttonId).value = "Hide";
-		document.getElementById(buttonId).className = "hidebutton";
+		if(noTextChange === false){ 
+			document.getElementById(buttonId).value = "Hide"; 
+		}
 	}
 	else{
 		document.getElementById(divId + "span").style.display = "none";
-		document.getElementById(buttonId).value = "Show";
-		document.getElementById(buttonId).className = "showbutton";
-	}
-};
-
-//Toggles the visibility of the about div when clicking the "about" button or the "x" close button
-document.getElementById("about").style.display = "none";
-var toggleAbout = function(){
-	if(document.getElementById("about").style.display === "none"){
-		document.getElementById("about").style.display = "block";
-	}
-	else{
-		document.getElementById("about").style.display = "none";
+		if(noTextChange === false){ 
+			document.getElementById(buttonId).value = "Show"; 
+		}
 	}
 };
 
