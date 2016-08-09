@@ -72,7 +72,7 @@ for(b in buttons){
 }
 
 //Other click event listeners
-var otherbuttons = document.getElementsByClassName('iobutton');
+var otherbuttons = document.getElementsByClassName('otherbutton');
 for(b in otherbuttons){
    if(otherbuttons.hasOwnProperty(b)){
      otherbuttons[b].addEventListener("click", function(){
@@ -318,4 +318,12 @@ var analyseDNA = function(){
 	else{
 		alert("The sequence contains at least one forbidden character! (See description above input box)");
 	}
+};
+
+window.onload=function () {
+
+loadOldSaved();
+
+document.getElementById("loadfromfilebutton").addEventListener("change", function(){loadFromFile(); }, false);
+
 };
