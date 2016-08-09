@@ -55,13 +55,11 @@ var writeToHtml = function(result, divId, formattable){
 	}
 };
 
-
 //Click event listeners for the showHideButton function
 var buttons = document.getElementsByClassName('showbuttonlisten');
 for(b in buttons){
    if(buttons.hasOwnProperty(b)){
      buttons[b].addEventListener("click", function(){
-        //showHideButton(this.id - "span", this.id);
 		var divId = this.id;
 		if(divId === "aboutclosebutton" || divId === "aboutbutton"){
 			showHideButton("about", divId, true);
@@ -74,72 +72,31 @@ for(b in buttons){
 }
 
 //Other click event listeners
-document.getElementById("showtools").addEventListener("click", function(){
-	showTools();
-});
-
-document.getElementById("loadexamplebutton").addEventListener("click", function(){
-	loadExample();
-});
-
-document.getElementById("loadbutton").addEventListener("click", function(){
-	loadResults();
-});
-document.getElementById("deletebutton").addEventListener("click", function(){
-	deleteEntry();
-});
-
-document.getElementById("downloadbutton").addEventListener("click", function(){
-	downloadResults();
-});
-
-document.getElementById("savebutton").addEventListener("click", function(){
-	saveResults();
-});
-
-document.getElementById("checkall").addEventListener("click", function(){
-	selectAll(1);
-});
-
-document.getElementById("uncheckall").addEventListener("click", function(){
-	selectAll(0);
-});
-
-document.getElementById("analysebutton").addEventListener("click", function(){
-	startAnalyse();
-});
-
-document.getElementById("blastbutton").addEventListener("click", function(){
-	submitBLAST("DNA");
-});
-
-document.getElementById("fastabutton").addEventListener("click", function(){
-	formatFasta();
-});
-
-document.getElementById("indexedbutton").addEventListener("click", function(){
-	formatIndexed();
-});
-
-document.getElementById("protein1button").addEventListener("click", function(){
-	formatOneLetter();
-});
-
-document.getElementById("protein3button").addEventListener("click", function(){
-	formatThreeLetter();
-});
-
-document.getElementById("cutbutton").addEventListener("click", function(){
-	lisolateInterval();
-});
-
-document.getElementById("pcrbutton").addEventListener("click", function(){
-	pcrAnalyse();
-});
-
-document.getElementById("toolsresultsclose").addEventListener("click", function(){
-	closeToolsResults();
-});
+var otherbuttons = document.getElementsByClassName('iobutton');
+for(b in otherbuttons){
+   if(otherbuttons.hasOwnProperty(b)){
+     otherbuttons[b].addEventListener("click", function(){
+		var divId = this.id;
+		if(divId === "showtools"){ showTools();}
+		if(divId === "loadexamplebutton"){ loadExample();}
+		if(divId === "loadbutton"){ loadResults();}
+		if(divId === "deletebutton"){ deleteEntry();}
+		if(divId === "downloadbutton"){ downloadResults();}
+		if(divId === "savebutton"){ saveResults();}
+		if(divId === "checkall"){ selectAll(1);}
+		if(divId === "uncheckall"){ selectAll(0);}
+		if(divId === "analysebutton"){ startAnalyse();}
+		if(divId === "fastabutton"){ formatFasta();}
+		if(divId === "blastbutton"){ submitBLAST("DNA");}
+		if(divId === "indexedbutton"){ formatIndexed();}
+		if(divId === "protein1button"){ formatOneLetter();}
+		if(divId === "protein3button"){ formatThreeLetter();}
+		if(divId === "cutbutton"){ isolateInterval();}
+		if(divId === "pcrbutton"){ pcrAnalyse();}
+		if(divId === "toolsresultsclose"){ closeToolsResults();}
+	}, false);
+   }
+}
 
 document.getElementById("aboutspan").style.display = "none";
 
@@ -191,7 +148,7 @@ var analyseDNA = function(){
 	var localTime = new Date();
 	var startingTime = localTime.getTime();
 	
-		var divsList = [
+	var divsList = [
 		"nucleotidefreq", 
 		"nucleotidepairfreq", 
 		"individualcodonfreq", 
