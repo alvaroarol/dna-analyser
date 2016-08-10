@@ -1,28 +1,42 @@
 //Formats the sequence for a better display with blocks of 10, line-breaks every 60 nucleotides and an index before each line
 var formatSequence = function(sequence){
-  var spacedSequence = [];
-  spacedSequence.push(Array(7).join("&nbsp") + 1 + " ");
-  for(var i = 0; i < sequence.length; i++){
-    var spaces = 7 - i.toString().length;
-    if((i + 1) % 60 === 0){
-      spacedSequence.push(sequence[i] + "<br/>" + Array(spaces + 1).join("&nbsp;") + (i + 2) + " ");
-    }
-    else if((i + 1) % 10 === 0){
-      spacedSequence.push(sequence[i] + " ");
-    }
-    else{
-      spacedSequence.push(sequence[i]);
-    }
-  }
-  return spacedSequence.join("")
+	var spacedSequence = [];
+	spacedSequence.push(Array(7).join("&nbsp") + 1 + " ");
+	for(var i = 0; i < sequence.length; i++){
+		var spaces = 7 - i.toString().length;
+		if((i + 1) % 60 === 0){
+			spacedSequence.push(sequence[i] + "<br/>" + Array(spaces + 1).join("&nbsp;") + (i + 2) + " ");
+		}
+		else if((i + 1) % 10 === 0){
+			spacedSequence.push(sequence[i] + " ");
+		}
+		else{
+			spacedSequence.push(sequence[i]);
+		}
+	}
+	return spacedSequence.join("");
 };
 
 //Writes the result of the function to HTML
 var writeToHtml = function(result, divId, formattable){
 	//optional argument
 	formattable = formattable || 0;
+
+	//check if we want to format the result
 	if(formattable && ((options["formatDNA"] && isSequenceValid(result)) || (options["formatProt"] && isSequenceValid(result) === false))){
-		result = formatSequence(result);
+		//if result is an object format each of it's elements
+		if (typeof result === 'object'){
+			for(var i = 0; i < result.length; i++){
+				result[i] = formatSequence(result[i]);
+			}
+		}
+		else{
+			result = formatSequence(result);
+		}
+	}
+	
+	if(typeof result === 'object'){
+		result = result.join("<div id=\"hr\"></div>");
 	}
 
 	document.getElementById(divId + "span").innerHTML = "";
@@ -41,28 +55,22 @@ var writeToHtml = function(result, divId, formattable){
 	}
 };
 
+document.getElementById("aboutspan").style.display = "none";
+
 //Switches the div and button between hide and show
-var showHideButton = function(divId, buttonId){
-	if(document.getElementById(buttonId).className === "showbutton"){
+var showHideButton = function(divId, buttonId, noTextChange){
+	noTextChange = noTextChange || false;
+	if(document.getElementById(divId + "span").style.display === "none"){
 		document.getElementById(divId + "span").style.display = "block";
-		document.getElementById(buttonId).value = "Hide";
-		document.getElementById(buttonId).className = "hidebutton";
+		if(noTextChange === false){ 
+			document.getElementById(buttonId).value = "Hide"; 
+		}
 	}
 	else{
 		document.getElementById(divId + "span").style.display = "none";
-		document.getElementById(buttonId).value = "Show";
-		document.getElementById(buttonId).className = "showbutton";
-	}
-};
-
-//Toggles the visibility of the about div when clicking the "about" button or the "x" close button
-document.getElementById("about").style.display = "none";
-var toggleAbout = function(){
-	if(document.getElementById("about").style.display === "none"){
-		document.getElementById("about").style.display = "block";
-	}
-	else{
-		document.getElementById("about").style.display = "none";
+		if(noTextChange === false){ 
+			document.getElementById(buttonId).value = "Show"; 
+		}
 	}
 };
 
@@ -96,7 +104,33 @@ var analyseDNA = function(){
 	//Gets starting time (for execution time)
 	var localTime = new Date();
 	var startingTime = localTime.getTime();
-
+	
+	var divsList = [
+		"nucleotidefreq", 
+		"nucleotidepairfreq", 
+		"individualcodonfreq", 
+		"molweightDNA", 
+		"complement", 
+		"reverse", 
+		"reverse-complement", 
+		"translatedseq1", 
+		"translatedseq2", 
+		"translatedseq3", 
+		"codonfreq1", 
+		"codonfreq2", 
+		"codonfreq3", 
+		"shorttranslatedseq1", 
+		"shorttranslatedseq2", 
+		"shorttranslatedseq3", 
+		"cpgislands"
+	];
+	
+	//Empty page contents
+	for(var i = 0; i < divsList.length; i++){
+		document.getElementById(divsList[i] + "span").innerHTML = "";
+		document.getElementById(divsList[i]).style.display = "none";
+	}
+	
 	//Gets submitted DNA sequence and formats it to have a continuous series of letters (removes numbers, blanks, hyphens, tabs and line breaks)
 	var submittedSequence = document.getElementById("DNA").value;
 	var formattedSequence = submittedSequence.split(/[0-9]|\s|\n|\t|\/|\-/g).join("").toUpperCase();
@@ -135,10 +169,6 @@ var analyseDNA = function(){
 			writeToHtml(nucleotidePairFrequenciesArray, "nucleotidepairfreq");
 			drawFrequencies(nucleotidePairFrequencies, "nucleotidepairfreq");
 		}
-    else{
-      writeToHtml("", "nucleotidefreq");
-      writeToHtml("", "nucleotidepairfreq");
-    }
 
 		//Individual codon frequencies
 		if(options["iCodonFreq"]){
@@ -163,20 +193,14 @@ var analyseDNA = function(){
 			}
 			writeToHtml(individualCodonFrequenciesText.join(""), "individualcodonfreq");
 		}
-    else{
-      writeToHtml("", "individualcodonfreq");
-    }
-
+		
 		//Molecular weight
 		if(options["molWeight"]){
 			var molWeightDNA = molecularWeight(formattedSequence);
 			molWeightDNA = molWeightDNA + " Da (" + DaTokDa(molWeightDNA) + " kDa)";
 			writeToHtml(molWeightDNA, "molweightDNA");
 		}
-    else{
-      writeToHtml("", "molweightDNA");
-    }
-
+		
 		//CpG islands
 		if(options["cpg"]){
 			var cpgIslands = findCpGIslands(formattedSequence);
@@ -193,9 +217,6 @@ var analyseDNA = function(){
 			}
 			writeToHtml(cpgIslandsText, "cpgislands");
 		}
-    else{
-      writeToHtml("", "cpgislands");
-    }
 
 		// Translation prediction, codon frequencies and possible proteins
 		if(options["translation"]){
@@ -226,35 +247,13 @@ var analyseDNA = function(){
 				translationShort(translatedSequences[2].split(""))
 			];
 
-			var possibleProteinText = [[], [], []];
-			if(options["formatProt"]){
-				for(var i = 0; i < possibleProtein.length; i ++){
-					for(var j = 0; j < possibleProtein[i].length; j ++){
-						possibleProteinText[i][j] = formatSequence(possibleProtein[i][j]);
-					}
-					possibleProteinText[i] = possibleProteinText[i].join("<div id=\"hr\"></div>");
-				}
-			}
-			else{
-				for(var i = 0; i < possibleProtein.length; i ++){
-					possibleProteinText[i] = possibleProtein[i].join("<div id=\"hr\"></div>");
-				}
-			}
-
 			for(var i = 0; i < translatedSequences.length; i++){
 				writeToHtml(translatedSequences[i], "translatedseq" + (i + 1), true);
 				writeToHtml(codonFrequenciesText[i], "codonfreq" + (i + 1));
 				drawFrequencies(codonFrequencies[i], "codonfreq" + (i + 1));
-				writeToHtml(possibleProteinText[i], "shorttranslatedseq" + (i + 1));
+				writeToHtml(possibleProtein[i], "shorttranslatedseq" + (i + 1), true);
 			}
 		}
-    else{
-      for(var i = 0; i < 3; i++){
-				writeToHtml("", "translatedseq" + (i + 1));
-				writeToHtml("", "codonfreq" + (i + 1));
-				writeToHtml("", "shorttranslatedseq" + (i + 1));
-			}
-    }
 
 		//Reverse, complement and reverse complement sequences
 		if(options["revComp"]){
@@ -265,11 +264,6 @@ var analyseDNA = function(){
 			writeToHtml(reverseText, "reverse", true);
 			writeToHtml(reverseComplementText, "reverse-complement", true);
 		}
-    else{
-      writeToHtml("", "complement");
-			writeToHtml("", "reverse");
-			writeToHtml("", "reverse-complement");
-    }
 
 		//Gets ending time and computes total execution time
 		var localTime = new Date();
@@ -281,4 +275,55 @@ var analyseDNA = function(){
 	else{
 		alert("The sequence contains at least one forbidden character! (See description above input box)");
 	}
+};
+
+window.onload=function () {
+
+loadOldSaved();
+
+//Click event listeners for the showHideButton function
+var buttons = document.getElementsByClassName('showbuttonlisten');
+for(b in buttons){
+   if(buttons.hasOwnProperty(b)){
+     buttons[b].addEventListener("click", function(){
+		var divId = this.id;
+		if(divId === "aboutclosebutton" || divId === "aboutbutton"){
+			showHideButton("about", divId, true);
+		}
+		else{
+			showHideButton(divId.substr(0, divId.length - 6), divId);
+		}
+	}, false);
+   }
+}
+
+//Other click event listeners
+var otherbuttons = document.getElementsByClassName('otherbutton');
+for(b in otherbuttons){
+   if(otherbuttons.hasOwnProperty(b)){
+     otherbuttons[b].addEventListener("click", function(){
+		var divId = this.id;
+		if(divId === "showtools"){ showTools();}
+		if(divId === "loadexamplebutton"){ loadExample();}
+		if(divId === "loadbutton"){ loadResults();}
+		if(divId === "deletebutton"){ deleteEntry();}
+		if(divId === "downloadbutton"){ downloadResults();}
+		if(divId === "savebutton"){ saveResults();}
+		if(divId === "checkall"){ selectAll(1);}
+		if(divId === "uncheckall"){ selectAll(0);}
+		if(divId === "analysebutton"){ startAnalyse();}
+		if(divId === "fastabutton"){ formatFasta();}
+		if(divId === "blastbutton"){ submitBLAST("DNA");}
+		if(divId === "indexedbutton"){ formatIndexed();}
+		if(divId === "protein1button"){ formatOneLetter();}
+		if(divId === "protein3button"){ formatThreeLetter();}
+		if(divId === "cutbutton"){ isolateInterval();}
+		if(divId === "pcrbutton"){ pcrAnalyse();}
+		if(divId === "toolsresultsclose"){ closeToolsResults();}
+	}, false);
+   }
+}
+
+document.getElementById("loadfromfilebutton").addEventListener("change", function(){loadFromFile(); }, false);
+
 };
