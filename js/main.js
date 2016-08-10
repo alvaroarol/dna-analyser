@@ -55,49 +55,6 @@ var writeToHtml = function(result, divId, formattable){
 	}
 };
 
-//Click event listeners for the showHideButton function
-var buttons = document.getElementsByClassName('showbuttonlisten');
-for(b in buttons){
-   if(buttons.hasOwnProperty(b)){
-     buttons[b].addEventListener("click", function(){
-		var divId = this.id;
-		if(divId === "aboutclosebutton" || divId === "aboutbutton"){
-			showHideButton("about", divId, true);
-		}
-		else{
-			showHideButton(divId.substr(0, divId.length - 6), divId);
-		}
-	}, false);
-   }
-}
-
-//Other click event listeners
-var otherbuttons = document.getElementsByClassName('otherbutton');
-for(b in otherbuttons){
-   if(otherbuttons.hasOwnProperty(b)){
-     otherbuttons[b].addEventListener("click", function(){
-		var divId = this.id;
-		if(divId === "showtools"){ showTools();}
-		if(divId === "loadexamplebutton"){ loadExample();}
-		if(divId === "loadbutton"){ loadResults();}
-		if(divId === "deletebutton"){ deleteEntry();}
-		if(divId === "downloadbutton"){ downloadResults();}
-		if(divId === "savebutton"){ saveResults();}
-		if(divId === "checkall"){ selectAll(1);}
-		if(divId === "uncheckall"){ selectAll(0);}
-		if(divId === "analysebutton"){ startAnalyse();}
-		if(divId === "fastabutton"){ formatFasta();}
-		if(divId === "blastbutton"){ submitBLAST("DNA");}
-		if(divId === "indexedbutton"){ formatIndexed();}
-		if(divId === "protein1button"){ formatOneLetter();}
-		if(divId === "protein3button"){ formatThreeLetter();}
-		if(divId === "cutbutton"){ isolateInterval();}
-		if(divId === "pcrbutton"){ pcrAnalyse();}
-		if(divId === "toolsresultsclose"){ closeToolsResults();}
-	}, false);
-   }
-}
-
 document.getElementById("aboutspan").style.display = "none";
 
 //Switches the div and button between hide and show
@@ -323,6 +280,49 @@ var analyseDNA = function(){
 window.onload=function () {
 
 loadOldSaved();
+
+//Click event listeners for the showHideButton function
+var buttons = document.getElementsByClassName('showbuttonlisten');
+for(b in buttons){
+   if(buttons.hasOwnProperty(b)){
+     buttons[b].addEventListener("click", function(){
+		var divId = this.id;
+		if(divId === "aboutclosebutton" || divId === "aboutbutton"){
+			showHideButton("about", divId, true);
+		}
+		else{
+			showHideButton(divId.substr(0, divId.length - 6), divId);
+		}
+	}, false);
+   }
+}
+
+//Other click event listeners
+var otherbuttons = document.getElementsByClassName('otherbutton');
+for(b in otherbuttons){
+   if(otherbuttons.hasOwnProperty(b)){
+     otherbuttons[b].addEventListener("click", function(){
+		var divId = this.id;
+		if(divId === "showtools"){ showTools();}
+		if(divId === "loadexamplebutton"){ loadExample();}
+		if(divId === "loadbutton"){ loadResults();}
+		if(divId === "deletebutton"){ deleteEntry();}
+		if(divId === "downloadbutton"){ downloadResults();}
+		if(divId === "savebutton"){ saveResults();}
+		if(divId === "checkall"){ selectAll(1);}
+		if(divId === "uncheckall"){ selectAll(0);}
+		if(divId === "analysebutton"){ startAnalyse();}
+		if(divId === "fastabutton"){ formatFasta();}
+		if(divId === "blastbutton"){ submitBLAST("DNA");}
+		if(divId === "indexedbutton"){ formatIndexed();}
+		if(divId === "protein1button"){ formatOneLetter();}
+		if(divId === "protein3button"){ formatThreeLetter();}
+		if(divId === "cutbutton"){ isolateInterval();}
+		if(divId === "pcrbutton"){ pcrAnalyse();}
+		if(divId === "toolsresultsclose"){ closeToolsResults();}
+	}, false);
+   }
+}
 
 document.getElementById("loadfromfilebutton").addEventListener("change", function(){loadFromFile(); }, false);
 
